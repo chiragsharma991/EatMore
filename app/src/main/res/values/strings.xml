@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Eat-More</string>
+
+
+
+
+    <!--Other-->
+    <string name="please_wait">Please Wait...</string>
+    <string name="internet_not_available">Please check your internet connection</string>
+
+</resources>
