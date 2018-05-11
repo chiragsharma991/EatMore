@@ -1,18 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+            <include layout="@layout/layout_toolbar"></include>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                android:background="@color/theme_color"
+                app:tabGravity="fill"/>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+<!--
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:alpha="0.9"
+        android:background="@drawable/background_splash"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_10sdp"
+            >
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nav_head_rel"
+                >
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_restaurant"
+                    android:id="@+id/nav_icon_img"
+
+                    />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/nav_icon_img"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    >
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User Full Name"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:id="@+id/nav_txt_name"
+                        android:textColor="@color/white"
+
+                        />
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Restaurant Name"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/nav_txt_name"
+                        android:id="@+id/nav_txt_rest"
+                        android:textColor="@color/white"
+                        />
+
+                </RelativeLayout>
+
+
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/nav_head_rel"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/white"
+                android:id="@+id/nav_txt_one"
+                >
+
+            </TextView>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/nav_txt_one"
+                android:layout_marginTop="@dimen/_10sdp"
+                >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center|left"
+                                android:background="@color/green"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    app:srcCompat="@drawable/ic_email"
+                                    android:tint="@color/white"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_20sdp" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@android:color/white"
+                                    tools:text="@string/app_name" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center|left"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    app:srcCompat="@drawable/ic_email"
+                                    android:tint="@color/white"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_20sdp" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@android:color/white"
+                                    tools:text="@string/app_name" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center|left"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    app:srcCompat="@drawable/ic_email"
+                                    android:tint="@color/white"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_20sdp" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@android:color/white"
+                                    tools:text="@string/app_name" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center|left"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    app:srcCompat="@drawable/ic_email"
+                                    android:tint="@color/white"
+                                    android:layout_margin="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_20sdp" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@android:color/white"
+                                    tools:text="@string/app_name" />
+
+                            </LinearLayout>
+
+                <view
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:id="@+id/nav_view_two"
+                    >
+
+                </view>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        app:srcCompat="@drawable/ic_email"
+                        android:tint="@color/white"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_height="@dimen/_20sdp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@android:color/white"
+                        tools:text="@string/app_name" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        app:srcCompat="@drawable/ic_email"
+                        android:tint="@color/white"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_height="@dimen/_20sdp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@android:color/white"
+                        tools:text="@string/app_name" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+    </android.support.design.widget.NavigationView>
+-->
+
+
+
+</android.support.v4.widget.DrawerLayout>
