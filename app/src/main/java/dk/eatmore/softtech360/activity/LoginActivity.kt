@@ -1,5 +1,6 @@
 package dk.eatmore.softtech360.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.rest.ApiCall
 import dk.eatmore.softtech360.utils.BaseActivity
 import dk.eatmore.softtech360.utils.BaseFragment
@@ -37,7 +39,8 @@ class LoginActivity : BaseActivity(){
         fullScreen()
         progress_bar.visibility = View.GONE
         log_login_btn.setOnClickListener{
-            if(isValidate()) loginAttempt()
+          startActivity(Intent(this,MainActivity::class.java))
+          //  if(isValidate()) loginAttempt()
         }
 
 

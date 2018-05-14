@@ -12,6 +12,7 @@
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
@@ -26,7 +27,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabMode="fixed"
+                android:scrollIndicators="bottom"
+                android:elevation="0dp"
+                android:animateLayoutChanges="true"
                 android:background="@color/theme_color"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabIndicatorColor="@color/white"
+                app:tabTextAppearance="?android:textAppearanceMedium"
+                app:tabTextColor="@android:color/white"
+                app:tabIndicatorHeight="@dimen/_3sdp"
                 app:tabGravity="fill"/>
 
 
@@ -43,15 +52,15 @@
     </android.support.design.widget.CoordinatorLayout>
 
 
-<!--
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="@dimen/_250sdp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:alpha="0.9"
-        android:background="@drawable/background_splash"
-        android:fitsSystemWindows="true">
+        android:background="@color/param_lue"
+        android:fitsSystemWindows="true"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -71,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/icon_restaurant"
                     android:id="@+id/nav_icon_img"
+
 
                     />
 
@@ -107,7 +117,9 @@
 
             </RelativeLayout>
 
-            <TextView
+
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_below="@+id/nav_head_rel"
@@ -116,7 +128,7 @@
                 android:id="@+id/nav_txt_one"
                 >
 
-            </TextView>
+            </View>
 
 
 
@@ -214,17 +226,18 @@
 
                             </LinearLayout>
 
-                <view
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@color/white"
+                    android:alpha="0.5"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:id="@+id/nav_view_two"
                     >
 
-                </view>
+                </View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -284,7 +297,6 @@
         </RelativeLayout>
 
     </android.support.design.widget.NavigationView>
--->
 
 
 

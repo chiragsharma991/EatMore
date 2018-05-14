@@ -35,10 +35,12 @@ class MainActivity : BaseActivity() {
     override fun init(savedInstancedState: Bundle?) {
         setSupportActionBar(toolbar)
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(RecordOfToday(), "one")
-        adapter.addFragment(RecordOfLast7Days(), "two")
-        adapter.addFragment(RecordOfLast30Days(), "three")
+        adapter.addFragment(RecordOfToday(), "Today")
+        adapter.addFragment(RecordOfLast7Days(), "Last 7 days")
+        adapter.addFragment(RecordOfLast30Days(), "Last 30 days")
         viewpager.setAdapter(adapter)
+        tabs.setupWithViewPager(viewpager)
+
 
     }
 
