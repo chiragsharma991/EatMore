@@ -1,94 +1,124 @@
 package dk.eatmore.softtech360.dashboard.fragment
 
-import android.content.Context
-import android.net.Uri
+
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.model.Order
+import dk.eatmore.softtech360.rest.ApiCall
+import dk.eatmore.softtech360.storage.PreferenceUtil
+import dk.eatmore.softtech360.utils.BaseFragment
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.layout_progressbar.*
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [RecordOfToday.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [RecordOfToday.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
-class RecordOfToday : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+class RecordOfToday : BaseFragment() {
+
+
+
+    companion object {
+        val TAG = "RecordOfToday"
+        fun newInstance(): RecordOfToday {
+            return RecordOfToday()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_record_of_today, container, false)
+
+    override fun getLayout(): Int {
+        return R.layout.fragment_record_of_today
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
+    override fun initView(view: View?, savedInstanceState: Bundle?) {
+
+        var r_key=PreferenceUtil.getString(PreferenceUtil.R_KEY,"")
+        var r_token=PreferenceUtil.getString(PreferenceUtil.R_TOKEN,"")
+        log(TAG,r_key.toString()+" "+r_token.toString())
+
+
+        callAPI( ApiCall.myOrder("2018-05-16","2018-05-01" , r_key.toString() , r_token.toString()) , object : BaseFragment.OnApiCallInteraction {
+
+            override fun <T> onSuccess(body: T?) {
+                val order= body as JsonObject
+                log(TAG, "response: "+order.toString())
+            /*    if (order.status){
+
+                } else {
+
+                }*/
+            }
+
+            override fun onFail() {
+                showSnackBar(getString(R.string.error_404))
+                log(TAG,"api call failed...")
+
+            }
+
+        })
+
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    private fun setAdapter(){
+    /*    mAdapter = AdminHistoryListAdapter(mListProduct, this)
+        recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
+        recycler_view.adapter = mAdapter
 
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecordOfToday.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                RecordOfToday().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+        var scrollListener = object : EndlessRecyclerViewScrollListener(recycler_view.layoutManager as LinearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                log(TAG, "page  $page , Total: $totalItemsCount")
+                if (mEndPos <= totalItemsCount && mListProduct[mListProduct.size - 1] != null) {
+                    mListProduct.add(null)
+                    recycler_view.post(Runnable { mAdapter?.notifyItemInserted(mListProduct.size - 1) })
+                    getHistory()
                 }
+            }
+        }
+        recycler_view.addOnScrollListener(scrollListener)*/
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        log(TAG,"onCreate---")
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        log(TAG,"onCreateView---")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onPause() {
+        log(TAG,"onPause---")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        log(TAG,"onStop---")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        log(TAG,"onDestroy---")
+        super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        log(TAG,"onDestroyView---")
+        super.onDestroyView()
+    }
+
+
+
+    override fun handleBackButton(): Boolean {
+        return true
+    }
+
 }

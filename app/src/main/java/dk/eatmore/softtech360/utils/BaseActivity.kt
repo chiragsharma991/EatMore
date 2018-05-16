@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
 import android.widget.Toast
 import dk.eatmore.softtech360.BuildConfig
 import dk.eatmore.softtech360.R
@@ -22,7 +23,6 @@ import retrofit2.Response
 abstract class BaseActivity : AppCompatActivity()
 {
     protected abstract fun getLayout(): Int
-    val TAG = "BaseActivity"
 
     protected abstract fun init(savedInstancedState: Bundle?)
 
@@ -58,7 +58,7 @@ abstract class BaseActivity : AppCompatActivity()
         }
     }
 
-    fun <T> callAPI(view: View, call: Call<T>, onAliCallInteraction: BaseFragment.OnApiCallInteraction) {
+    fun <T> callAPI(progressbar: ProgressBar,view: View, call: Call<T>, onAliCallInteraction: BaseFragment.OnApiCallInteraction) {
         if (isInternetAvailable()) {
             call.enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -69,6 +69,7 @@ abstract class BaseActivity : AppCompatActivity()
                             var mErrorBody: String = response.errorBody()!!.string()
                         }
                     } catch (e: Exception) {
+                        log("error of catch ",e.toString())
                         e.printStackTrace()
                     }
                 }
@@ -79,6 +80,7 @@ abstract class BaseActivity : AppCompatActivity()
             })
         } else {
             showSnackBar(view, getString(R.string.internet_not_available))
+            progressbar.visibility=View.GONE
         }
     }
 

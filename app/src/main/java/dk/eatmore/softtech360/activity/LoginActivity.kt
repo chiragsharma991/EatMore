@@ -1,7 +1,9 @@
 package dk.eatmore.softtech360.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
 import android.view.View
@@ -10,15 +12,18 @@ import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.rest.ApiCall
+import dk.eatmore.softtech360.rest.ApiClient
+import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.BaseActivity
 import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
+import java.util.regex.Pattern
+
 
 class LoginActivity : BaseActivity(){
 
-     val tag = this.javaClass.simpleName
 
 
     override fun getLayout(): Int {
@@ -27,6 +32,8 @@ class LoginActivity : BaseActivity(){
 
 
     companion object {
+
+        val TAG = "LoginActivity"
         fun newInstance(): LoginActivity {
             return LoginActivity()
         }
@@ -36,11 +43,19 @@ class LoginActivity : BaseActivity(){
     private var edit: EditText? = null
 
     override fun init(savedInstancedState: Bundle?) {
+
         fullScreen()
         progress_bar.visibility = View.GONE
+
         log_login_btn.setOnClickListener{
-          startActivity(Intent(this,MainActivity::class.java))
-          //  if(isValidate()) loginAttempt()
+          //startActivity(Intent(this,MainActivity::class.java))
+            if(isValidate()) loginAttempt()
+        }
+
+        log_sign_btn.setOnClickListener{
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(ApiClient.SIGNUP_URL)
+            startActivity(i)
         }
 
 
@@ -80,18 +95,30 @@ class LoginActivity : BaseActivity(){
 
 
     private fun loginAttempt() {
+
         progress_bar.visibility=View.VISIBLE
-        callAPI(log_login_btn,ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
+        callAPI(progress_bar,log_login_btn,ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
 
             override fun <T> onSuccess(body: T?) {
                 progress_bar.visibility= View.GONE
-                var json= body as JsonObject
-                log(tag,json.toString())
+                val json= body as JsonObject
+                log(TAG,json.getAsJsonObject("user_details").get("username").toString())
+                if (json.get("status").asBoolean){
+                    showSnackBar(log_email_edt, json.get("msg").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.USER_NAME,json.getAsJsonObject("user_details").get("username").toString())
+                    PreferenceUtil.putValue(PreferenceUtil.R_KEY,json.get("r_key").toString())
+                    PreferenceUtil.putValue(PreferenceUtil.R_TOKEN,json.get("r_token").toString())
+                    PreferenceUtil.save()
+                    moveToDashboard()
+                }else{
+                    showSnackBar(log_email_edt, json.get("error").asString)
+                }
             }
 
             override fun onFail() {
                 progress_bar.visibility= View.GONE
-                log(tag,"api call failed...")
+                showSnackBar(log_email_edt,getString(R.string.error_404))
+                log(TAG,"api call failed...")
 
             }
 
@@ -101,12 +128,25 @@ class LoginActivity : BaseActivity(){
 
     }
 
+    private fun moveToDashboard() {
+        Handler().postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+         //   finish()
+        }, 1000)
+    }
+
+
+
     fun isValidate(): Boolean {
 
         return when {
             TextUtils.isEmpty(log_email_edt.text.trim().toString()) -> {
                 showSnackBar(log_email_edt, getString(R.string.login_val_email))
 
+                false
+            }
+            !validMail(log_email_edt.text.trim().toString()) -> {
+                showSnackBar(log_email_edt, getString(R.string.invalid_email))
                 false
             }
             TextUtils.isEmpty(log_pass_edt.text.trim().toString()) -> {
@@ -116,6 +156,20 @@ class LoginActivity : BaseActivity(){
             else -> true
         }
     }
+
+    fun validMail(email : String): Boolean{
+
+        val EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+        val pattern = Pattern.compile(EMAIL_PATTERN)
+        val matcher = pattern.matcher(email)
+        return matcher.matches()
+
+    }
+
+
+
+
+
 
 }
 

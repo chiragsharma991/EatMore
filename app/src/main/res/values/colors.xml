@@ -14,6 +14,7 @@
     <color name="color_tab_1">#455C65</color>
     <color name="color_tab_2">#00886A</color>
     <color name="color_tab_3">#8B6B62</color>
+    <color name="colorSecondaryText">#757575</color>
     <color name="color_tab_4">#6C4A42</color>
     <color name="dark_blue">#41579F</color>
     <color name="colorPrimary">#3F51B5</color>
@@ -24,8 +25,8 @@
     <color name="transparent_gray">#b8999896</color>
     <color name="green">#019E0F</color>
     <color name="red">#CF2A28</color>
-    <color name="theme_color">#a61c00</color>
-    <color name="theme_color_primary_dark">#8c1700</color>
+    <color name="theme_color">#dd131d</color>
+    <color name="theme_color_primary_dark">#b91420</color>
     <color name="gray">#F0EFF5</color>
     <color name="darkgray">#6D737B</color>
     <color name="light_gray">#E1E1E1</color>

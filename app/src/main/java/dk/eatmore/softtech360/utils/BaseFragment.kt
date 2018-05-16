@@ -32,7 +32,6 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-
         displayMetrics = DisplayMetrics()
         getActivityBase().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
     }
@@ -126,6 +125,7 @@ abstract class BaseFragment : Fragment() {
                 }
         mSnackbar.show()*/
     }
+
 
 
     fun getActivityBase(): Activity {

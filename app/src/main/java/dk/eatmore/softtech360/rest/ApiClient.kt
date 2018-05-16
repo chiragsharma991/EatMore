@@ -6,6 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory
  internal object ApiClient{
 
     val BASE_URL = "http://eatmoredev.dk/restapi/v2/"
+    val SIGNUP_URL = "http://eat-more.dk/bestillingsformular/"
+
     private var retrofit: Retrofit? = null
 
 

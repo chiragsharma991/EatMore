@@ -9,47 +9,17 @@
     tools:openDrawer="start">
 
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+
+        <FrameLayout
+            android:id="@+id/main_container_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            >
-            <include layout="@layout/layout_toolbar"></include>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="fixed"
-                android:scrollIndicators="bottom"
-                android:elevation="0dp"
-                android:animateLayoutChanges="true"
-                android:background="@color/theme_color"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabIndicatorColor="@color/white"
-                app:tabTextAppearance="?android:textAppearanceMedium"
-                app:tabTextColor="@android:color/white"
-                app:tabIndicatorHeight="@dimen/_3sdp"
-                app:tabGravity="fill"/>
-
-
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
 
 
-    </android.support.design.widget.CoordinatorLayout>
 
 
     <android.support.design.widget.NavigationView
@@ -58,243 +28,365 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:alpha="0.9"
-        android:background="@color/param_lue"
-        android:fitsSystemWindows="true"
+        android:background="@drawable/background_splash"
+        android:fitsSystemWindows="false"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp"
+            android:background="@color/colorDarkTransparent"
             >
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nav_head_rel"
+                android:layout_height="match_parent"
                 >
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_restaurant"
-                    android:id="@+id/nav_icon_img"
-
-
-                    />
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/nav_icon_img"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:id="@+id/nav_head_rel"
+                    android:padding="@dimen/_5sdp"
                     >
-                    <android.support.v7.widget.AppCompatTextView
+
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="User Full Name"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        android:id="@+id/nav_txt_name"
-                        android:textColor="@color/white"
+                        android:id="@+id/nav_icon_img"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@mipmap/icon_app"
+
 
                         />
-                    <android.support.v7.widget.AppCompatTextView
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Restaurant Name"
-                        android:layout_marginTop="5dp"
-                        android:layout_below="@+id/nav_txt_name"
-                        android:id="@+id/nav_txt_rest"
-                        android:textColor="@color/white"
-                        />
+                        android:layout_toRightOf="@+id/nav_icon_img"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        >
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="User Full Name"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:id="@+id/nav_txt_name"
+                            android:textColor="@color/white"
+
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Restaurant Name"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/nav_txt_name"
+                            android:id="@+id/nav_txt_rest"
+                            android:textColor="@color/white"
+                            />
+
+                    </RelativeLayout>
+
+
+
 
                 </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nav_head_sales"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_below="@+id/nav_head_rel"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        >
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Today Sales:"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="547 kr"
+                            android:singleLine="true"
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_below="@+id/nav_head_sales"
+                        android:background="@color/white"
+                        >
+
+                    </View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        >
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Last 7 days Sales:"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="54 kr"
+                            android:gravity="right"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:singleLine="true"
+                            android:textColor="@color/white"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_below="@+id/nav_head_sales"
+                        android:background="@color/white"
+                        >
+
+                    </View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        >
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Last 30 days Sales:"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="120 kr"
+                            android:gravity="right"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_below="@+id/nav_head_sales"
+                        android:background="@color/white"
+                        android:id="@+id/nav_txt_one"
+                        >
+
+                    </View>
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/nav_head_sales"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:background="@color/green"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/ic_email"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@android:color/white"
+                            tools:text="My Order" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/ic_email"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@android:color/white"
+                            tools:text="SMS non user" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/ic_email"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@android:color/white"
+                            tools:text="Setting" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/ic_email"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@android:color/white"
+                            tools:text="Other" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@color/white"
+                        android:alpha="0.5"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:id="@+id/nav_view_two"
+                        >
+
+                    </View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/ic_email"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@android:color/white"
+                            tools:text="About" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/ic_email"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:textColor="@android:color/white"
+                            tools:text="Log out" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
 
 
 
 
             </RelativeLayout>
-
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_below="@+id/nav_head_rel"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/white"
-                android:id="@+id/nav_txt_one"
-                >
-
-            </View>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/nav_txt_one"
-                android:layout_marginTop="@dimen/_10sdp"
-                >
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center|left"
-                                android:background="@color/green"
-                                android:orientation="horizontal">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    app:srcCompat="@drawable/ic_email"
-                                    android:tint="@color/white"
-                                    android:layout_margin="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_20sdp" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="?android:textAppearanceMedium"
-                                    android:textColor="@android:color/white"
-                                    tools:text="@string/app_name" />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center|left"
-                                android:orientation="horizontal">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    app:srcCompat="@drawable/ic_email"
-                                    android:tint="@color/white"
-                                    android:layout_margin="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_20sdp" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="?android:textAppearanceMedium"
-                                    android:textColor="@android:color/white"
-                                    tools:text="@string/app_name" />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center|left"
-                                android:orientation="horizontal">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    app:srcCompat="@drawable/ic_email"
-                                    android:tint="@color/white"
-                                    android:layout_margin="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_20sdp" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="?android:textAppearanceMedium"
-                                    android:textColor="@android:color/white"
-                                    tools:text="@string/app_name" />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center|left"
-                                android:orientation="horizontal">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    app:srcCompat="@drawable/ic_email"
-                                    android:tint="@color/white"
-                                    android:layout_margin="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_20sdp" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="?android:textAppearanceMedium"
-                                    android:textColor="@android:color/white"
-                                    tools:text="@string/app_name" />
-
-                            </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@color/white"
-                    android:alpha="0.5"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:id="@+id/nav_view_two"
-                    >
-
-                </View>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center|left"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/_20sdp"
-                        app:srcCompat="@drawable/ic_email"
-                        android:tint="@color/white"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_height="@dimen/_20sdp" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        android:textColor="@android:color/white"
-                        tools:text="@string/app_name" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center|left"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="@dimen/_20sdp"
-                        app:srcCompat="@drawable/ic_email"
-                        android:tint="@color/white"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_height="@dimen/_20sdp" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        android:textColor="@android:color/white"
-                        tools:text="@string/app_name" />
-
-                </LinearLayout>
-
-
-
-
-            </LinearLayout>
-
-
-
-
-
-
-
         </RelativeLayout>
+
+
 
     </android.support.design.widget.NavigationView>
 

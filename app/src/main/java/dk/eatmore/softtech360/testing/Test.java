@@ -4,10 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
+
 import java.util.List;
 
 import dk.eatmore.softtech360.rest.ApiInterface;
-import dk.eatmore.softtech360.model.UserDetail_model;
 import dk.eatmore.softtech360.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,19 +16,19 @@ import retrofit2.Response;
 
 public class Test extends AppCompatActivity {
 
-    private String TAG=this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         mathmetics();
+        JsonObject jsonObject=new JsonObject();
     }
 
     private void mathmetics()
     {
 
-        ApiInterface apiService =
+      /*  ApiInterface apiService =
                 Test_two.getClient().create(ApiInterface.class);
 
 
@@ -43,7 +44,7 @@ public class Test extends AppCompatActivity {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
             }
-        });
+        });*/
 
     }
 

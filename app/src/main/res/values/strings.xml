@@ -5,10 +5,18 @@
     <!--Other-->
     <string name="please_wait">Please Wait...</string>
     <string name="internet_not_available">Please check your internet connection</string>
+    <string name="no_data_available">No Data Available !</string>
 
 
+<!--login-->
     <string name="login_val_email">Enter email address</string>
+    <string name="invalid_email">Enter valid email</string>
     <string name="login_val_pass">Enter password</string>
+    <string name="are_you_sure_logout">Are you sure you want to Logout?</string>
+    <string name="error_404">Server not found...</string>
+    <string name="logout">LogOut</string>
+    <string name="cancel">Cancel</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
