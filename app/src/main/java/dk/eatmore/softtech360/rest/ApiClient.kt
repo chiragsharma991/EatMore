@@ -1,9 +1,12 @@
 package dk.eatmore.softtech360.rest
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
- internal object ApiClient{
+internal object ApiClient{
 
     val BASE_URL = "http://eatmoredev.dk/restapi/v2/"
     val SIGNUP_URL = "http://eat-more.dk/bestillingsformular/"
@@ -12,10 +15,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
     fun getClient(): Retrofit? {
+
+        var interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val httpClient = OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).readTimeout(60, TimeUnit.SECONDS).
+                addInterceptor(interceptor).build()
+
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient)
                     .build()
         }
         return retrofit

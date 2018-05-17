@@ -62,7 +62,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
-                            android:hint="email"
+                            android:hint="@string/email_hint"
                             android:fontFamily="monospace"
                             android:lines="1"
                             android:drawableLeft="@drawable/ic_email"
@@ -84,7 +84,7 @@
                             android:padding="@dimen/_10sdp"
                             android:drawableLeft="@drawable/ic_lock"
                             android:drawablePadding="@dimen/_10sdp"
-                            android:hint="password"
+                            android:hint="@string/Password_hint"
                             android:singleLine="true"
                             android:fontFamily="monospace"
                             android:lines="1"
@@ -114,6 +114,7 @@
                         >
                         <android.support.v7.widget.AppCompatButton
                             android:id="@+id/log_sign_btn"
+                            android:foreground="?android:attr/selectableItemBackground"
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
@@ -129,6 +130,7 @@
                         <android.support.v7.widget.AppCompatButton
                             android:id="@+id/log_login_btn"
                             android:layout_width="match_parent"
+                            android:foreground="?android:attr/selectableItemBackground"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/round_corner_primary_solid"
@@ -155,7 +157,7 @@
                             android:layout_centerVertical="true"
                             android:background="@color/black"
                             app:borderWidth="0dp"
-                            android:elevation="0dp"
+                            android:elevation="@dimen/_5sdp"
                             app:fabSize="mini"
                             android:backgroundTint="@color/black"
                             android:tint="@color/black"

@@ -17,6 +17,11 @@ android {
         multiDexEnabled true
 
     }
+
+    androidExtensions {
+        experimental = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -49,6 +54,7 @@ dependencies {
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
     //simple arc loader
     compile 'com.leo.simplearcloader:simplearcloader:1.0.+'

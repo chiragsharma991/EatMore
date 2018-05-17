@@ -1,12 +1,11 @@
 package dk.eatmore.softtech360.rest
 
+import android.util.Log
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.model.Order
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import retrofit2.Call
-import org.json.JSONObject
-
+import java.net.URLEncoder
+import kotlin.math.log
 
 
 class ApiCall {
@@ -22,20 +21,12 @@ class ApiCall {
             return getApiInterface().setLogin(username, password_hash, type,login_type)
         }
 
-        fun myOrder(to : String, from : String, r_key : String,r_token : String) : Call<JsonObject> {
+        fun myOrder(to : String, from : String, r_key : String,r_token : String) : Call<Order> {
 
-            val paramObject = JSONObject()
-            paramObject.put("r_key", "fcARlrbZFXYee1W6eYEIA0VRlw7MgV4o07042017114812")
-            paramObject.put("r_token", "w5oRqFiAXTBB3hwpixAORbg_BwUj0EMQ07042017114812")
-
-            return getApiInterface().myOrder( paramObject.toString())
+            Log.e("Encode ",r_key)
+            return getApiInterface().myOrder( to,from,"fcARlrbZFXYee1W6eYEIA0VRlw7MgV4o07042017114812","w5oRqFiAXTBB3hwpixAORbg_BwUj0EMQ07042017114812")
         }
 
-
-        fun toRequestBody(value: String): RequestBody {
-            val body = RequestBody.create(MediaType.parse("text/plain"), value)
-            return body
-        }
     }
 
 

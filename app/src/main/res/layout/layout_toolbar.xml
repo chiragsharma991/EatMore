@@ -5,6 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:elevation="@null"
+    app:layout_scrollFlags="scroll|enterAlways"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/theme_color"
     android:minHeight="?attr/actionBarSize"

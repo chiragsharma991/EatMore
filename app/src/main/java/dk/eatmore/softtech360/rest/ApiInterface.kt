@@ -1,6 +1,7 @@
 package dk.eatmore.softtech360.rest
 
 import com.google.gson.JsonObject
+import dk.eatmore.softtech360.model.Order
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -17,17 +18,13 @@ interface ApiInterface {
             @Field("type") type: String,
             @Field("login_type") login_type: String): Call<JsonObject>
 
-
     @FormUrlEncoded
-    @Headers( "Content-Type: application/json" )
     @POST("PosOrder/order/all-orders")
     fun myOrder(
-
-
-    @Body parms : String): Call<JsonObject>
-
-          /*  @Field("r_key") r_key: String,
-            @Field("r_token") r_token: String): Call<JsonObject>*/
+            @Field("order_to") order_to: String,
+            @Field("order_from") order_from: String,
+            @Field("r_key") r_key: String,
+            @Field("r_token") r_token: String): Call<Order>
 
 
 }

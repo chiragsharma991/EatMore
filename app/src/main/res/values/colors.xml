@@ -45,6 +45,10 @@
     <color name="text">#212121</color>
     <color name="param_lue">#383736</color>
 
+    <!-- FloatingToolbar -->
+    <color name="floating_popup_divider_dark">#2F2F2F</color>
+    <color name="floating_popup_divider_light">#E9E9E9</color>
+
 
 
 </resources>

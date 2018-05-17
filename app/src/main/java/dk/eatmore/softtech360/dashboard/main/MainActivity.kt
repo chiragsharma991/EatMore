@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun init(savedInstancedState: Bundle?) {
-        supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.tag).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.TAG).commit()
 
         var mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, null, R.string.app_name, R.string.app_name) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {

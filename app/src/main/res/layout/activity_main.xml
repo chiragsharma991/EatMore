@@ -238,7 +238,7 @@
 
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="@dimen/_20sdp"
-                            app:srcCompat="@drawable/ic_email"
+                            app:srcCompat="@drawable/order"
                             android:tint="@color/white"
                             android:layout_margin="@dimen/_10sdp"
                             android:layout_height="@dimen/_20sdp" />
@@ -246,9 +246,12 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Orders"
                             android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@android:color/white"
-                            tools:text="My Order" />
+                            android:id="@+id/nav_txt_order"
+                            android:textColor="@color/white"
+
+                            />
 
                     </LinearLayout>
                     <LinearLayout
@@ -259,7 +262,7 @@
 
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="@dimen/_20sdp"
-                            app:srcCompat="@drawable/ic_email"
+                            app:srcCompat="@drawable/settings"
                             android:tint="@color/white"
                             android:layout_margin="@dimen/_10sdp"
                             android:layout_height="@dimen/_20sdp" />
@@ -267,9 +270,10 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Settings"
                             android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@android:color/white"
-                            tools:text="SMS non user" />
+                            android:id="@+id/nav_txt_setting"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
                     <LinearLayout
@@ -280,7 +284,7 @@
 
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="@dimen/_20sdp"
-                            app:srcCompat="@drawable/ic_email"
+                            app:srcCompat="@drawable/logout"
                             android:tint="@color/white"
                             android:layout_margin="@dimen/_10sdp"
                             android:layout_height="@dimen/_20sdp" />
@@ -288,89 +292,13 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Logout"
                             android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@android:color/white"
-                            tools:text="Setting" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center|left"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="@dimen/_20sdp"
-                            app:srcCompat="@drawable/ic_email"
-                            android:tint="@color/white"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:layout_height="@dimen/_20sdp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@android:color/white"
-                            tools:text="Other" />
+                            android:id="@+id/nav_txt_logout"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@color/white"
-                        android:alpha="0.5"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:id="@+id/nav_view_two"
-                        >
-
-                    </View>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center|left"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="@dimen/_20sdp"
-                            app:srcCompat="@drawable/ic_email"
-                            android:tint="@color/white"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:layout_height="@dimen/_20sdp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@android:color/white"
-                            tools:text="About" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center|left"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="@dimen/_20sdp"
-                            app:srcCompat="@drawable/ic_email"
-                            android:tint="@color/white"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:layout_height="@dimen/_20sdp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@android:color/white"
-                            tools:text="Log out" />
-
-                    </LinearLayout>
 
 
 

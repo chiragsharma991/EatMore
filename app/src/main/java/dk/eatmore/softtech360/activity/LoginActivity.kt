@@ -102,7 +102,6 @@ class LoginActivity : BaseActivity(){
             override fun <T> onSuccess(body: T?) {
                 progress_bar.visibility= View.GONE
                 val json= body as JsonObject
-                log(TAG,json.getAsJsonObject("user_details").get("username").toString())
                 if (json.get("status").asBoolean){
                     showSnackBar(log_email_edt, json.get("msg").asString)
                     PreferenceUtil.putValue(PreferenceUtil.USER_NAME,json.getAsJsonObject("user_details").get("username").toString())

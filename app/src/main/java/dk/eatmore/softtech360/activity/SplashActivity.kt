@@ -8,6 +8,9 @@ import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.utils.BaseActivity
 import dk.eatmore.softtech360.utils.ImageLoader
 import kotlinx.android.synthetic.main.activity_splash.*
+import android.view.animation.Animation
+
+
 
 class SplashActivity : BaseActivity() {
 
@@ -19,6 +22,8 @@ class SplashActivity : BaseActivity() {
     override fun init(savedInstancedState: Bundle?) {
 
         fullScreen()
+        val animation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.zoom_out)
+        img_logo.startAnimation(animation)
  /*       ImageLoader.loadImageFromResource(this, R.drawable.bg_gift_cards, spl_logo)
         spl_logo.translationY = -resources.getDimension(R.dimen._100sdp)
         spl_logo.alpha = 0F
@@ -31,7 +36,7 @@ class SplashActivity : BaseActivity() {
         Handler().postDelayed({
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
-        }, 2000)
+        }, 3000)
 
     }
 

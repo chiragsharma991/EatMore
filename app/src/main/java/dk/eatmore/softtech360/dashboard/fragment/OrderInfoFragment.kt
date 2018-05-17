@@ -34,10 +34,12 @@ class OrderInfoFragment : BaseFragment() {
         adapter.addFragment(RecordOfToday(), "TODAY")
         adapter.addFragment(RecordOfLast7Days(), "LAST 7 DAYS")
         adapter.addFragment(RecordOfLast30Days(), "LAST 30 DAYS")
+        viewpager.offscreenPageLimit=3
         viewpager.setAdapter(adapter)
         tabs.setupWithViewPager(viewpager)
 
     }
+
 
     private fun initToolbar() {
 
@@ -57,7 +59,7 @@ class OrderInfoFragment : BaseFragment() {
     }
 
     companion object {
-        val tag= this.javaClass.simpleName
+        val TAG= this.javaClass.simpleName
         fun newInstance() : OrderInfoFragment{
             return  OrderInfoFragment()
         }
