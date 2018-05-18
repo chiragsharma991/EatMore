@@ -53,7 +53,7 @@ class RecordOfLast30Days : BaseFragment() {
         log(RecordOfLast30Days.TAG, r_key.toString() + " " + r_token.toString())
 
 
-        callAPI(ApiCall.myOrder("2018-05-16", "2018-05-01", r_key!!.trim(), r_token!!.trim()), object : BaseFragment.OnApiCallInteraction {
+        callAPI(ApiCall.myOrder("2018-05-18", "2018-05-08", r_key.toString(), r_token.toString()), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
 
@@ -63,12 +63,12 @@ class RecordOfLast30Days : BaseFragment() {
 
 
 
-                var list: List<CustomSearchItem> = (body as Order).custom_search
+     /*           var list: List<CustomSearchItem> = (body as Order).custom_search
                 log(RecordOfLast30Days.TAG,"list size is: "+list.size)
                 mListOrder.addAll(list)
                 mAdapter = RecordOfTodayAdapter(mListOrder,refFragment)
                 recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
-                recycler_view.adapter = mAdapter
+                recycler_view.adapter = mAdapter*/
 
             }
 

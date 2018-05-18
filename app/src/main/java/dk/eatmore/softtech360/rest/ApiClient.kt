@@ -1,9 +1,11 @@
 package dk.eatmore.softtech360.rest
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 internal object ApiClient{
@@ -23,6 +25,8 @@ internal object ApiClient{
                 addInterceptor(interceptor).build()
 
         if (retrofit == null) {
+            //val builder = GsonBuilder().disableHtmlEscaping().create()
+
             retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

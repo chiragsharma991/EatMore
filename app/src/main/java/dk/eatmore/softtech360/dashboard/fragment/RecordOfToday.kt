@@ -23,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
 
 class RecordOfToday : BaseFragment() {
 
-    var mListOrder = ArrayList<CustomSearchItem?>()
+    val mListOrder = ArrayList<CustomSearchItem?>()
     var mAdapter : RecordOfTodayAdapter? = null
     val refFragment : RecordOfToday = this
 
@@ -55,7 +55,7 @@ class RecordOfToday : BaseFragment() {
         log(TAG, r_key.toString() + " " + r_token.toString())
 
 
-        callAPI(ApiCall.myOrder("2018-05-16", "2018-05-01", r_key!!.trim(), r_token!!.trim()), object : BaseFragment.OnApiCallInteraction {
+        callAPI(ApiCall.myOrder("2018-05-18", "2018-05-18", r_key!!.trim(), r_token!!.trim()), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
 
@@ -67,11 +67,37 @@ class RecordOfToday : BaseFragment() {
 
                 var list: List<CustomSearchItem> = (body as Order).custom_search
                 log(TAG,"list size is: "+list.size)
-                mListOrder.addAll(list)
-                mAdapter = RecordOfTodayAdapter(mListOrder,refFragment)
+                val mListNewOrder = ArrayList<CustomSearchItem?>()
+                val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
+                for (i in list.size-1 downTo -1 + 1)  {
+                    val item : CustomSearchItem = list.get(i)
+
+                    if (item.order_status == "Pending Restaurant" || item.order_status == "Pending Opening Restaurant") {
+                        // new order list
+                        if(!chekifAnyHeader(mListNewOrder)){
+                            item.headerType="mListNewOrder"
+                            item.showOrderHeader=true   
+                        }
+                        mListNewOrder.add(item)
+
+
+                    } else {
+                        // answered order list
+                        if(!chekifAnyHeader(mListAnsweredOrder)){
+                            item.headerType="mListAnsweredOrder"
+                            item.showOrderHeader=true
+                        }
+                        mListAnsweredOrder.add(item)
+
+                    }
+
+                }
+                mListOrder.addAll(mListNewOrder)
+                mListOrder.addAll(mListAnsweredOrder)
+                log(TAG,"after list size is: "+mListOrder.size)
+                mAdapter = RecordOfTodayAdapter(mListOrder,mListNewOrder,mListAnsweredOrder,refFragment)
                 recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
                 recycler_view.adapter = mAdapter
-
             }
 
             override fun onFail() {
@@ -81,6 +107,16 @@ class RecordOfToday : BaseFragment() {
             }
 
         })
+
+    }
+
+    fun chekifAnyHeader(list : ArrayList<CustomSearchItem?>) : Boolean{
+
+        for (i in 0..list.size-1){
+            if(list.get(i)!!.showOrderHeader==true)
+            return true
+        }
+        return false
 
     }
 

@@ -11,7 +11,8 @@ import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_order_list.*
 
-class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>, var fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>, private val mListNewOrder : ArrayList<CustomSearchItem?>,
+                           private val mListAnsweredOrder : ArrayList<CustomSearchItem?>, var fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val VIEW_ITEM = 1
     private val VIEW_LABEL = 0
@@ -20,7 +21,11 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     class MyViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
 
-        fun init(msg: CustomSearchItem) {
+        fun init(msg: CustomSearchItem ,mListNewOrder : ArrayList<CustomSearchItem?>,  mListAnsweredOrder : ArrayList<CustomSearchItem?> ) {
+
+            if(msg.showOrderHeader)row_order_header.visibility=View.VISIBLE
+            else row_order_header.visibility =View.GONE
+            row_order_header_txt.text = if (msg.headerType =="mListNewOrder")  "New Orders (${mListNewOrder.size})"  else "Answered Orders (${mListAnsweredOrder.size})"
 
             var mcontext=row_order_no.context
             row_order_no.text="Order No."+msg.order_id
@@ -35,7 +40,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     class LableViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
 
-        fun init(msg: CustomSearchItem) {
+        fun init(msg: CustomSearchItem ,mListNewOrder : ArrayList<CustomSearchItem?>,  mListAnsweredOrder : ArrayList<CustomSearchItem?> ) {
 
 
         }
@@ -61,7 +66,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MyViewHolder) {
             var holder: MyViewHolder = holder
-            holder.init(mListOrder[position]!!)
+            holder.init(mListOrder[position]!!,mListNewOrder,mListAnsweredOrder)
 
             /*holder.txt_status.setOnClickListener {
                 if(filterList[position]?.OrderStatus == ACCEPTED){
@@ -70,7 +75,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             }*/
         } else if (holder is LableViewHolder) {
             var holder: LableViewHolder = holder
-            holder.init(mListOrder[position]!!)
+            holder.init(mListOrder[position]!!,mListNewOrder,mListAnsweredOrder)
 
         }
     }

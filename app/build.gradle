@@ -55,6 +55,8 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile  'com.squareup.retrofit2:converter-scalars:2.1.0'
+
 
     //simple arc loader
     compile 'com.leo.simplearcloader:simplearcloader:1.0.+'

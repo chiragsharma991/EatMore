@@ -27,6 +27,12 @@ public class Test extends AppCompatActivity {
 
     private void mathmetics()
     {
+        int y=5;
+        int i=  y ==7 ?4 :2;
+
+        String x=y==5 ? "asdf" : "fghfg";
+
+
 
 
       /*  ApiInterface apiService =
