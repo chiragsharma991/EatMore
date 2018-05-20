@@ -53,22 +53,24 @@ class RecordOfLast30Days : BaseFragment() {
         log(RecordOfLast30Days.TAG, r_key.toString() + " " + r_token.toString())
 
 
-        callAPI(ApiCall.myOrder("2018-05-18", "2018-05-08", r_key.toString(), r_token.toString()), object : BaseFragment.OnApiCallInteraction {
+      /*  callAPI(ApiCall.myOrder("2018-05-18", "2018-05-08", "fcARlrbZFXYee1W6eYEIA0VRlw7MgV4o07042017114812", "w5oRqFiAXTBB3hwpixAORbg_BwUj0EMQ07042017114812"), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
 
-                /*          val json= body as JsonObject
+      *//*    val json= body as JsonObject
                           var gson = Gson()
-                          var mMineUserEntity = gson?.fromJson(json, TestOrder::class.java)*/
+                          var mMineUserEntity = gson?.fromJson(json, TestOrder::class.java)*//*
 
 
 
-     /*           var list: List<CustomSearchItem> = (body as Order).custom_search
+*//*
+           var list: List<CustomSearchItem> = (body as Order).custom_search
                 log(RecordOfLast30Days.TAG,"list size is: "+list.size)
                 mListOrder.addAll(list)
                 mAdapter = RecordOfTodayAdapter(mListOrder,refFragment)
                 recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
-                recycler_view.adapter = mAdapter*/
+                recycler_view.adapter = mAdapter*//*
+
 
             }
 
@@ -78,7 +80,7 @@ class RecordOfLast30Days : BaseFragment() {
 
             }
 
-        })
+        })*/
 
     }
 

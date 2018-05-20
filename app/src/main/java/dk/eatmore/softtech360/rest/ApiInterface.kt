@@ -1,6 +1,7 @@
 package dk.eatmore.softtech360.rest
 
 import com.google.gson.JsonObject
+import dk.eatmore.softtech360.dashboard.fragment.Task
 import dk.eatmore.softtech360.model.Order
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -20,16 +21,16 @@ interface ApiInterface {
             @Field("login_type") login_type: String): Call<JsonObject>
 
 
-
     @POST("PosOrder/order/all-orders")
-    @Headers(
-            "domecode: axys",
-            "Content-Type: application/json;charset=UTF-8"
-    )
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    fun myOrder(@Body  jsonObject: JsonObject): Call<Order>
 
-    fun myOrder(
-           @Body  jsonObject: JsonObject
-    ): Call<Order>
+/*
+    @Headers("Content-Type: text/html;charset=UTF-8")
+    @POST("PosOrder/order/all-orders")
+    fun myOrder(@Body bidy : HashMap<String, Any>): Call<Order>
+*/
+
 
 
 

@@ -2,19 +2,16 @@ package dk.eatmore.softtech360.dashboard.fragment
 
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.dashboard.adapter.RecordOfTodayAdapter
 import dk.eatmore.softtech360.model.CustomSearchItem
-import dk.eatmore.softtech360.model.Order
 import dk.eatmore.softtech360.rest.ApiCall
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.BaseFragment
-import kotlinx.android.synthetic.main.fragment_record_of_today.*
-import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 private const val ARG_PARAM1 = "param1"
@@ -50,23 +47,34 @@ class RecordOfToday : BaseFragment() {
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
 
-        var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")
+        var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!.replace("\"","")
         var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")
         log(TAG, r_key.toString() + " " + r_token.toString())
+        val map= HashMap<String, Any>()
+        map.put("r_token","w5oRqFiAXTBB3hwpixAORbg_BwUj0EMQ07042017114812")
+        map.put("r_key","fcARlrbZFXYee1W6eYEIA0VRlw7MgV4o07042017114812")
+        map.put("order_to","2018-05-18")
+        map.put("order_from","2018-05-08")
 
 
-        callAPI(ApiCall.myOrder("2018-05-18", "2018-05-18", r_key!!.trim(), r_token!!.trim()), object : BaseFragment.OnApiCallInteraction {
+
+
+
+        var k ="fcARlrbZFXYee1W6eYEIA0VRlw7MgV4o07042017114812"
+
+
+        callAPI(ApiCall.myOrder("2018-05-18", "2018-05-08", r_key!!, r_token!!), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
 
-                /*          val json= body as JsonObject
+                        /*  val json= body as JsonObject
                           var gson = Gson()
                           var mMineUserEntity = gson?.fromJson(json, TestOrder::class.java)*/
 
+                log(TAG,"response is ----"+body.toString())
 
-
-                var list: List<CustomSearchItem> = (body as Order).custom_search
-                log(TAG,"list size is: "+list.size)
+             /*   var list: List<CustomSearchItem> = (body as Order).custom_search
+          //      log(TAG,"list size is: "+list.size)
                 val mListNewOrder = ArrayList<CustomSearchItem?>()
                 val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
                 for (i in list.size-1 downTo -1 + 1)  {
@@ -76,7 +84,7 @@ class RecordOfToday : BaseFragment() {
                         // new order list
                         if(!chekifAnyHeader(mListNewOrder)){
                             item.headerType="mListNewOrder"
-                            item.showOrderHeader=true   
+                            item.showOrderHeader=true
                         }
                         mListNewOrder.add(item)
 
@@ -97,7 +105,7 @@ class RecordOfToday : BaseFragment() {
                 log(TAG,"after list size is: "+mListOrder.size)
                 mAdapter = RecordOfTodayAdapter(mListOrder,mListNewOrder,mListAnsweredOrder,refFragment)
                 recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
-                recycler_view.adapter = mAdapter
+                recycler_view.adapter = mAdapter*/
             }
 
             override fun onFail() {
@@ -158,3 +166,6 @@ class RecordOfToday : BaseFragment() {
     }
 
 }
+
+
+class Task(private val r_token: String, private val r_key: String )

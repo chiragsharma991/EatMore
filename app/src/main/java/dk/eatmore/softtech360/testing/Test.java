@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import dk.eatmore.softtech360.rest.ApiInterface;
@@ -17,12 +18,23 @@ import retrofit2.Response;
 public class Test extends AppCompatActivity {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         mathmetics();
         JsonObject jsonObject=new JsonObject();
+        byte[] bytes = new byte[0];
+         String text="";
+
+        try {
+            bytes = text.getBytes("UTF-8");
+            text = new String(bytes, "UTF-8");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     private void mathmetics()

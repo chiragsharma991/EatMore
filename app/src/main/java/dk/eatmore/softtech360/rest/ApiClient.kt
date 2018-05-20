@@ -18,6 +18,7 @@ internal object ApiClient{
 
     fun getClient(): Retrofit? {
 
+
         var interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val httpClient = OkHttpClient.Builder().
@@ -26,6 +27,7 @@ internal object ApiClient{
 
         if (retrofit == null) {
             //val builder = GsonBuilder().disableHtmlEscaping().create()
+
 
             retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
