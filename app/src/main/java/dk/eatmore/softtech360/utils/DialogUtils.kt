@@ -7,6 +7,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import dk.eatmore.softtech360.R
+import android.support.v4.app.FragmentActivity
+import android.widget.ArrayAdapter
+
+
 
 object DialogUtils {
 
@@ -14,7 +18,7 @@ object DialogUtils {
         val builder = AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle)
         builder.setMessage(msg)
         builder.setPositiveButton(btnPositive) { _, _ ->
-            onDialogClickListener.onPositiveButtonClick()
+            onDialogClickListener.onPositiveButtonClick(0)
         }
         /**
          * If blank then dont show negative button
@@ -42,13 +46,41 @@ object DialogUtils {
         return dialog
     }
 
-    fun showProgressDialog(){
+    fun createListDialog(activity: FragmentActivity?, list : ArrayList<String>, onDialogClickListener: OnDialogClickListener) {
+
+        val builderSingle = AlertDialog.Builder(activity!!)
+      //  builderSingle.setIcon(R.drawable.order)
+        builderSingle.setTitle("Select One Reason:")
+
+        val arrayAdapter = ArrayAdapter<String>(activity!!, android.R.layout.select_dialog_item)
+        for (i in 0..list.size-1){
+            arrayAdapter.add(list.get(i))
+
+        }
+        builderSingle.setNegativeButton("cancel") { dialog, which -> dialog.dismiss() }
+        builderSingle.setAdapter(arrayAdapter) { dialog, position ->
+            val strName = arrayAdapter.getItem(position)
+            val builderInner = AlertDialog.Builder(activity!!)
+            builderInner.setMessage(strName)
+            builderInner.setTitle("Selected reason is:")
+            builderInner.setPositiveButton("Ok") { dialog, which ->
+                dialog.dismiss ()
+                onDialogClickListener.onPositiveButtonClick(position)
+            }
+            builderInner.show()
+        }
+        builderSingle.show()
+
 
     }
 
 
+
+
+
+
     interface OnDialogClickListener {
-        fun onPositiveButtonClick()
+        fun onPositiveButtonClick(position : Int)
         fun onNegativeButtonClick()
     }
 }

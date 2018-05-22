@@ -4,22 +4,33 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
 import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.utils.BaseActivity
 import dk.eatmore.softtech360.utils.ImageLoader
 import kotlinx.android.synthetic.main.activity_splash.*
 import android.view.animation.Animation
-
+import dk.eatmore.softtech360.dashboard.main.MainActivity
+import dk.eatmore.softtech360.storage.PreferenceUtil
 
 
 class SplashActivity : BaseActivity() {
 
 
-    override fun getLayout(): Int {
+ /*   override fun getLayout(): Int {
         return R.layout.activity_splash
+    }*/
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+        init(savedInstanceState)
+
+
     }
 
-    override fun init(savedInstancedState: Bundle?) {
+     fun init(savedInstancedState: Bundle?) {
 
         fullScreen()
         val animation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.zoom_out)
@@ -34,8 +45,13 @@ class SplashActivity : BaseActivity() {
       //  ImageLoader.loadImageFromResource(this, R.drawable.splash_bg, img_splash)
 
         Handler().postDelayed({
+            if(PreferenceUtil.getString(PreferenceUtil.USER_NAME,"")==""){
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+            }
+            else{
+              startActivity(Intent(this, MainActivity::class.java))
+            }
         }, 3000)
 
     }

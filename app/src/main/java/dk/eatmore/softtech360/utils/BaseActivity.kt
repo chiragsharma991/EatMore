@@ -22,15 +22,17 @@ import retrofit2.Response
 
 abstract class BaseActivity : AppCompatActivity()
 {
-    protected abstract fun getLayout(): Int
+   // protected abstract fun getLayout(): Int
 
-    protected abstract fun init(savedInstancedState: Bundle?)
+   // protected abstract fun init(savedInstancedState: Bundle?)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+/*    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayout())
         init(savedInstanceState)
-    }
+
+
+    }*/
 
     fun isInternetAvailable(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -120,6 +122,10 @@ abstract class BaseActivity : AppCompatActivity()
             supportFragmentManager.popBackStack()
         }
     }
+    fun popWithTag(tag : String) {
+            supportFragmentManager.popBackStack()
+
+    }
 
     /**
      * Check fragment added or not
@@ -156,6 +162,7 @@ abstract class BaseActivity : AppCompatActivity()
     fun addFragment(container: Int, fragment: Fragment, tag: String, isAnimation: Boolean, isAddToBackStack: Boolean) {
         hideKeyboard()
         var mFragTransaction = supportFragmentManager.beginTransaction().add(container, fragment, tag)
+
         if (isAnimation)
             mFragTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         if (isAddToBackStack)

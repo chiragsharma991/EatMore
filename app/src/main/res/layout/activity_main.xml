@@ -233,6 +233,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|left"
+                        android:id="@+id/nav_main_order"
                         android:background="@color/green"
                         android:orientation="horizontal">
 
@@ -258,6 +259,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|left"
+                        android:id="@+id/nav_main_setting"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.AppCompatImageView
@@ -280,6 +282,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|left"
+                        android:id="@+id/nav_main_logout"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.AppCompatImageView

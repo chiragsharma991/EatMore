@@ -2,17 +2,28 @@ package dk.eatmore.softtech360.dashboard.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.R.id.row_order_reject
+import dk.eatmore.softtech360.dashboard.fragment.RecordOfLast30Days
+import dk.eatmore.softtech360.dashboard.fragment.RecordOfLast7Days
+import dk.eatmore.softtech360.dashboard.fragment.RecordOfToday
 import dk.eatmore.softtech360.model.CustomSearchItem
+import dk.eatmore.softtech360.testing.Test_two.getCalculatedDate
 import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_order_list.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.math.log
+import kotlin.math.log10
 
-class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>, private val mListNewOrder : ArrayList<CustomSearchItem?>,
-                           private val mListAnsweredOrder : ArrayList<CustomSearchItem?>, var fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>, private val mListNewOrder: ArrayList<CustomSearchItem?>,
+                           private val mListAnsweredOrder: ArrayList<CustomSearchItem?>, var fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
+
 
     private val VIEW_ITEM = 1
     private val VIEW_LABEL = 0
@@ -21,31 +32,41 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     class MyViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
 
-        fun init(msg: CustomSearchItem ,mListNewOrder : ArrayList<CustomSearchItem?>,  mListAnsweredOrder : ArrayList<CustomSearchItem?> ) {
 
-            if(msg.showOrderHeader)row_order_header.visibility=View.VISIBLE
-            else row_order_header.visibility =View.GONE
-            row_order_header_txt.text = if (msg.headerType =="mListNewOrder")  "New Orders (${mListNewOrder.size})"  else "Answered Orders (${mListAnsweredOrder.size})"
+        fun init(msg: CustomSearchItem, mListNewOrder: ArrayList<CustomSearchItem?>, mListAnsweredOrder: ArrayList<CustomSearchItem?>) {
 
-            var mcontext=row_order_no.context
-            row_order_no.text="Order No."+msg.order_id
-            row_order_date.text=msg.order_date
-            row_order_name.text=msg.name
-            row_order_address.text=msg.address
-            row_order_distance.text=msg.distance
-            row_order_phn.text="Phone "+msg.contact_no
-            row_order_status.text=msg.order_status
+            val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
+            if (msg.showOrderHeader) row_order_header.visibility = View.VISIBLE
+            else row_order_header.visibility = View.GONE
+            Log.e("msg.headerType ",msg.headerType )
+            if (msg.headerType == "mListNewOrder") {
+                row_order_header_txt.text = "New Orders (${mListNewOrder.size})"
+                if (currentDate == msg.order_month_date) row_order_typebtn.visibility = View.VISIBLE else row_order_typebtn.visibility = View.GONE
+            } else {
+                row_order_header_txt.text = "Answered Orders (${mListAnsweredOrder.size})"
+                row_order_typebtn.visibility = View.GONE
+            }
+
+            var mcontext = row_order_no.context
+            row_order_no.text = "Order No." + msg.order_id
+            row_order_date.text = msg.order_date
+            row_order_name.text = msg.name
+            row_order_address.text = msg.address
+            row_order_distance.text = msg.distance
+            row_order_phn.text = "Phone " + msg.contact_no
+            row_order_status.text = msg.order_status
         }
+
+
     }
+
     class LableViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
 
-        fun init(msg: CustomSearchItem ,mListNewOrder : ArrayList<CustomSearchItem?>,  mListAnsweredOrder : ArrayList<CustomSearchItem?> ) {
-
+        fun init(msg: CustomSearchItem, mListNewOrder: ArrayList<CustomSearchItem?>, mListAnsweredOrder: ArrayList<CustomSearchItem?>) {
 
         }
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -66,16 +87,17 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MyViewHolder) {
             var holder: MyViewHolder = holder
-            holder.init(mListOrder[position]!!,mListNewOrder,mListAnsweredOrder)
+            holder.init(mListOrder[position]!!, mListNewOrder, mListAnsweredOrder)
+            holder.row_order_reject.setTag(position)
+            holder.row_order_accept.setTag(position)
+            holder.row_order_details.setTag(position)
+            holder.row_order_reject.setOnClickListener(this)
+            holder.row_order_accept.setOnClickListener(this)
+            holder.row_order_details.setOnClickListener(this)
 
-            /*holder.txt_status.setOnClickListener {
-                if(filterList[position]?.OrderStatus == ACCEPTED){
-                    (fragment as AdminDashboardHistoryFragment).openShipementActivity(""+filterList[position]!!.OrderId)
-                }
-            }*/
         } else if (holder is LableViewHolder) {
             var holder: LableViewHolder = holder
-            holder.init(mListOrder[position]!!,mListNewOrder,mListAnsweredOrder)
+            holder.init(mListOrder[position]!!, mListNewOrder, mListAnsweredOrder)
 
         }
     }
@@ -85,7 +107,48 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     }
 
     override fun getItemViewType(position: Int): Int {
-        return  VIEW_ITEM
+        return VIEW_ITEM
+    }
+
+    fun getCalculatedDate(dateFormat: String, days: Int): String {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
+    }
+
+
+    override fun onClick(v: View?) {
+        val position =v!!.getTag() as Int
+
+        when(v!!.id) {
+
+            R.id.row_order_accept -> {
+                if(fragment is RecordOfToday)
+                    (fragment as RecordOfToday).performAction(2,mListOrder.get(position)!!.order_id)
+                if(fragment is RecordOfLast7Days)
+                    (fragment as RecordOfLast7Days).performAction(2,mListOrder.get(position)!!.order_id)
+                if(fragment is RecordOfLast30Days)
+                    (fragment as RecordOfLast30Days).performAction(2,mListOrder.get(position)!!.order_id)
+            }
+            R.id.row_order_details -> {
+                if(fragment is RecordOfToday)
+                    (fragment as RecordOfToday).performAction(1,mListOrder.get(position)!!.order_id)
+                if(fragment is RecordOfLast7Days)
+                    (fragment as RecordOfLast7Days).performAction(1,mListOrder.get(position)!!.order_id)
+                if(fragment is RecordOfLast30Days)
+                    (fragment as RecordOfLast30Days).performAction(1,mListOrder.get(position)!!.order_id)
+            }
+            R.id.row_order_reject -> {
+                if(fragment is RecordOfToday)
+                    (fragment as RecordOfToday).performAction(0,mListOrder.get(position)!!.order_id)
+                if(fragment is RecordOfLast7Days)
+                    (fragment as RecordOfLast7Days).performAction(0,mListOrder.get(position)!!.order_id)
+                if(fragment is RecordOfLast30Days)
+                    (fragment as RecordOfLast30Days).performAction(0,mListOrder.get(position)!!.order_id)
+            }
+        }
+
     }
 
 

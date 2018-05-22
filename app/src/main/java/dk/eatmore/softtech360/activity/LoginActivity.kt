@@ -4,10 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.dashboard.main.MainActivity
@@ -19,6 +21,7 @@ import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
+import org.json.JSONObject
 import java.util.regex.Pattern
 
 
@@ -26,9 +29,17 @@ class LoginActivity : BaseActivity(){
 
 
 
-    override fun getLayout(): Int {
-        return R.layout.activity_login
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        init(savedInstanceState)
+
+
     }
+
+
 
 
     companion object {
@@ -42,7 +53,7 @@ class LoginActivity : BaseActivity(){
 
     private var edit: EditText? = null
 
-    override fun init(savedInstancedState: Bundle?) {
+     fun init(savedInstancedState: Bundle?) {
 
         fullScreen()
         progress_bar.visibility = View.GONE
@@ -101,12 +112,12 @@ class LoginActivity : BaseActivity(){
 
             override fun <T> onSuccess(body: T?) {
                 progress_bar.visibility= View.GONE
-                val json= body as JsonObject
+                val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
                 if (json.get("status").asBoolean){
                     showSnackBar(log_email_edt, json.get("msg").asString)
-                    PreferenceUtil.putValue(PreferenceUtil.USER_NAME, json.getAsJsonObject("user_details").get("username").toString())
-                    PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key"))
-                    PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token"))
+                    PreferenceUtil.putValue(PreferenceUtil.USER_NAME, json.getAsJsonObject("user_details").get("username").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
                     PreferenceUtil.save()
                     moveToDashboard()
                 }else{
@@ -130,7 +141,7 @@ class LoginActivity : BaseActivity(){
     private fun moveToDashboard() {
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
-         //   finish()
+            finish()
         }, 1000)
     }
 

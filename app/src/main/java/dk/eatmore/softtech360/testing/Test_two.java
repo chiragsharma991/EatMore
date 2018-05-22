@@ -25,7 +25,6 @@ public class Test_two {
        ;
         ;
 
-        // Log.e("tag -----", "main: ");
     }
 
 

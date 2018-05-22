@@ -32,6 +32,7 @@ public class Test extends AppCompatActivity {
             bytes = text.getBytes("UTF-8");
             text = new String(bytes, "UTF-8");
 
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

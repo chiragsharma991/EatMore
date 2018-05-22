@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.util.Log
 import android.view.View
 
 import dk.eatmore.softtech360.R
@@ -22,11 +23,18 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class OrderInfoFragment : BaseFragment() {
+class OrderInfoFragment : BaseFragment()  {
+
 
     override fun getLayout(): Int {
         return R.layout.fragment_info_order
     }
+
+
+    fun orderInfo(){
+        log("order info","----")
+    }
+
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
         initToolbar()
@@ -38,7 +46,11 @@ class OrderInfoFragment : BaseFragment() {
         viewpager.setAdapter(adapter)
         tabs.setupWithViewPager(viewpager)
 
+        (adapter.mFragmentList.get(0) as RecordOfToday).callback()
+
     }
+
+
 
 
     private fun initToolbar() {
@@ -59,7 +71,7 @@ class OrderInfoFragment : BaseFragment() {
     }
 
     companion object {
-        val TAG= this.javaClass.simpleName
+        val TAG= "OrderInfoFragment"
         fun newInstance() : OrderInfoFragment{
             return  OrderInfoFragment()
         }
@@ -68,7 +80,7 @@ class OrderInfoFragment : BaseFragment() {
 
 
     internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
-        private val mFragmentList = ArrayList<Fragment>()
+         val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
 
         override fun getItem(position: Int): Fragment {

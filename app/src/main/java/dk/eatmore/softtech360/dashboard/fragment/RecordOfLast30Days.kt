@@ -40,6 +40,7 @@ class RecordOfLast30Days : BaseFragment() {
         fun newInstance(): RecordOfLast30Days {
             return RecordOfLast30Days()
         }
+
     }
 
 
@@ -48,48 +49,105 @@ class RecordOfLast30Days : BaseFragment() {
     }
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
-        var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")
-        var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")
-        log(RecordOfLast30Days.TAG, r_key.toString() + " " + r_token.toString())
+
+        var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!.replace("\"","")
+        var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!.replace("\"","")
+        log(RecordOfToday.TAG, r_key.toString() + " " + r_token.toString())
+        val currentDate=getCalculatedDate("yyyy-MM-dd",0)
+        val last30th=getCalculatedDate("yyyy-MM-dd",-30)
+/*
+        var list: List<CustomSearchItem> = (body as Order).custom_search
+        val mListNewOrder = ArrayList<CustomSearchItem?>()
+        val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
+        for (i in list.size-1 downTo -1 + 1)  {
+            val item : CustomSearchItem = list.get(i)
+            if (item.order_status == "Pending Restaurant" || item.order_status == "Pending Opening Restaurant") {
+                // new order list
+                if(!chekifAnyHeader(mListNewOrder)){
+                    item.headerType="mListNewOrder"
+                    item.showOrderHeader=true
+                }
+                mListNewOrder.add(item)
+            } else {
+                // answered order list
+                if(!chekifAnyHeader(mListAnsweredOrder)){
+                    item.headerType="mListAnsweredOrder"
+                    item.showOrderHeader=true
+                }
+                mListAnsweredOrder.add(item)
+            }
+        }
+        mListOrder.addAll(mListNewOrder)
+        mListOrder.addAll(mListAnsweredOrder)
+        log(TAG,"after list size is: "+mListOrder.size)
+        mAdapter = RecordOfTodayAdapter(mListOrder,mListNewOrder,mListAnsweredOrder,refFragment)
+        recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
+        recycler_view.adapter = mAdapter*/
 
 
-      /*  callAPI(ApiCall.myOrder("2018-05-18", "2018-05-08", "fcARlrbZFXYee1W6eYEIA0VRlw7MgV4o07042017114812", "w5oRqFiAXTBB3hwpixAORbg_BwUj0EMQ07042017114812"), object : BaseFragment.OnApiCallInteraction {
+        callAPI(ApiCall.myOrder(currentDate, last30th, r_key, r_token), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
+                var list: List<CustomSearchItem> = (body as Order).custom_search
+                val mListNewOrder = ArrayList<CustomSearchItem?>()
+                val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
 
-      *//*    val json= body as JsonObject
-                          var gson = Gson()
-                          var mMineUserEntity = gson?.fromJson(json, TestOrder::class.java)*//*
+                if((body as Order).status){
+                    for (i in list.size-1 downTo -1 +1){
+                        val item : CustomSearchItem = list.get(i)
+                        if (item.order_status == "Pending Restaurant" || item.order_status == "Pending Opening Restaurant") {
+                            // new order list
+                            if(!chekifAnyHeader(mListNewOrder)){
+                                item.headerType="mListNewOrder"
+                                item.showOrderHeader=true
+                            }
+                            mListNewOrder.add(item)
+                        } else {
+                            // answered order list
+                            if(!chekifAnyHeader(mListAnsweredOrder)){
+                                item.headerType="mListAnsweredOrder"
+                                item.showOrderHeader=true
+                            }
+                            mListAnsweredOrder.add(item)
+                        } }
+                    mListOrder.addAll(mListNewOrder)
+                    mListOrder.addAll(mListAnsweredOrder)
+                    mAdapter = RecordOfTodayAdapter(mListOrder,mListNewOrder,mListAnsweredOrder,refFragment)
+                    recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
+                    recycler_view.adapter = mAdapter
 
+                }else{
 
-
-*//*
-           var list: List<CustomSearchItem> = (body as Order).custom_search
-                log(RecordOfLast30Days.TAG,"list size is: "+list.size)
-                mListOrder.addAll(list)
-                mAdapter = RecordOfTodayAdapter(mListOrder,refFragment)
-                recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
-                recycler_view.adapter = mAdapter*//*
-
-
+                }
             }
-
             override fun onFail() {
                 showSnackBar(getString(R.string.error_404))
                 log(RecordOfLast30Days.TAG, "api call failed...")
-
             }
+        })
+    }
 
-        })*/
+    /***
+     * @param id 2 > accept : 1 > Details : 0 > Reject
+     */
+    fun performAction(id: Int, orderId : String) {
+
+        when (id) {
+            0 -> {
+            }
+            1 -> {
+            }
+            2 -> {
+            }
+        }
 
     }
+
+
 
     override fun handleBackButton(): Boolean {
         return true
     }
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         log(RecordOfLast30Days.TAG,"onCreate---")
         super.onCreate(savedInstanceState)
@@ -118,6 +176,16 @@ class RecordOfLast30Days : BaseFragment() {
     override fun onDestroyView() {
         log(RecordOfLast30Days.TAG,"onDestroyView---")
         super.onDestroyView()
+    }
+
+    fun chekifAnyHeader(list : java.util.ArrayList<CustomSearchItem?>) : Boolean{
+
+        for (i in 0..list.size-1){
+            if(list.get(i)!!.showOrderHeader==true)
+                return true
+        }
+        return false
+
     }
 
 

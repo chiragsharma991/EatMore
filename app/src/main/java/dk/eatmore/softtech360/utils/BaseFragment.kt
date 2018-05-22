@@ -20,6 +20,8 @@ import dk.eatmore.softtech360.rest.ApiInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 abstract class BaseFragment : Fragment() {
 
@@ -98,9 +100,11 @@ abstract class BaseFragment : Fragment() {
     }*/
 
     fun popAllFragment() {
-        for (i in 0 until childFragmentManager.backStackEntryCount) {
+
+
+  /*      for (i in 0 until childFragmentManager.backStackEntryCount) {
             childFragmentManager.popBackStack()
-        }
+        }*/
     }
 
     fun isInternetAvailable(): Boolean {
@@ -194,6 +198,14 @@ abstract class BaseFragment : Fragment() {
 
     fun getWidth(): Int {
         return displayMetrics.widthPixels
+    }
+
+
+    fun getCalculatedDate(dateFormat: String, days: Int): String {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 
 
