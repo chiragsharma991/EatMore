@@ -8,8 +8,16 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import dk.eatmore.softtech360.R
 import android.support.v4.app.FragmentActivity
+import android.text.TextUtils
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
-
+import android.widget.LinearLayout
+import android.widget.TextView
+import kotlinx.android.synthetic.main.layout_comment_box.*
+import kotlinx.android.synthetic.main.layout_comment_box.view.*
+import kotlinx.android.synthetic.main.row_alert_header.view.*
+import kotlin.math.log
 
 
 object DialogUtils {
@@ -36,26 +44,35 @@ object DialogUtils {
     }
 
 
-    fun createDialog(context: Context, layout : Int) : AlertDialog {
+    fun createDialog(context: Context, view : View) : AlertDialog {
         val builder = AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle_Transparent)
-        val li = LayoutInflater.from(context)
-        val view = li.inflate(layout, null)
         builder.setView(view)
         var dialog = builder.create()
+        dialog.setCancelable(true)
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return dialog
     }
 
-    fun createListDialog(activity: FragmentActivity?, list : ArrayList<String>, onDialogClickListener: OnDialogClickListener) {
+    fun createListDialog( title : String ,activity: FragmentActivity?, list : ArrayList<String>,borderColor : Int, onDialogClickListener: OnDialogClickListener) {
 
         val builderSingle = AlertDialog.Builder(activity!!)
-      //  builderSingle.setIcon(R.drawable.order)
-        builderSingle.setTitle("Select One Reason:")
+        //builderSingle.setIcon(R.drawable.ic_block)
+        //builderSingle.setTitle("Select One Reason:")
+        val inflater = activity.getLayoutInflater()
+        val view = inflater.inflate( R.layout.row_alert_header, null)
+        val titleTxt = view.select_alert_header as TextView
+        val border = view.select_alert_header_view as LinearLayout
+        border.setBackgroundColor(borderColor)
 
-        val arrayAdapter = ArrayAdapter<String>(activity!!, android.R.layout.select_dialog_item)
+
+        titleTxt.text = title
+        builderSingle.setCustomTitle(view)
+       // builderSingle.setMessage("testing")
+
+        val arrayAdapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_expandable_list_item_1
+        )
         for (i in 0..list.size-1){
             arrayAdapter.add(list.get(i))
-
         }
         builderSingle.setNegativeButton("cancel") { dialog, which -> dialog.dismiss() }
         builderSingle.setAdapter(arrayAdapter) { dialog, position ->

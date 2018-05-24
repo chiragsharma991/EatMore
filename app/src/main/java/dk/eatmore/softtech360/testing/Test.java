@@ -3,6 +3,7 @@ package dk.eatmore.softtech360.testing;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 
@@ -27,6 +28,7 @@ public class Test extends AppCompatActivity {
         JsonObject jsonObject=new JsonObject();
         byte[] bytes = new byte[0];
          String text="";
+
 
         try {
             bytes = text.getBytes("UTF-8");

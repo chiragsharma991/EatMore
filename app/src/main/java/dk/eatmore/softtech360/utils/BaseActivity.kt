@@ -60,7 +60,7 @@ abstract class BaseActivity : AppCompatActivity()
         }
     }
 
-    fun <T> callAPI(progressbar: ProgressBar,view: View, call: Call<T>, onAliCallInteraction: BaseFragment.OnApiCallInteraction) {
+    fun <T> callAPI(view: View, call: Call<T>, onAliCallInteraction: BaseFragment.OnApiCallInteraction) {
         if (isInternetAvailable()) {
             call.enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -77,12 +77,12 @@ abstract class BaseActivity : AppCompatActivity()
                 }
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
-                    onAliCallInteraction.onFail()
+                    onAliCallInteraction.onFail(404)
                 }
             })
         } else {
-            showSnackBar(view, getString(R.string.internet_not_available))
-            progressbar.visibility=View.GONE
+            onAliCallInteraction.onFail(100)
+          //  showSnackBar(view, getString(R.string.internet_not_available))
         }
     }
 

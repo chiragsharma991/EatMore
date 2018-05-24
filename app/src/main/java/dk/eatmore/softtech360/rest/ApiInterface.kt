@@ -44,4 +44,35 @@ interface ApiInterface {
             @Field("reason") reason: String,
             @Field("order_status") order_status: String
     ): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("PosOrder/order/accept_reject_arrival_order")
+    fun acceptOrders(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("order_no") order_no: String ,
+            @Field("pickup_delivery_time") pickup_delivery_time: String,
+            @Field("order_status") order_status: String
+    ): Call<JsonObject>
+
+
+    @FormUrlEncoded
+    @POST("OrderRejectTemplate/order-reject-template/create_record")
+    fun createOrder(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("reason") reason: String ,
+            @Field("action_by") action_by: String
+    ): Call<JsonObject>
+
+
+    @FormUrlEncoded
+    @POST("OrderRejectTemplate/order-reject-template/update_record")
+    fun updateOrder(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("reason") reason: String ,
+            @Field("action_by") action_by: String,  // user id
+            @Field("or_id") or_id: String
+    ): Call<JsonObject>
 }

@@ -11,6 +11,7 @@ import dk.eatmore.softtech360.utils.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.widget.ArrayAdapter
 import butterknife.BindViews
 import butterknife.ButterKnife
 import dk.eatmore.softtech360.dashboard.fragment.*
@@ -39,6 +40,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         init(savedInstanceState)
 
 
+
+
     }
 
 
@@ -64,7 +67,6 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         var mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, null, R.string.app_name, R.string.app_name) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
-                log(TAG, "" + slideOffset)
                 main_container_layout.translationX = slideOffset * 100
                 drawer_layout?.bringChildToFront(drawerView)
                 drawer_layout?.requestLayout()

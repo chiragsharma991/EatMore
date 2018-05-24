@@ -125,27 +125,27 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
 
             R.id.row_order_accept -> {
                 if(fragment is RecordOfToday)
-                    (fragment as RecordOfToday).performAction(2,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfToday).performAction(2,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast7Days)
-                    (fragment as RecordOfLast7Days).performAction(2,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfLast7Days).performAction(2,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast30Days)
-                    (fragment as RecordOfLast30Days).performAction(2,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfLast30Days).performAction(2,mListOrder.get(position)!!)
             }
             R.id.row_order_details -> {
                 if(fragment is RecordOfToday)
-                    (fragment as RecordOfToday).performAction(1,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfToday).performAction(1,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast7Days)
-                    (fragment as RecordOfLast7Days).performAction(1,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfLast7Days).performAction(1,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast30Days)
-                    (fragment as RecordOfLast30Days).performAction(1,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfLast30Days).performAction(1,mListOrder.get(position)!!)
             }
             R.id.row_order_reject -> {
                 if(fragment is RecordOfToday)
-                    (fragment as RecordOfToday).performAction(0,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfToday).performAction(0,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast7Days)
-                    (fragment as RecordOfLast7Days).performAction(0,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfLast7Days).performAction(0,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast30Days)
-                    (fragment as RecordOfLast30Days).performAction(0,mListOrder.get(position)!!.order_id)
+                    (fragment as RecordOfLast30Days).performAction(0,mListOrder.get(position)!!)
             }
         }
 

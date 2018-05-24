@@ -2,6 +2,7 @@ package dk.eatmore.softtech360.dashboard.fragment
 
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,12 @@ import dk.eatmore.softtech360.model.Order
 import dk.eatmore.softtech360.rest.ApiCall
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.BaseFragment
+import dk.eatmore.softtech360.utils.DateCalculation
 import dk.eatmore.softtech360.utils.DialogUtils
 import dk.eatmore.softtech360.utils.DialogUtils.createListDialog
 import kotlinx.android.synthetic.main.fragment_record_of_today.*
 import kotlinx.android.synthetic.main.layout_empty.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -42,69 +45,138 @@ class RecordOfToday : BaseFragment() {
         fun newInstance(): RecordOfToday {
             return RecordOfToday()
         }
+
+
     }
 
 
-    fun callback() {
+    fun callbackRefresh() {
+        log("callbackRefresh","-----")
 
     }
 
 
     /***
-     * @param id 2 > accept : 1 > Details : 0 > Reject
+     * @param id 2 > accept || 1 > Details || 0 > Reject
      */
-    fun performAction(id: Int, orderId: String) {
+
+    fun performAction(id: Int, model: CustomSearchItem) {
 
         when (id) {
             0 -> {
-                callAPI(ApiCall.allRecords(r_key = r_key, r_token = r_token), object : BaseFragment.OnApiCallInteraction {
-                    override fun <T> onSuccess(body: T?) {
-                        // all list of reasons.
-                        if ((body as GetReason).status) {
-                            var list: List<OpeninghoursItem> = (body as GetReason).Openinghours!!
-                            val listOfreason = ArrayList<String>()
-                            for (i in 0..list.size - 1) {
-                                listOfreason.add(list.get(i).reason)
-                            }
-                            // Create Alert dialog to show reasons.
-                            createListDialog(activity, listOfreason, object : DialogUtils.OnDialogClickListener {
-                                override fun onNegativeButtonClick() {
-                                }
-                                override fun onPositiveButtonClick(position: Int) {
-                                    // submit reason and reject the order.
-                                    log("or id ",list.get(position).or_id)
-                                    callAPI(ApiCall.rejectOrders(r_key = r_key, r_token = r_token, order_no = orderId, reason = list.get(position).or_id, order_status = "rejected"), object : BaseFragment.OnApiCallInteraction {
-                                        override fun <T> onSuccess(body: T?) {
-                                            val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
-                                            if (json.get("status").asBoolean) {
-                                                showSnackBar(getString(R.string.order_reject))
-                                            }
-                                        }
-                                        override fun onFail() {
-                                        }
-                                    })
-                                }
-
-                            })
-
-                        }
-                    }
-
-
-                    override fun onFail() {
-
-                    }
-                })
+                rejectOrder(id,model)
             }
             1 -> {
             }
             2 -> {
-                //     createListDialog(activity)
+                acceptOrder(id,model)
+
 
             }
         }
 
     }
+
+    fun acceptOrder(id: Int, model: CustomSearchItem){
+        // Create Alert dialog to select  Time slot.
+        var timeIntervel = 0
+        var expectedTime=DateCalculation.getCalculatedTime(model.expected_time,"yyyy-MM-dd HH:mm:ss")
+        // after getting expected time like in long form : make 9 list with that
+        val list=ArrayList<String>()
+        for (i in 0..8) {
+            val mTime = expectedTime + timeIntervel * 60 * 1000
+            val time = SimpleDateFormat("HH:mm").format(mTime)
+            list.add(time + " ($timeIntervel Min)")
+            timeIntervel += 15
+        }
+        val borderColor = ContextCompat.getColor(activity!!,R.color.green)
+        createListDialog("Expected Time: ${DateCalculation.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"),"yyyy-MM-dd HH:mm:ss")}",
+                activity, list,borderColor, object : DialogUtils.OnDialogClickListener {
+            override fun onNegativeButtonClick() {
+            }
+            override fun onPositiveButtonClick(position: Int) {
+                // Calculate which time slot has been selected and reformat the date and post :)
+                var expectedTime=DateCalculation.getCalculatedTime(model.expected_time,"yyyy-MM-dd HH:mm:ss")
+                val mTime = expectedTime + position*15 * 60 * 1000
+                val time = SimpleDateFormat("HH:mm:ss").format(mTime)
+                val date = SimpleDateFormat("yyyy-MM-dd").format(expectedTime)
+                val pickup_delivery_time= SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(DateCalculation.getCalculatedTime(date+" "+time,"yyyy-MM-dd HH:mm:ss"))
+
+                callAPI(ApiCall.acceptOrders(r_key = r_key, r_token = r_token,
+                        order_no = model.order_id, pickup_delivery_time = pickup_delivery_time, order_status = "accepted"),
+                        object : BaseFragment.OnApiCallInteraction {
+
+                            override fun <T> onSuccess(body: T?) {
+                                val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
+                                if (json.get("status").asBoolean) {
+                                    val result= json.getAsJsonObject("data").get("order_status").asString+" "+json.get("msg").asString
+                                    showSnackBar(result)
+                                    (parentFragment as OrderInfoFragment).performedStatusAction()
+                                }
+                            }
+                            override fun onFail(error : Int) {
+                                when(error){
+                                    404 ->{
+                                        showSnackBar(getString(R.string.error_404))
+                                        log(RecordOfLast30Days.TAG, "api call failed...")
+                                    }
+                                    100 ->{
+                                        showSnackBar(getString(R.string.internet_not_available))
+                                    }
+                                }
+                            }
+
+
+                        })
+            }
+
+        })
+
+    }
+    fun rejectOrder(id: Int, model: CustomSearchItem){
+
+        callAPI(ApiCall.allRecords(r_key = r_key, r_token = r_token), object : BaseFragment.OnApiCallInteraction {
+            override fun <T> onSuccess(body: T?) {
+                // all list of reasons.
+                if ((body as GetReason).status) {
+                    var list: List<OpeninghoursItem> = (body as GetReason).Openinghours!!
+                    val listOfreason = ArrayList<String>()
+                    for (i in 0..list.size - 1) {
+                        listOfreason.add(list.get(i).reason)
+                    }
+                    // Create Alert dialog to show reasons.
+                    val borderColor = ContextCompat.getColor(activity!!,R.color.theme_color)
+                    createListDialog(getString(R.string.select_reason),activity, listOfreason,borderColor, object : DialogUtils.OnDialogClickListener {
+                        override fun onNegativeButtonClick() {
+                        }
+                        override fun onPositiveButtonClick(position: Int) {
+                            // submit reason and reject the order.
+                            log("or id ",list.get(position).or_id)
+                            callAPI(ApiCall.rejectOrders(r_key = r_key, r_token = r_token, order_no = model.order_id, reason = list.get(position).or_id, order_status = "rejected"), object : BaseFragment.OnApiCallInteraction {
+                                override fun <T> onSuccess(body: T?) {
+                                    val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
+                                    if (json.get("status").asBoolean) {
+                                        showSnackBar(getString(R.string.order_reject))
+                                    }
+                                }
+                                override fun onFail(error : Int) {
+                                }
+                            })
+                        }
+
+                    })
+
+                }
+            }
+
+
+            override fun onFail(error : Int) {
+
+            }
+        })
+
+    }
+
 
 
     override fun getLayout(): Int {
@@ -171,9 +243,20 @@ class RecordOfToday : BaseFragment() {
 
             }
 
-            override fun onFail() {
-                showSnackBar(getString(R.string.error_404))
-                log(TAG, "api call failed...")
+            override fun onFail(error : Int) {
+
+                when(error){
+                    404 ->{
+                        showSnackBar(getString(R.string.error_404))
+                        log(TAG, "api call failed...")
+                    }
+                    100 ->{
+                        showSnackBar(getString(R.string.internet_not_available))
+
+                    }
+                }
+
+
 
             }
 

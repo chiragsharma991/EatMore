@@ -35,12 +35,7 @@ class LoginActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         init(savedInstanceState)
-
-
     }
-
-
-
 
     companion object {
 
@@ -49,7 +44,6 @@ class LoginActivity : BaseActivity(){
             return LoginActivity()
         }
     }
-
 
     private var edit: EditText? = null
 
@@ -71,44 +65,11 @@ class LoginActivity : BaseActivity(){
 
 
     }
-  /*  progress_bar.visibility = View.VISIBLE
-    callAPI(btn_login, ApiCall.login(edt_email.text.toString(), edt_pass.text.toString(), ""+PreferenceUtil.getString(PreferenceUtil.TOKEN, "")), object : BaseFragment.OnApiCallInteraction {
-        override fun <T> onSuccess(body: T?) {
-            progress_bar.visibility = View.GONE
-
-            var mUserData = body as UserData
-            if (mUserData.IsSuccess) {
-
-                PreferenceUtil.putValue(PreferenceUtil.IS_LOGIN, true)
-                PreferenceUtil.putValue(PreferenceUtil.FULL_NAME, mUserData.UserName)
-                PreferenceUtil.putValue(PreferenceUtil.USER_ID, mUserData.UserId)
-                PreferenceUtil.putValue(PreferenceUtil.USER_TYPE, mUserData.UserType)
-                PreferenceUtil.putValue(PreferenceUtil.PROFILE_URL, mUserData.ImagePath)
-                PreferenceUtil.putValue(PreferenceUtil.MOBILE, mUserData.Mobile)
-                PreferenceUtil.putValue(PreferenceUtil.EMAIL, mUserData.EmailId)
-                PreferenceUtil.putValue(PreferenceUtil.ADDRESS, mUserData.Address)
-
-                PreferenceUtil.putValue(PreferenceUtil.USER_NAME, edt_email.text.toString())
-                PreferenceUtil.putValue(PreferenceUtil.PASS, edt_pass.text.toString())
-                PreferenceUtil.putValue(PreferenceUtil.REMEMBER_ME, chkRemember.isChecked)
-                PreferenceUtil.save()
-
-                setResult(Activity.RESULT_OK)
-                finish()
-            }else
-                showSnackBar(edt_email, ""+mUserData?.Message)
-        }
-
-        override fun onFail() {
-            progress_bar.visibility = View.GONE
-        }
-    })*/
-
 
     private fun loginAttempt() {
 
         progress_bar.visibility=View.VISIBLE
-        callAPI(progress_bar,log_login_btn,ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
+        callAPI(log_login_btn,ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
 
             override fun <T> onSuccess(body: T?) {
                 progress_bar.visibility= View.GONE
@@ -116,6 +77,7 @@ class LoginActivity : BaseActivity(){
                 if (json.get("status").asBoolean){
                     showSnackBar(log_email_edt, json.get("msg").asString)
                     PreferenceUtil.putValue(PreferenceUtil.USER_NAME, json.getAsJsonObject("user_details").get("username").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.USER_ID, json.getAsJsonObject("user_details").get("id").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
                     PreferenceUtil.save()
@@ -125,17 +87,21 @@ class LoginActivity : BaseActivity(){
                 }
             }
 
-            override fun onFail() {
-                progress_bar.visibility= View.GONE
-                showSnackBar(log_email_edt,getString(R.string.error_404))
-                log(TAG,"api call failed...")
+            override fun onFail(error : Int) {
 
+                when(error){
+                    404 ->{
+                        progress_bar.visibility= View.GONE
+                        showSnackBar(log_email_edt,getString(R.string.error_404))
+                    }
+                    100 ->{
+                        progress_bar.visibility= View.GONE
+
+                        showSnackBar(log_email_edt,getString(R.string.internet_not_available))
+                    }
+                }
             }
-
         })
-
-
-
     }
 
     private fun moveToDashboard() {
@@ -175,12 +141,6 @@ class LoginActivity : BaseActivity(){
         return matcher.matches()
 
     }
-
-
-
-
-
-
 }
 
 

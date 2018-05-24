@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.dashboard.adapter.RecordOfTodayAdapter
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.synthetic.main.fragment_info_order.*
@@ -26,6 +27,9 @@ private const val ARG_PARAM2 = "param2"
 class OrderInfoFragment : BaseFragment()  {
 
 
+    var adapter: ViewPagerAdapter? = null
+
+
     override fun getLayout(): Int {
         return R.layout.fragment_info_order
     }
@@ -38,15 +42,19 @@ class OrderInfoFragment : BaseFragment()  {
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
         initToolbar()
-        val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(RecordOfToday(), "TODAY")
-        adapter.addFragment(RecordOfLast7Days(), "LAST 7 DAYS")
-        adapter.addFragment(RecordOfLast30Days(), "LAST 30 DAYS")
+        adapter = ViewPagerAdapter(childFragmentManager)
+        adapter!!.addFragment(RecordOfToday(), "TODAY")
+        adapter!!.addFragment(RecordOfLast7Days(), "LAST 7 DAYS")
+        adapter!!.addFragment(RecordOfLast30Days(), "LAST 30 DAYS")
         viewpager.offscreenPageLimit=3
         viewpager.setAdapter(adapter)
         tabs.setupWithViewPager(viewpager)
 
-        (adapter.mFragmentList.get(0) as RecordOfToday).callback()
+
+    }
+
+    fun performedStatusAction(){
+        (adapter!!.mFragmentList.get(0) as RecordOfToday).callbackRefresh()
 
     }
 
@@ -79,7 +87,7 @@ class OrderInfoFragment : BaseFragment()  {
     }
 
 
-    internal inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+    inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
          val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
 

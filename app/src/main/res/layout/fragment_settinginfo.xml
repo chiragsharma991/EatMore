@@ -13,123 +13,186 @@ android:layout_height="match_parent">
         android:orientation="vertical">
 
         <include layout="@layout/layout_toolbar"></include>
+        <include layout="@layout/layout_progressbar"/>
 
 
-        <android.support.constraint.ConstraintLayout
+        <!--Setting layout -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:id="@+id/set_general_view"
+            android:visibility="gone"
             >
-
-            <LinearLayout
-                android:id="@+id/set_reject_view"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center|left"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_margin="@dimen/_10sdp"
-                    app:srcCompat="@mipmap/reason" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reject Reson"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/black"
-
-                    />
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:alpha="0.2"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:background="@color/divider_color"
-                app:layout_constraintBottom_toTopOf="@+id/set_keepscreen_on"
-                app:layout_constraintTop_toBottomOf="@+id/set_reject_view">
-
-            </View>
-
-            <LinearLayout
-                android:id="@+id/set_keepscreen_on"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:gravity="center|left"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="56dp">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_margin="@dimen/_10sdp"
-                    app:srcCompat="@drawable/ic_keep_on"
-
-                    />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/nav_txt_order"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Keep Screen On"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/black"
-
-                    />
+                >
 
                 <LinearLayout
+                    android:id="@+id/general"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center|left"
                     android:orientation="horizontal"
-                    android:gravity="right|center_vertical"
-                    >
-                    <Switch
-                        android:id="@+id/set_keepscreen_switch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/_50sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="General"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="@color/theme_color"
+
                         />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:alpha="0.2"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/divider_color"
+                    app:layout_constraintBottom_toTopOf="@+id/set_keepscreen_on"
+                    app:layout_constraintTop_toBottomOf="@+id/set_reject_view">
+
+                </View>
+
+                <LinearLayout
+                    android:id="@+id/set_reject_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/general">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        app:srcCompat="@drawable/ic_block" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="Reject Reson"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@color/black"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/set_keepscreen_on"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/set_reject_view">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        app:srcCompat="@drawable/ic_keep_on"
+
+                        />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/nav_txt_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="Keep Screen On"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@color/black"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical"
+                        android:orientation="horizontal">
+
+                        <Switch
+                            android:id="@+id/set_keepscreen_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_50sdp" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
 
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
 
 
+        <!--Reject Reason's layout-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/set_reason_view"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:visibility="gone"
+            >
+            <ListView
+                android:id="@+id/list_view"
+                android:padding="@dimen/_8sdp"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <include
+                layout="@layout/layout_empty"/>
 
 
-            </LinearLayout>
+        </LinearLayout>
 
 
-        </android.support.constraint.ConstraintLayout>
-
-
-        <!--
     <include
         layout="@layout/layout_empty"
-        />-->
+        />
 
     </LinearLayout>
+
+
 </FrameLayout>

@@ -158,7 +158,7 @@ abstract class BaseFragment : Fragment() {
                             onAliCallInteraction.onSuccess(response.body())
                         } else {
                             var mErrorBody: String = response.errorBody()!!.string()
-                            onAliCallInteraction.onFail()
+                            onAliCallInteraction.onFail(404)
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -167,17 +167,19 @@ abstract class BaseFragment : Fragment() {
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     log("Base", ""+t.message)
-                    onAliCallInteraction.onFail()
+                    onAliCallInteraction.onFail(100)
                 }
             })
         } else {
-            showSnackBar(getString(R.string.internet_not_available))
+            onAliCallInteraction.onFail(100)
+           // showSnackBar(getString(R.string.internet_not_available))
         }
     }
 
     interface OnApiCallInteraction {
+        //  100 > network not foune  : 404 > server error.
         fun <T> onSuccess(body: T?)
-        fun onFail()
+        fun onFail(error : Int)
     }
 
     /**

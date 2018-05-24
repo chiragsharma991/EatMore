@@ -26,6 +26,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="order_reject">Order has been Rejected.</string>
+    <string name="select_reason">Select your reason:</string>
+    <string name="add">Add</string>
+    <string name="comments">Please Enter</string>
+    <string name="add_reject_reason">Add Reject Reason:</string>
+    <string name="edit_reject_reason">Edit Reject Reason:</string>
+    <string name="reason_error">Please enter your reason</string>
+    <string name="save">Save</string>
 
 
 </resources>

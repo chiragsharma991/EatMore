@@ -38,6 +38,18 @@ class ApiCall {
         fun rejectOrders(r_key: String, r_token: String,order_no: String, reason: String, order_status: String) : Call<JsonObject> {
             return getApiInterface().rejectOrders(r_token,r_key,order_no,reason,order_status)
         }
+
+        fun acceptOrders(r_key: String, r_token: String, order_no: String, pickup_delivery_time: String, order_status: String) : Call<JsonObject> {
+            return getApiInterface().acceptOrders(r_token,r_key,order_no,pickup_delivery_time,order_status)
+        }
+
+        fun createOrder(r_key: String, r_token: String,reason: String, action_by: String) : Call<JsonObject> {
+            return getApiInterface().createOrder(r_token,r_key,reason,action_by)
+        }
+
+        fun updateOrder(r_key: String, r_token: String,reason: String, action_by: String, or_id : String) : Call<JsonObject> {
+            return getApiInterface().updateOrder(r_token,r_key,reason,action_by,or_id)
+        }
     }
 
 
