@@ -1,15 +1,13 @@
-package dk.eatmore.softtech360.dashboard.fragment
+package dk.eatmore.softtech360.dashboard.fragment.order
 
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.util.Log
 import android.view.View
 
 import dk.eatmore.softtech360.R
-import dk.eatmore.softtech360.dashboard.adapter.RecordOfTodayAdapter
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.synthetic.main.fragment_info_order.*
@@ -35,9 +33,11 @@ class OrderInfoFragment : BaseFragment()  {
     }
 
 
-    fun orderInfo(){
-        log("order info","----")
+    fun showPreogressBar(action : Boolean){
+        if(action) progress_bar_toolbarView.visibility =View.VISIBLE
+        else progress_bar_toolbarView.visibility =View.GONE
     }
+
 
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
@@ -53,8 +53,18 @@ class OrderInfoFragment : BaseFragment()  {
 
     }
 
-    fun performedStatusAction(){
-        (adapter!!.mFragmentList.get(0) as RecordOfToday).callbackRefresh()
+    /**@param id  (0 == Record of today) || (7 == Record of 7 days) || (30 == Record of 30 days)
+     *
+     * */
+
+
+    fun performedStatusAction(id : Int){
+
+           (adapter!!.mFragmentList.get(0) as RecordOfToday).callbackRefresh()
+           (adapter!!.mFragmentList.get(1) as RecordOfLast7Days).callbackRefresh()
+           (adapter!!.mFragmentList.get(2) as RecordOfLast30Days).callbackRefresh()
+
+
 
     }
 
@@ -62,7 +72,7 @@ class OrderInfoFragment : BaseFragment()  {
 
 
     private fun initToolbar() {
-
+        progress_bar_toolbarView.visibility =View.GONE
         txt_toolbar.text = "My Orders"
         img_toolbar_back.setOnClickListener {
             var mainActivity = getActivityBase() as MainActivity
@@ -80,8 +90,8 @@ class OrderInfoFragment : BaseFragment()  {
 
     companion object {
         val TAG= "OrderInfoFragment"
-        fun newInstance() : OrderInfoFragment{
-            return  OrderInfoFragment()
+        fun newInstance() : OrderInfoFragment {
+            return OrderInfoFragment()
         }
 
     }

@@ -123,8 +123,11 @@ abstract class BaseActivity : AppCompatActivity()
         }
     }
     fun popWithTag(tag : String) {
-            supportFragmentManager.popBackStack()
+            supportFragmentManager.popBackStack(tag,0)
 
+    }
+    fun pop() {
+        supportFragmentManager.popBackStack()
     }
 
     /**

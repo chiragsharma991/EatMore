@@ -1,4 +1,4 @@
-package dk.eatmore.softtech360.dashboard.fragment
+package dk.eatmore.softtech360.dashboard.fragment.setting
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -8,6 +8,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.dashboard.fragment.order.RecordOfToday
+import dk.eatmore.softtech360.dashboard.fragment.order.r_key
+import dk.eatmore.softtech360.dashboard.fragment.order.r_token
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.model.GetReason
 import dk.eatmore.softtech360.model.OpeninghoursItem
@@ -98,8 +101,8 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
     companion object {
         val TAG= "SET"
-        fun newInstance() : SettingInfoFragment{
-            return  SettingInfoFragment()
+        fun newInstance() : SettingInfoFragment {
+            return SettingInfoFragment()
         }
     }
 

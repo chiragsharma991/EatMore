@@ -3,10 +3,7 @@ package dk.eatmore.softtech360.rest
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.model.Order
 import retrofit2.Call
-import dk.eatmore.softtech360.dashboard.fragment.Task
 import dk.eatmore.softtech360.model.GetReason
-import org.json.JSONObject
-import java.io.UnsupportedEncodingException
 
 
 class ApiCall {

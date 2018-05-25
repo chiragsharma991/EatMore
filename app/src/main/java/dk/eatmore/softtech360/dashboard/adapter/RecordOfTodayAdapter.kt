@@ -7,19 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eatmore.softtech360.R
-import dk.eatmore.softtech360.R.id.row_order_reject
-import dk.eatmore.softtech360.dashboard.fragment.RecordOfLast30Days
-import dk.eatmore.softtech360.dashboard.fragment.RecordOfLast7Days
-import dk.eatmore.softtech360.dashboard.fragment.RecordOfToday
+import dk.eatmore.softtech360.dashboard.fragment.order.OrderDetails
+import dk.eatmore.softtech360.dashboard.fragment.order.RecordOfLast30Days
+import dk.eatmore.softtech360.dashboard.fragment.order.RecordOfLast7Days
+import dk.eatmore.softtech360.dashboard.fragment.order.RecordOfToday
+import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.model.CustomSearchItem
 import dk.eatmore.softtech360.testing.Test_two.getCalculatedDate
-import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_order_list.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.log
-import kotlin.math.log10
 
 class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>, private val mListNewOrder: ArrayList<CustomSearchItem?>,
                            private val mListAnsweredOrder: ArrayList<CustomSearchItem?>, var fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
@@ -91,6 +89,9 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             holder.row_order_reject.setTag(position)
             holder.row_order_accept.setTag(position)
             holder.row_order_details.setTag(position)
+            holder.row_order_cardview.setTag(position)
+
+            holder.row_order_cardview.setOnClickListener(this)
             holder.row_order_reject.setOnClickListener(this)
             holder.row_order_accept.setOnClickListener(this)
             holder.row_order_details.setOnClickListener(this)
@@ -122,6 +123,12 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
         val position =v!!.getTag() as Int
 
         when(v!!.id) {
+
+            R.id.row_order_cardview ->{
+               // (fragment as RecordOfToday).performAction(1,mListOrder.get(position)!!)
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance(), OrderDetails.TAG)
+
+            }
 
             R.id.row_order_accept -> {
                 if(fragment is RecordOfToday)

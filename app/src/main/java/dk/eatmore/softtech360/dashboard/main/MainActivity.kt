@@ -1,7 +1,6 @@
 package dk.eatmore.softtech360.dashboard.main
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
@@ -11,16 +10,11 @@ import dk.eatmore.softtech360.utils.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.widget.ArrayAdapter
-import butterknife.BindViews
-import butterknife.ButterKnife
-import dk.eatmore.softtech360.dashboard.fragment.*
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.DialogUtils
-import android.widget.EditText
-import android.widget.LinearLayout
-import butterknife.OnClick
 import dk.eatmore.softtech360.activity.LoginActivity
+import dk.eatmore.softtech360.dashboard.fragment.order.OrderInfoFragment
+import dk.eatmore.softtech360.dashboard.fragment.setting.SettingInfoFragment
 
 
 class MainActivity : BaseActivity(), View.OnClickListener  {
@@ -63,7 +57,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         nav_main_setting.setOnClickListener(this)
         nav_main_logout.setOnClickListener(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.TAG).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.TAG).addToBackStack(TAG).commit()
         var mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, null, R.string.app_name, R.string.app_name) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
@@ -115,10 +109,10 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     private fun onClickDrawer(position : Int){
         when(position){
             0 ->{
-                popWithTag(SettingInfoFragment.TAG)
+                popWithTag(TAG)
             }
             1 ->{
-                addFragment(R.id.main_container_layout,SettingInfoFragment.newInstance(), SettingInfoFragment.TAG)
+                addFragment(R.id.main_container_layout, SettingInfoFragment.newInstance(), SettingInfoFragment.TAG)
             }
             2 -> logOut()
 

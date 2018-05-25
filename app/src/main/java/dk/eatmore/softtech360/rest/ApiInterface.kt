@@ -1,11 +1,8 @@
 package dk.eatmore.softtech360.rest
 
 import com.google.gson.JsonObject
-import dk.eatmore.softtech360.dashboard.fragment.Task
 import dk.eatmore.softtech360.model.GetReason
 import dk.eatmore.softtech360.model.Order
-import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 

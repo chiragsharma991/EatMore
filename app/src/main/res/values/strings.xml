@@ -15,7 +15,6 @@
     <string name="are_you_sure_logout">Are you sure you want to Logout?</string>
     <string name="error_404">Server not found...</string>
     <string name="logout">Logout</string>
-    <string name="cancel">Cancel</string>
     <string name="email_hint">Email</string>
     <string name="Password_hint">Password</string>
     <string name="are_you_sure_logout__">Are you sure you want to Logout?</string>
@@ -33,6 +32,10 @@
     <string name="edit_reject_reason">Edit Reject Reason:</string>
     <string name="reason_error">Please enter your reason</string>
     <string name="save">Save</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="reject">Reject</string>
+    <string name="details">Details</string>
 
 
 </resources>
