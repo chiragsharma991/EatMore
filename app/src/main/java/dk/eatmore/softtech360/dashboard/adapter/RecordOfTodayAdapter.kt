@@ -75,7 +75,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             vh = MyViewHolder(itemView)
         } else {
             val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.row_order_type, parent, false)
+                    .inflate(R.layout.row_order_product, parent, false)
             vh = LableViewHolder(itemView)
         }
 
@@ -125,9 +125,9 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
         when(v!!.id) {
 
             R.id.row_order_cardview ->{
-               // (fragment as RecordOfToday).performAction(1,mListOrder.get(position)!!)
-                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance(), OrderDetails.TAG)
+               //val fragment : OrderDetails.Companion
 
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG)
             }
 
             R.id.row_order_accept -> {

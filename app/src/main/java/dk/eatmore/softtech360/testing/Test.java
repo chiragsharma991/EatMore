@@ -30,6 +30,9 @@ public class Test extends AppCompatActivity {
          String text="";
 
 
+
+
+
         try {
             bytes = text.getBytes("UTF-8");
             text = new String(bytes, "UTF-8");

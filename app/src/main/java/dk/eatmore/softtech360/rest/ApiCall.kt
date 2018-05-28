@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import dk.eatmore.softtech360.model.Order
 import retrofit2.Call
 import dk.eatmore.softtech360.model.GetReason
+import dk.eatmore.softtech360.model.ProductDetails
 
 
 class ApiCall {
@@ -46,6 +47,10 @@ class ApiCall {
 
         fun updateOrder(r_key: String, r_token: String,reason: String, action_by: String, or_id : String) : Call<JsonObject> {
             return getApiInterface().updateOrder(r_token,r_key,reason,action_by,or_id)
+        }
+
+        fun viewRecords (r_key: String, r_token: String,order_no: String) : Call<ProductDetails> {
+            return getApiInterface().viewRecords(r_token,r_key,order_no)
         }
     }
 

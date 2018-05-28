@@ -3,6 +3,7 @@ package dk.eatmore.softtech360.rest
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.model.GetReason
 import dk.eatmore.softtech360.model.Order
+import dk.eatmore.softtech360.model.ProductDetails
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -72,4 +73,13 @@ interface ApiInterface {
             @Field("action_by") action_by: String,  // user id
             @Field("or_id") or_id: String
     ): Call<JsonObject>
+
+
+    @FormUrlEncoded
+    @POST("PosOrder/order/latest_order_view_record")
+    fun viewRecords(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("order_no") reason: String
+    ): Call<ProductDetails>
 }

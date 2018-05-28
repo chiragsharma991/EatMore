@@ -19,11 +19,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
+        android:id="@+id/order_detail_view"
         android:orientation="vertical">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:visibility="visible"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:fillViewport="true"
@@ -107,6 +108,7 @@
 
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
+                        android:id="@+id/order_detail_shipping"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_weight="1"
@@ -145,6 +147,7 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/order_detail_req"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_weight="1"
                         android:gravity="left"
@@ -154,7 +157,18 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
-                    <View
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="vertical"
+                        android:id="@+id/order_detail_dynamic_container"
+                        >
+
+
+                    </LinearLayout>
+
+             <!--       <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
                         android:layout_below="@+id/nav_head_sales"
@@ -290,7 +304,7 @@
                             android:gravity="left"
                             android:singleLine="true"
                             android:text="Total DKK"
-                            android:textAppearance="?android:textAppearanceLarge"
+                            android:textAppearance="?android:textAppearanceMedium"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -381,7 +395,7 @@
                         </LinearLayout>
 
 
-                    </LinearLayout>
+                    </LinearLayout>-->
 
 
                 </LinearLayout>
@@ -391,14 +405,16 @@
         </android.support.v4.widget.NestedScrollView>
 
 
+    </LinearLayout>
+
+
         <include
             layout="@layout/layout_empty"
             />
 
+
+
+
     </LinearLayout>
-
-
-
-</LinearLayout>
 
 </FrameLayout>

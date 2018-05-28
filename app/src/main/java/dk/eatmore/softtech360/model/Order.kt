@@ -1,6 +1,7 @@
 package dk.eatmore.softtech360.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Order(
@@ -32,5 +33,6 @@ data class CustomSearchItem(
         val name: String = "",
         val order_id: String = "",
         val expected_time: String = ""
-)
+
+) : Serializable
 
