@@ -52,6 +52,10 @@ class ApiCall {
         fun viewRecords (r_key: String, r_token: String,order_no: String) : Call<ProductDetails> {
             return getApiInterface().viewRecords(r_token,r_key,order_no)
         }
+
+        fun sendFcmToken (r_key: String, r_token: String, fcmToken: String, device_type : String , user_id : String) : Call<JsonObject> {
+            return getApiInterface().sendFcmToken(r_token,r_key,fcmToken,device_type,user_id)
+        }
     }
 
 

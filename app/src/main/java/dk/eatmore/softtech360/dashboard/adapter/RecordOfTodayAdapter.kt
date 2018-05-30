@@ -131,6 +131,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             }
 
             R.id.row_order_accept -> {
+                // i am using 3 condition for only casting perpose.
                 if(fragment is RecordOfToday)
                     (fragment as RecordOfToday).performAction(2,mListOrder.get(position)!!)
                 if(fragment is RecordOfLast7Days)

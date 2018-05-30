@@ -21,6 +21,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#019E0F</color>
     <color name="black">#000</color>
+    <color name="black_transparent">#999</color>
     <color name="white">#fff</color>
     <color name="white_light_grey">#f4f6f7</color>
     <color name="transparent_gray">#b8999896</color>
@@ -35,6 +36,7 @@
     <color name="border_gray">#5C5C5C</color>
     <color name="feed_item_bg">#ffffff</color>
     <color name="bg_color">#F0EFF5</color>
+    <color name="default_bg_color">#FAFAFA</color>
     <color name="colorDarkTransparent">#CC000000</color>
 
     <!--

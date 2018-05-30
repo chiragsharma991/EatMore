@@ -79,7 +79,17 @@ interface ApiInterface {
     @POST("PosOrder/order/latest_order_view_record")
     fun viewRecords(
             @Field("r_token") r_token: String ,
-            @Field("r_key") r_key: String,
+                @Field("r_key") r_key: String,
             @Field("order_no") reason: String
     ): Call<ProductDetails>
+
+    @FormUrlEncoded
+    @POST("User/user/device-token")
+    fun sendFcmToken(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("token") token: String,
+            @Field("device_type") device_type: String,
+            @Field("user_id") user_id: String
+    ): Call<JsonObject>
 }

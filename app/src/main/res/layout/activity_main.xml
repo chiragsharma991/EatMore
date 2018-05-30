@@ -28,14 +28,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:alpha="0.9"
-        android:background="@drawable/background_splash"
-        android:fitsSystemWindows="false"
+        android:fitsSystemWindows="true"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorDarkTransparent"
+            android:background="@color/black"
             >
 
             <RelativeLayout
@@ -49,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/nav_head_rel"
                     android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
                     >
 
                     <android.support.v7.widget.AppCompatImageView

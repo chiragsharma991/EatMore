@@ -1,7 +1,6 @@
 <resources>
 
 
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -29,7 +28,6 @@
     </style>
 
 
-
     <style name="AndroidSRC.PopupMenu" parent="@android:style/Widget.PopupMenu">
         <item name="android:popupBackground">#21B6A8</item>
     </style>
@@ -42,5 +40,9 @@
     <style name="AppTheme.WhiteAccent">
         <item name="colorAccent">@color/white</item> <!-- Whatever color you want-->
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

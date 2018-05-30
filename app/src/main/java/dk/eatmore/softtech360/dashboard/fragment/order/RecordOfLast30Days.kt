@@ -4,6 +4,7 @@ package dk.eatmore.softtech360.dashboard.fragment.order
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +34,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class RecordOfLast30Days : BaseFragment() {
+class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     var mListOrder = ArrayList<CustomSearchItem?>()
@@ -69,48 +70,26 @@ class RecordOfLast30Days : BaseFragment() {
         var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")
         var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")
         log(RecordOfToday.TAG, r_key.toString() + " " + r_token.toString())
+
+        swipeRefresh.setOnRefreshListener(this)
+        swipeRefresh.setColorSchemeColors(ContextCompat.getColor(context!!,R.color.theme_color))
         fetchOrders(true)
 
-
-/*
-        var list: List<CustomSearchItem> = (body as Order).custom_search
-        val mListNewOrder = ArrayList<CustomSearchItem?>()
-        val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
-        for (i in list.size-1 downTo -1 + 1)  {
-            val item : CustomSearchItem = list.get(i)
-            if (item.order_status == "Pending Restaurant" || item.order_status == "Pending Opening Restaurant") {
-                // new order list
-                if(!chekifAnyHeader(mListNewOrder)){
-                    item.headerType="mListNewOrder"
-                    item.showOrderHeader=true
-                }
-                mListNewOrder.add(item)
-            } else {
-                // answered order list
-                if(!chekifAnyHeader(mListAnsweredOrder)){
-                    item.headerType="mListAnsweredOrder"
-                    item.showOrderHeader=true
-                }
-                mListAnsweredOrder.add(item)
-            }
-        }
-        mListOrder.addAll(mListNewOrder)
-        mListOrder.addAll(mListAnsweredOrder)
-        log(TAG,"after list size is: "+mListOrder.size)
-        mAdapter = RecordOfTodayAdapter(mListOrder,mListNewOrder,mListAnsweredOrder,refFragment)
-        recycler_view.layoutManager = LinearLayoutManager(getActivityBase())
-        recycler_view.adapter = mAdapter*/
 
 
 
     }
 
+    override fun onRefresh() {
+
+        (parentFragment as OrderInfoFragment).performedStatusAction(0)
+
+    }
+
+
 
     fun fetchOrders(setAdapter : Boolean) {
 
-        mListNewOrder.clear()
-        mListAnsweredOrder.clear()
-        mListOrder.clear()
         (parentFragment as OrderInfoFragment).showPreogressBar(true)
         val currentDate=getCalculatedDate("yyyy-MM-dd",0)
         val last30th=getCalculatedDate("yyyy-MM-dd",-30)
@@ -118,6 +97,9 @@ class RecordOfLast30Days : BaseFragment() {
             callAPI(ApiCall.myOrder(currentDate, last30th, r_key!!, r_token!!), object : BaseFragment.OnApiCallInteraction {
 
                 override fun <T> onSuccess(body: T?) {
+                    mListNewOrder.clear()
+                    mListAnsweredOrder.clear()
+                    mListOrder.clear()
                     var list: List<CustomSearchItem> = (body as Order).custom_search
                     if((body as Order).status){
                         for (i in list.size-1 downTo -1 +1){
@@ -154,13 +136,18 @@ class RecordOfLast30Days : BaseFragment() {
                             }
                         }
                         (parentFragment as OrderInfoFragment).showPreogressBar(false)
+                        swipeRefresh.setRefreshing(false)
 
                     }else{
                         (parentFragment as OrderInfoFragment).showPreogressBar(false)
+                        swipeRefresh.setRefreshing(false)
+
                     }
                 }
                 override fun onFail(error : Int) {
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
+                    swipeRefresh.setRefreshing(false)
+
                     when(error){
                         404 ->{
                             showSnackBar(getString(R.string.error_404))
@@ -299,7 +286,15 @@ class RecordOfLast30Days : BaseFragment() {
 
 
             override fun onFail(error : Int) {
-
+                when (error) {
+                    404 -> {
+                        showSnackBar(getString(R.string.error_404))
+                        log(RecordOfLast30Days.TAG, "api call failed...")
+                    }
+                    100 -> {
+                        showSnackBar(getString(R.string.internet_not_available))
+                    }
+                }
             }
         })
 

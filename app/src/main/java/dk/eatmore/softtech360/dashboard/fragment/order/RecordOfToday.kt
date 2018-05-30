@@ -3,6 +3,7 @@ package dk.eatmore.softtech360.dashboard.fragment.order
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import dk.eatmore.softtech360.utils.BaseFragment
 import dk.eatmore.softtech360.utils.DateCalculation
 import dk.eatmore.softtech360.utils.DialogUtils
 import dk.eatmore.softtech360.utils.DialogUtils.createListDialog
+import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.fragment_record_of_today.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import java.text.SimpleDateFormat
@@ -33,7 +35,7 @@ var r_key = ""
 var r_token = ""
 
 
-class RecordOfToday : BaseFragment() {
+class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     val mListOrder = ArrayList<CustomSearchItem?>()
     val mListNewOrder = ArrayList<CustomSearchItem?>()
@@ -116,6 +118,13 @@ class RecordOfToday : BaseFragment() {
                                     val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
                                     showSnackBar(result)
                                     (parentFragment as OrderInfoFragment).performedStatusAction(0)
+                                    // this condition is from details screen only (just finish fragment)
+                                    val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
+                                    if(fragment !=null){
+                                        (getActivityBase() as MainActivity).pop()
+
+                                    }
+
                                 }
                             }
 
@@ -167,6 +176,14 @@ class RecordOfToday : BaseFragment() {
                                         showSnackBar(result)
                                         (parentFragment as OrderInfoFragment).performedStatusAction(0)
 
+
+                                        // this condition is from details screen only (just finish fragment)
+                                        val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
+                                        if(fragment !=null){
+                                            (getActivityBase() as MainActivity).pop()
+
+                                        }
+
                                     }
                                 }
 
@@ -182,6 +199,15 @@ class RecordOfToday : BaseFragment() {
 
 
             override fun onFail(error: Int) {
+                when (error) {
+                    404 -> {
+                        showSnackBar(getString(R.string.error_404))
+                        log(RecordOfLast30Days.TAG, "api call failed...")
+                    }
+                    100 -> {
+                        showSnackBar(getString(R.string.internet_not_available))
+                    }
+                }
 
             }
         })
@@ -200,18 +226,29 @@ class RecordOfToday : BaseFragment() {
         var user = PreferenceUtil.getString(PreferenceUtil.USER_NAME, "")
         view_empty.visibility = View.GONE
         recycler_view_0.visibility = View.VISIBLE
-
+        swipeRefresh.setOnRefreshListener(this)
+        swipeRefresh.setColorSchemeColors(ContextCompat.getColor(context!!,R.color.theme_color))
+        /*swipeRefresh.post(Runnable {
+            swipeRefresh.setRefreshing(true)
+            fetchOrders(true)
+        }
+        )*/
 
         log(TAG, r_key.toString() + " " + r_token.toString() + " " + user)
         val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
+        fetchOrders(true)
 
-         fetchOrders(true)
+
+    }
+
+
+
+    override fun onRefresh() {
+        (parentFragment as OrderInfoFragment).performedStatusAction(0)
     }
 
     fun fetchOrders(setAdapter : Boolean) {
-        mListNewOrder.clear()
-        mListAnsweredOrder.clear()
-        mListOrder.clear()
+
         (parentFragment as OrderInfoFragment).showPreogressBar(true)
         val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
         callAPI(ApiCall.myOrder(currentDate, currentDate, r_key!!, r_token!!), object : BaseFragment.OnApiCallInteraction {
@@ -224,6 +261,9 @@ class RecordOfToday : BaseFragment() {
 
 
                 if ((body as Order).status) {
+                    mListNewOrder.clear()
+                    mListAnsweredOrder.clear()
+                    mListOrder.clear()
                     var list: List<CustomSearchItem> = (body as Order).custom_search
                     for (i in list.size - 1 downTo -1 + 1) {
                         val item: CustomSearchItem = list.get(i)
@@ -261,6 +301,9 @@ class RecordOfToday : BaseFragment() {
                     }
                     log(TAG, "after list size is: " + mListOrder.size)
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
+                    swipeRefresh.setRefreshing(false)
+
+
 
                 } else {
                     if ((body as Order).error == null) {
@@ -270,13 +313,14 @@ class RecordOfToday : BaseFragment() {
                         showSnackBar(getString(R.string.error_404))
                     }
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
+                    swipeRefresh.setRefreshing(false)
+
 
                 }
 
             }
 
             override fun onFail(error: Int) {
-                (parentFragment as OrderInfoFragment).showPreogressBar(false)
                 when (error) {
                     404 -> {
                         showSnackBar(getString(R.string.error_404))
@@ -288,6 +332,10 @@ class RecordOfToday : BaseFragment() {
                     }
 
                 }
+                swipeRefresh.setRefreshing(false)
+                (parentFragment as OrderInfoFragment).showPreogressBar(false)
+
+
 
 
             }

@@ -17,10 +17,7 @@ import dk.eatmore.softtech360.dashboard.fragment.order.OrderInfoFragment
 import dk.eatmore.softtech360.dashboard.fragment.setting.SettingInfoFragment
 
 
-class MainActivity : BaseActivity(), View.OnClickListener  {
-
-
-
+class MainActivity : BaseActivity(), View.OnClickListener {
 
 
     var orderInfoFragment = OrderInfoFragment.newInstance()
@@ -29,18 +26,16 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-     //   ButterKnife.bind(this@MainActivity)
+        //   ButterKnife.bind(this@MainActivity)
         //  val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        init(savedInstanceState)
-
-
+        if (PreferenceUtil.getString(PreferenceUtil.USER_NAME, "") != "") init(savedInstanceState)
+        else
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        finish()
 
 
     }
-
-
-
-
 
 
     companion object {
@@ -49,7 +44,6 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
             return MainActivity()
         }
     }
-
 
 
     fun init(savedInstancedState: Bundle?) {
@@ -76,27 +70,27 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     override fun onClick(v: View?) {
 
-        when(v!!.id){
-            R.id.nav_main_order ->{
-                nav_main_order.setBackgroundColor(ContextCompat.getColor(this,R.color.green))
-                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this,R.color.black))
-                nav_main_logout.setBackgroundColor(ContextCompat.getColor(this,R.color.black))
+        when (v!!.id) {
+            R.id.nav_main_order -> {
+                nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                nav_main_logout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
                 isOpenDrawer(false)
-                Handler().postDelayed({ onClickDrawer(0)},300)
+                Handler().postDelayed({ onClickDrawer(0) }, 300)
 
             }
-            R.id.nav_main_setting ->{
-                nav_main_order.setBackgroundColor(ContextCompat.getColor(this,R.color.black))
-                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this,R.color.green))
-                nav_main_logout.setBackgroundColor(ContextCompat.getColor(this,R.color.black))
+            R.id.nav_main_setting -> {
+                nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+                nav_main_logout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
                 isOpenDrawer(false)
-                Handler().postDelayed({ onClickDrawer(1)},300)
+                Handler().postDelayed({ onClickDrawer(1) }, 300)
 
 
             }
-            R.id.nav_main_logout ->{
+            R.id.nav_main_logout -> {
                 isOpenDrawer(false)
-                Handler().postDelayed({ onClickDrawer(2)},300)
+                Handler().postDelayed({ onClickDrawer(2) }, 300)
 
             }
 
@@ -104,14 +98,12 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     }
 
 
-
-
-    private fun onClickDrawer(position : Int){
-        when(position){
-            0 ->{
+    private fun onClickDrawer(position: Int) {
+        when (position) {
+            0 -> {
                 popWithTag(TAG)
             }
-            1 ->{
+            1 -> {
                 addFragment(R.id.main_container_layout, SettingInfoFragment.newInstance(), SettingInfoFragment.TAG)
             }
             2 -> logOut()
@@ -123,7 +115,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     private fun logOut() {
         DialogUtils.openDialog(this, getString(R.string.are_you_sure_logout__),
                 getString(R.string.logout), getString(R.string.cancel), object : DialogUtils.OnDialogClickListener {
-            override fun onPositiveButtonClick(position : Int) {
+            override fun onPositiveButtonClick(position: Int) {
                 popAllFragment()
                 PreferenceUtil.remove(PreferenceUtil.R_KEY)
                 PreferenceUtil.remove(PreferenceUtil.USER_NAME)

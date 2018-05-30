@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.ScrollingActivity"
+    tools:showIn="@layout/activity_test">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="2018-05-09 13:49:49"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Order No: 1522"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/nav_head_sales"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:alpha="0.1"
+                android:background="@color/border_gray"></View>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_rest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Ros Sondeborg"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/nav_head_sales"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:alpha="0.1"
+                android:background="@color/border_gray"></View>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:id="@+id/order_detail_shipping"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Pick up"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Expected Time"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_expt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="2018-05-09 13:49:49"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_detail_req"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="asap"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="vertical"
+                android:id="@+id/order_detail_dynamic_container"
+                >
+
+
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray"
+                        android:id="@+id/order_detail_subtotal"
+                        android:orientation="horizontal"
+                        >
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:gravity="left"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="Subtotal"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/order_detail_subtotal_txt"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="120"
+                            />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray"
+                        android:id="@+id/order_detail_ship"
+                        android:orientation="horizontal"
+                        >
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:gravity="left"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="Shipping"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/row_order_ship_txt"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="120"
+                            />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray"
+                        android:id="@+id/order_detail_additional"
+                        android:orientation="horizontal"
+                        >
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:gravity="left"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="Additional Charges"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/row_order_additional_txt"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="120"
+                            />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray"
+                        android:id="@+id/order_detail_discount"
+                        android:orientation="horizontal"
+                        >
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:gravity="left"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="Discount Charges"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/row_order_discount_txt"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="normal"
+                            android:text="120"
+                            />
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gray"
+                        android:id="@+id/order_detail_total"
+                        android:orientation="horizontal"
+                        >
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:gravity="left"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="bold"
+                            android:text="Total"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/order_detail_total_txt"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:singleLine="true"
+                            android:padding="@dimen/_10sdp"
+                            android:textStyle="bold"
+                            android:text="120"
+                            />
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/theme_color"
+                    >
+
+                </View>
+
+
+
+
+
+
+
+            </FrameLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_fstname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Chirag suthar"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Mollegade 1, 6400 Sonderborg"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Phone: 7506558479"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Previous order: 5"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_shipping_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Note:"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/nav_head_sales"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:alpha="0.1"
+                android:background="@color/border_gray"></View>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_payment_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Not Paid"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_payment_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Kontant payment"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_below="@+id/nav_head_sales"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:alpha="0.1"
+                android:background="@color/border_gray"></View>
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Order Rejected:"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="2018-05-09 13:49:49"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/order_detail_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Not enouht good."
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

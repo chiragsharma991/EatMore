@@ -10,6 +10,8 @@
         android:orientation="vertical">
 
 
+
+
         <android.support.v7.widget.CardView
             android:id="@+id/row_order_cardview"
             android:layout_width="match_parent"
@@ -20,60 +22,83 @@
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginLeft="@dimen/_8sdp"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            app:contentPadding="@dimen/_8sdp"
             app:cardBackgroundColor="@android:color/white"
             app:cardElevation="@dimen/_2sdp">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:id="@+id/row_order_attribute"
-                android:orientation="vertical">
 
 
 
-                 <!--   <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/row_order_no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:singleLine="true"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:text="order No. 124567"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/black"
-                        android:textStyle="normal" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+<!--
+    <View
+        android:layout_width="@dimen/_2sdp"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        >
 
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:alpha="0.2"
-                    android:background="@color/border_gray">
-
-                </View>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/row_order_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:gravity="left"
-                        android:singleLine="true"
-                        android:text="name"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textStyle="normal" />-->
+    </View>-->
 
 
 
 
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:id="@+id/row_order_attribute"
+        android:orientation="vertical">
+
+
+
+       <!--    <android.support.v7.widget.AppCompatTextView
+               android:id="@+id/row_order_no"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="left"
+               android:singleLine="true"
+               android:layout_marginTop="@dimen/_5sdp"
+               android:layout_marginBottom="@dimen/_5sdp"
+               android:text="order No. 124567"
+               android:textAppearance="?android:textAppearanceSmall"
+               android:textColor="@color/black"
+               android:textStyle="normal" />
+
+
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/_1sdp"
+           android:alpha="0.2"
+           android:background="@color/border_gray">
+
+       </View>
+
+           <android.support.v7.widget.AppCompatTextView
+               android:id="@+id/row_order_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/_5sdp"
+               android:layout_marginBottom="@dimen/_5sdp"
+               android:gravity="left"
+               android:singleLine="true"
+               android:text="name"
+               android:textAppearance="?android:textAppearanceSmall"
+               android:textStyle="normal" />
+-->
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
 
 
         </android.support.v7.widget.CardView>

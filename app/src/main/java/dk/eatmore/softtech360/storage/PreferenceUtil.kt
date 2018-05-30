@@ -138,6 +138,7 @@ object PreferenceUtil {
     val USER_ID = "id"
     val R_TOKEN = "r_token"
     val R_KEY = "r_key"
+    val TOKEN = "token"
 
 
 }
