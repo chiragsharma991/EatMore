@@ -29,10 +29,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         //   ButterKnife.bind(this@MainActivity)
         //  val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         if (PreferenceUtil.getString(PreferenceUtil.USER_NAME, "") != "") init(savedInstanceState)
-        else
+        else{
             startActivity(Intent(this@MainActivity, LoginActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        finish()
+            finish()
+        }
+
 
 
     }

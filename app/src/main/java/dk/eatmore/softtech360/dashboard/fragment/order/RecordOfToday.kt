@@ -116,7 +116,7 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                 val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
                                 if (json.get("status").asBoolean) {
                                     val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
-                                    showSnackBar(result)
+                                    if(userVisibleHint) showSnackBar(result)
                                     (parentFragment as OrderInfoFragment).performedStatusAction(0)
                                     // this condition is from details screen only (just finish fragment)
                                     val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
@@ -131,10 +131,12 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                             override fun onFail(error: Int) {
                                 when (error) {
                                     404 -> {
+                                        if(userVisibleHint)
                                         showSnackBar(getString(R.string.error_404))
                                         log(RecordOfLast30Days.TAG, "api call failed...")
                                     }
                                     100 -> {
+                                        if(userVisibleHint)
                                         showSnackBar(getString(R.string.internet_not_available))
                                     }
                                 }
@@ -173,6 +175,7 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                     val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
                                     if (json.get("status").asBoolean) {
                                         val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
+                                        if(userVisibleHint)
                                         showSnackBar(result)
                                         (parentFragment as OrderInfoFragment).performedStatusAction(0)
 
@@ -201,10 +204,12 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             override fun onFail(error: Int) {
                 when (error) {
                     404 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.error_404))
                         log(RecordOfLast30Days.TAG, "api call failed...")
                     }
                     100 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.internet_not_available))
                     }
                 }
@@ -244,6 +249,8 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     override fun onRefresh() {
+        view_empty.visibility = View.GONE
+        recycler_view_0.visibility = View.VISIBLE
         (parentFragment as OrderInfoFragment).performedStatusAction(0)
     }
 
@@ -306,12 +313,11 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
                 } else {
-                    if ((body as Order).error == null) {
-                        view_empty.visibility = View.VISIBLE
-                        recycler_view_0.visibility = View.GONE
-                    } else {
-                        showSnackBar(getString(R.string.error_404))
-                    }
+                    if(userVisibleHint)
+                    showSnackBar(getString(R.string.error_404))
+                    view_empty.visibility = View.VISIBLE
+                    view_empty_txt_data.text =getString(R.string.error_404_text)
+                    recycler_view_0.visibility = View.GONE
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
                     swipeRefresh.setRefreshing(false)
 
@@ -323,11 +329,19 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             override fun onFail(error: Int) {
                 when (error) {
                     404 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.error_404))
+                        view_empty.visibility = View.VISIBLE
+                        view_empty_txt_data.text =getString(R.string.error_404_text)
+                        recycler_view_0.visibility = View.GONE
                         log(TAG, "api call failed...")
                     }
                     100 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.internet_not_available))
+                        view_empty.visibility = View.VISIBLE
+                        view_empty_txt_data.text =getString(R.string.internet_not_available)
+                        recycler_view_0.visibility = View.GONE
 
                     }
 

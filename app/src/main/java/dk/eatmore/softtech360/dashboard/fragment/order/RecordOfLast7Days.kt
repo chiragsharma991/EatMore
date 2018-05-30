@@ -23,6 +23,7 @@ import dk.eatmore.softtech360.utils.BaseFragment
 import dk.eatmore.softtech360.utils.DateCalculation
 import dk.eatmore.softtech360.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_record_of_last7_days.*
+import kotlinx.android.synthetic.main.layout_empty.*
 import java.text.SimpleDateFormat
 
 // TODO: Rename parameter arguments, choose names that match
@@ -67,6 +68,8 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
         var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")
         var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")
+        view_empty.visibility = View.GONE
+        recycler_view_7.visibility = View.VISIBLE
         swipeRefresh.setOnRefreshListener(this)
         swipeRefresh.setColorSchemeColors(ContextCompat.getColor(context!!,R.color.theme_color))
         fetchOrders(true)
@@ -76,6 +79,8 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     override fun onRefresh() {
+        view_empty.visibility = View.GONE
+        recycler_view_7.visibility = View.VISIBLE
         (parentFragment as OrderInfoFragment).performedStatusAction(0)
     }
 
@@ -132,8 +137,15 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     swipeRefresh.setRefreshing(false)
 
                 } else {
+                    if(userVisibleHint)
+                    showSnackBar(getString(R.string.error_404))
+                    view_empty.visibility = View.VISIBLE
+                    view_empty_txt_data.text =getString(R.string.error_404_text)
+                    recycler_view_7.visibility = View.GONE
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
                     swipeRefresh.setRefreshing(false)
+
+
 
                 }
 
@@ -141,16 +153,24 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             override fun onFail(error: Int) {
-                (parentFragment as OrderInfoFragment).showPreogressBar(false)
                 when (error) {
                     404 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.error_404))
+                        view_empty.visibility = View.VISIBLE
+                        view_empty_txt_data.text =getString(R.string.error_404_text)
+                        recycler_view_7.visibility = View.GONE
                         log(TAG, "api call failed...")
                     }
                     100 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.internet_not_available))
+                        view_empty.visibility = View.VISIBLE
+                        view_empty_txt_data.text =getString(R.string.internet_not_available)
+                        recycler_view_7.visibility = View.GONE
                     }
                 }
+                (parentFragment as OrderInfoFragment).showPreogressBar(false)
                 swipeRefresh.setRefreshing(false)
                 (parentFragment as OrderInfoFragment).showPreogressBar(false)
             }
@@ -219,6 +239,7 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                 val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
                                 if (json.get("status").asBoolean) {
                                     val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
+                                    if(userVisibleHint)
                                     showSnackBar(result)
                                     (parentFragment as OrderInfoFragment).performedStatusAction(7)
                                 }
@@ -227,10 +248,12 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                             override fun onFail(error: Int) {
                                 when (error) {
                                     404 -> {
+                                        if(userVisibleHint)
                                         showSnackBar(getString(R.string.error_404))
                                         log(RecordOfLast30Days.TAG, "api call failed...")
                                     }
                                     100 -> {
+                                        if(userVisibleHint)
                                         showSnackBar(getString(R.string.internet_not_available))
                                     }
                                 }
@@ -268,7 +291,7 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                     val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
                                     if (json.get("status").asBoolean) {
                                         val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
-                                        showSnackBar(result)
+                                        if(userVisibleHint) showSnackBar(result)
                                         (parentFragment as OrderInfoFragment).performedStatusAction(7)
 
                                     }
@@ -288,10 +311,12 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             override fun onFail(error : Int) {
                 when (error) {
                     404 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.error_404))
                         log(RecordOfLast30Days.TAG, "api call failed...")
                     }
                     100 -> {
+                        if(userVisibleHint)
                         showSnackBar(getString(R.string.internet_not_available))
                     }
                 }
