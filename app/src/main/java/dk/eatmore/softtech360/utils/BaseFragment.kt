@@ -122,7 +122,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun showSnackBar(string: String) {
-        if (view != null)
+        if (view != null && userVisibleHint)
             Snackbar.make(view!!, string, Snackbar.LENGTH_SHORT).show()
     }
 

@@ -116,41 +116,46 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
             order_detail_subtotal_txt.text = data.get(0).order_total
         }else   order_detail_subtotal.visibility = View.GONE
 
-        if(data!!.get(0).shipping_costs !=null){
+        if(data.get(0).shipping_costs !=null){
             order_detail_ship.visibility = View.VISIBLE
             row_order_ship_txt.text = data.get(0).shipping_costs
         }else   order_detail_ship.visibility = View.GONE
 
-        if(data!!.get(0).additional_charge !=null){
+        if(data.get(0).additional_charge !=null){
             order_detail_additional.visibility = View.VISIBLE
             row_order_additional_txt.text = data.get(0).additional_charge
         }else   order_detail_additional.visibility = View.GONE
 
-        if(data!!.get(0).discount_amount !=null){
+        if(data.get(0).discount_amount !=null){
             order_detail_discount.visibility = View.VISIBLE
             row_order_discount_txt.text = data.get(0).discount_amount
         }else   order_detail_discount.visibility = View.GONE
 
-        if(data!!.get(0).total_to_pay !=null){
+        if(data.get(0).total_to_pay !=null){
             order_detail_total.visibility = View.VISIBLE
             order_detail_total_txt.text = data.get(0).total_to_pay
         }else   order_detail_total.visibility = View.GONE
 
-        if(data!!.get(0).shipping_remark !=null){
+        if(data.get(0).shipping_remark !=null){
             order_detail_shipping_remark.visibility = View.VISIBLE
             order_detail_shipping_remark.text = data.get(0).shipping_remark
         }else   order_detail_shipping_remark.visibility = View.GONE
 
-        if(data!!.get(0).pickup_delivery_time !=null){
+        if(data.get(0).accept_reject_time !=null){
             order_detail_time.visibility = View.VISIBLE
-            order_detail_time.text = data.get(0).pickup_delivery_time
+            order_detail_time.text = data.get(0).accept_reject_time
         }else   order_detail_time.visibility = View.GONE
 
-        if(data!!.get(0).reject_reason !=null){
+        if(data.get(0).order_status == "Accepted"){
             order_detail_reason.visibility = View.VISIBLE
-            order_detail_reason.text = data.get(0).reject_reason
-        }else   order_detail_reason.visibility = View.GONE
+            order_detail_reason.text = data.get(0).pickup_delivery_time
+        }else {
+            if(data.get(0).reject_reason != null){
+                order_detail_reason.visibility = View.VISIBLE
+                order_detail_reason.text = data.get(0).reject_reason
+            }else  order_detail_reason.visibility = View.GONE
 
+        }
 
 
 
