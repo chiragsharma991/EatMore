@@ -1,23 +1,38 @@
 package dk.eatmore.softtech360.dashboard.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.utils.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.gson.JsonObject
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.DialogUtils
 import dk.eatmore.softtech360.activity.LoginActivity
 import dk.eatmore.softtech360.dashboard.fragment.order.OrderInfoFragment
 import dk.eatmore.softtech360.dashboard.fragment.setting.SettingInfoFragment
+import dk.eatmore.softtech360.fcm.FirebaseInstanceIDService
+import dk.eatmore.softtech360.rest.ApiClient
+import dk.eatmore.softtech360.rest.ApiInterface
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class MainActivity : BaseActivity(), View.OnClickListener {
+class MainActivity : BaseActivity(), View.OnClickListener  {
+
+
 
 
     var orderInfoFragment = OrderInfoFragment.newInstance()
@@ -52,6 +67,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         nav_main_order.setOnClickListener(this)
         nav_main_setting.setOnClickListener(this)
         nav_main_logout.setOnClickListener(this)
+        val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
+
+        log(TAG,"refreshedToken= "+refreshedToken)
 
         supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.TAG).addToBackStack(TAG).commit()
         var mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, null, R.string.app_name, R.string.app_name) {
@@ -67,7 +85,33 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 hideKeyboard()
             }
         }
+        sendfcmtocken()
         drawer_layout?.addDrawerListener(mDrawerToggle)
+    }
+
+    private fun sendfcmtocken() {
+
+        if(!FirebaseInstanceIDService.shallIsendToken) return
+        val r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
+        val r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
+        val user_id = PreferenceUtil.getString(PreferenceUtil.USER_ID, "")!!
+        val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
+        val apiService = ApiClient.getClient()!!.create(ApiInterface::class.java)
+
+        val call = apiService.sendFcmToken(r_token = r_token,r_key = r_key,token = refreshedToken,device_type = "POS",user_id = user_id)
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                Log.e(TAG,response.toString())
+                FirebaseInstanceIDService.shallIsendToken =false
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString())
+            }
+        })
+
+
     }
 
     override fun onClick(v: View?) {
@@ -180,4 +224,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+}
+
+interface test {
+    //  100 > network not foune  : 404 > server error.
+    fun onTest(error : Int)
 }

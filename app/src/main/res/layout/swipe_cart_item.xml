@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:id="@+id/swipe_card"
+        android:id="@+id/swipe_card_holder"
         app:cardCornerRadius="@dimen/_5sdp"
         app:cardBackgroundColor="@color/theme_color"
         android:layout_height="wrap_content"

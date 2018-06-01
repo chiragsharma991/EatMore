@@ -6,6 +6,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.dashboard.fragment.order.r_key
 import dk.eatmore.softtech360.dashboard.fragment.order.r_token
+import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.rest.ApiClient
 import dk.eatmore.softtech360.rest.ApiInterface
 import dk.eatmore.softtech360.storage.PreferenceUtil
@@ -15,6 +16,17 @@ import retrofit2.Response
 
 
 class FirebaseInstanceIDService : FirebaseInstanceIdService() {
+
+
+
+
+    companion object {
+        private val TAG = "MyFirebaseIIDService"
+        var shallIsendToken : Boolean = false
+
+    }
+
+
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -27,29 +39,9 @@ class FirebaseInstanceIDService : FirebaseInstanceIdService() {
         Log.e(TAG, "Refreshed token: " + refreshedToken!!)
         PreferenceUtil.putValue(PreferenceUtil.TOKEN, refreshedToken)
         PreferenceUtil.save()
+        shallIsendToken=true
 
-        if(PreferenceUtil.getString(PreferenceUtil.USER_NAME,"") != ""){
-
-            val r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
-            val r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
-            val user_id = PreferenceUtil.getString(PreferenceUtil.USER_ID, "")!!
-            val apiService = ApiClient.getClient()!!.create(ApiInterface::class.java)
-
-            val call = apiService.sendFcmToken(r_token = r_token,r_key = r_key,token = refreshedToken,device_type = "POS",user_id = user_id)
-            call.enqueue(object : Callback<JsonObject> {
-                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    Log.e(TAG,response.toString())
-                }
-
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    // Log error here since request failed
-                    Log.e(TAG, t.toString())
-                }
-            })
-        }
     }
 
-    companion object {
-        private val TAG = "MyFirebaseIIDService"
-    }
+
 }

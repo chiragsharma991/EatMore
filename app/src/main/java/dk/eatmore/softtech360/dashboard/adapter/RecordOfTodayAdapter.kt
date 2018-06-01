@@ -14,6 +14,7 @@ import dk.eatmore.softtech360.dashboard.fragment.order.RecordOfToday
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.model.CustomSearchItem
 import dk.eatmore.softtech360.testing.Test_two.getCalculatedDate
+import dk.eatmore.softtech360.utils.DateCalculation
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_order_list.*
 import java.text.SimpleDateFormat
@@ -30,6 +31,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
     class MyViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
 
+        private var pickup_delivery_time: Long = 0
 
         fun init(msg: CustomSearchItem, mListNewOrder: ArrayList<CustomSearchItem?>, mListAnsweredOrder: ArrayList<CustomSearchItem?>) {
 
@@ -43,8 +45,8 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             } else {
                 row_order_header_txt.text = "Answered Orders (${mListAnsweredOrder.size})"
                 row_order_typebtn.visibility = View.GONE
-            }
-
+            }//            "pickup_delivery_time": "2018-05-10 16:30:00",
+            if(msg.pickup_delivery_time !=null) pickup_delivery_time = DateCalculation.getCalculatedTime(msg.pickup_delivery_time!!, "yyyy-MM-dd HH:mm:ss")
             var mcontext = row_order_no.context
             row_order_no.text = "Order No." + msg.order_id
             row_order_date.text = msg.order_date
@@ -52,7 +54,9 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             row_order_address.text = msg.address
             row_order_distance.text = msg.distance
             row_order_phn.text = "Phone " + msg.contact_no
-            row_order_status.text = msg.order_status
+            row_order_status.text = if (msg.order_status == "Accepted") "Order accepted to be ready at ${SimpleDateFormat("HH:mm").format(pickup_delivery_time)}"
+            else  if (msg.order_status == "Rejected") "${msg.order_status} ${if (msg.reject_reason !=null) ":"+msg.reject_reason else ""}"
+            else msg.order_status
         }
 
 

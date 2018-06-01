@@ -12,13 +12,18 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.dashboard.fragment.order.OrderInfoFragment
 import dk.eatmore.softtech360.dashboard.main.MainActivity
+import dk.eatmore.softtech360.dashboard.main.test
 
 class FirebaseMessagingService : FirebaseMessagingService() {
+
+
 
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
@@ -29,13 +34,20 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             //generateNotification(applicationContext, "" + remoteMessage!!.data["message"])
       //  }
         generateNotification(applicationContext, remoteMessage!!.notification!!.body!!)
+        val intent = Intent(OrderInfoFragment.SWIPE)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+
     }
+
+
+
 
     companion object {
         private val TAG = "MyFirebaseMsgService"
         var CHANEL_ID = "EatMore360"
         var CHANEL_NAME = "EatMoreChanel"
         var CHANEL_DESC = "EatMore Desc"
+
 
         @SuppressLint("WrongConstant")
         fun generateNotification(context: Context, body: String) {

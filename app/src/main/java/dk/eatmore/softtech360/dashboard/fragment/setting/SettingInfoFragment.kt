@@ -1,6 +1,8 @@
 package dk.eatmore.softtech360.dashboard.fragment.setting
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -89,6 +91,7 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
+
         generalToolbar()
         set_reason_view.visibility = View.GONE
         set_general_view.visibility = View.VISIBLE

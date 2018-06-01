@@ -1,7 +1,10 @@
 package dk.eatmore.softtech360.dashboard.fragment.order
 
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -12,11 +15,13 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.BoringLayout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +33,10 @@ import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.R.color.theme_color
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.utils.BaseFragment
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import kotlinx.android.synthetic.main.swipe_cart_item.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,9 +51,9 @@ class OrderInfoFragment : BaseFragment()  {
 
 
     var adapter: ViewPagerAdapter? = null
-    private var count: Int = 1
+    private var count: Int = 0
     private var swipeAdapter: OrderInfoFragment.SwipeAdapter?=null
-
+    val cont : OrderInfoFragment = this
 
     override fun getLayout(): Int {
         return R.layout.fragment_info_order
@@ -61,6 +68,9 @@ class OrderInfoFragment : BaseFragment()  {
 
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
+
+        LocalBroadcastManager.getInstance(context!!).registerReceiver(mMessageReceiver,
+                IntentFilter(SWIPE))
         initToolbar()
         adapter = ViewPagerAdapter(childFragmentManager)
         adapter!!.addFragment(RecordOfToday(), "TODAY")
@@ -69,12 +79,13 @@ class OrderInfoFragment : BaseFragment()  {
         viewpager.offscreenPageLimit=3
         viewpager.setAdapter(adapter)
         tabs.setupWithViewPager(viewpager)
-       // swipeView()
+        swipeView()
+
 
 
     }
 
-    /**@param id  (0 == Record of today) || (7 == Record of 7 days) || (30 == Record of 30 days)
+    /**@param id  (0 == Record of today) || (7 == Record of 7 days) || (30 == Record of 30 days || 100 == Other)
      *
      * */
 
@@ -114,8 +125,9 @@ class OrderInfoFragment : BaseFragment()  {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             if (swipeAdapter != null) {
                 count = 0
-                swipeShow = false
                 swipeAdapter!!.notifyDataSetChanged()
+                performedStatusAction(100)
+
             }
             //Remove swiped item from list and notify the RecyclerView
         }
@@ -132,17 +144,17 @@ class OrderInfoFragment : BaseFragment()  {
                     /* Set your color for positive displacement */
 
                     // Draw Rect with varying right side, equal to displacement dX
-                    c.drawRect(itemView.left.toFloat(), itemView.top.toFloat(), dX,
+                    c.drawRect(itemView.left.toFloat(), itemView.top.toFloat(), 0f,
                             itemView.bottom.toFloat(), p)
                 } else {
                     /* Set your color for negative displacement */
 
                     // Draw Rect with varying left side, equal to the item's right side plus negative displacement dX
-                    c.drawRect(itemView.right.toFloat() + dX, itemView.top.toFloat(),
+                    c.drawRect(itemView.right.toFloat() + 0f, itemView.top.toFloat(),
                             itemView.right.toFloat(), itemView.bottom.toFloat(), p)
                 }
 
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                super.onChildDraw(null, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
         }
     }
@@ -158,7 +170,8 @@ class OrderInfoFragment : BaseFragment()  {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (holder is SwipeHolder) {
-                val vh = holder
+                val vh: SwipeHolder = holder
+
 
             }
         }
@@ -167,14 +180,17 @@ class OrderInfoFragment : BaseFragment()  {
             return count
         }
 
-        inner class SwipeHolder(v: View) : RecyclerView.ViewHolder(v) {
+        inner class SwipeHolder( override val containerView: View?) : RecyclerView.ViewHolder(containerView),LayoutContainer {
 
 
 
             init {
 
-                swipe_card?.setOnClickListener { view ->
-
+                swipe_card_holder?.setOnClickListener { view ->
+                    Log.e("on click","---")
+                    count = 0
+                    swipeAdapter!!.notifyDataSetChanged()
+                    performedStatusAction(100)
 
                 }
 
@@ -202,6 +218,8 @@ class OrderInfoFragment : BaseFragment()  {
     }
 
     companion object {
+
+       val SWIPE = "swipe_function"
        var swipeShow : Boolean =false
         val TAG= "OrderInfoFragment"
         fun newInstance() : OrderInfoFragment {
@@ -209,6 +227,20 @@ class OrderInfoFragment : BaseFragment()  {
         }
 
     }
+
+
+    private val mMessageReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            // Get extra data included in the Intent
+            Log.e("TAG","Brodcast ---")
+            if (swipeAdapter != null) {
+                count = 1
+                swipeAdapter!!.notifyDataSetChanged()
+
+            }
+        }
+    }
+
 
 
     inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
@@ -231,9 +263,16 @@ class OrderInfoFragment : BaseFragment()  {
         override fun getPageTitle(position: Int): CharSequence? {
             return mFragmentTitleList.get(position)
         }
-    }
+
+
+
+
+
 
 
 
 
 }
+}
+
+

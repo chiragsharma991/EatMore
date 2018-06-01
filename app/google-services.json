@@ -1,31 +1,957 @@
 {
   "project_info": {
-    "project_number": "303583420784",
-    "firebase_url": "https://eat-more.firebaseio.com",
-    "project_id": "eat-more",
-    "storage_bucket": "eat-more.appspot.com"
+    "project_number": "426224273980",
+    "firebase_url": "https://ipoint-eb66a.firebaseio.com",
+    "project_id": "ipoint-eb66a",
+    "storage_bucket": "ipoint-eb66a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:303583420784:android:601d34ff2d65e677",
+        "mobilesdk_app_id": "1:426224273980:android:a113dc365c56f592",
         "android_client_info": {
-          "package_name": "dk.eatmore.softtech360"
+          "package_name": "dk.eatmore.buona"
         }
       },
       "oauth_client": [
         {
-          "client_id": "303583420784-mfapk8trm0dlc5jj9bdcsnaaftt2io9c.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "303583420784-mfapk8trm0dlc5jj9bdcsnaaftt2io9c.apps.googleusercontent.com",
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCYhrTnMmIWNnMmdfWRE9S5yWXqApFmZjc"
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:5f6764b64b31f844",
+        "android_client_info": {
+          "package_name": "dk.eatmore.castello"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:6efe2ebcd65fb023",
+        "android_client_info": {
+          "package_name": "dk.eatmore.doro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:db72999314720491",
+        "android_client_info": {
+          "package_name": "dk.eatmore.graasten"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:3c8e9236a1705f62",
+        "android_client_info": {
+          "package_name": "dk.eatmore.hpizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:b89c1dc06a5692b8",
+        "android_client_info": {
+          "package_name": "dk.eatmore.hwpizza6100"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:cb2f867c59075ee8",
+        "android_client_info": {
+          "package_name": "dk.eatmore.king"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:45ad164f91287388",
+        "android_client_info": {
+          "package_name": "dk.eatmore.lbpizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:15a11ddd1a58ac7b",
+        "android_client_info": {
+          "package_name": "dk.eatmore.mama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:f3c1e1e902e40894",
+        "android_client_info": {
+          "package_name": "dk.eatmore.mrk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:1c6281eece23150f",
+        "android_client_info": {
+          "package_name": "dk.eatmore.napolip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:a1740168b5f7d086",
+        "android_client_info": {
+          "package_name": "dk.eatmore.nbpizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:e3f9f74a8127824c",
+        "android_client_info": {
+          "package_name": "dk.eatmore.nonno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:105525380d4a524e",
+        "android_client_info": {
+          "package_name": "dk.eatmore.oasenpizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:7ed8e28552ebd01f",
+        "android_client_info": {
+          "package_name": "dk.eatmore.oliven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:26ec422b11916a0e",
+        "android_client_info": {
+          "package_name": "dk.eatmore.pappas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:2704c9dc4370c85c",
+        "android_client_info": {
+          "package_name": "dk.eatmore.partner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:ed5f19362c9fc20f",
+        "android_client_info": {
+          "package_name": "dk.eatmore.planet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:9fdefc0610495f33",
+        "android_client_info": {
+          "package_name": "dk.eatmore.rkpizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:20ec3e4ec6e3c6e2",
+        "android_client_info": {
+          "package_name": "dk.eatmore.rns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:5a621f90cb93afb9",
+        "android_client_info": {
+          "package_name": "dk.eatmore.rudispizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:f01f6210546baf0d",
+        "android_client_info": {
+          "package_name": "dk.eatmore.sasa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:6c7889392ccaa588",
+        "android_client_info": {
+          "package_name": "dk.eatmore.star"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:8d2decc9b0666f44",
+        "android_client_info": {
+          "package_name": "dk.eatmore.stella"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:de89c7cc494a97cb",
+        "android_client_info": {
+          "package_name": "dk.eatmore.tastyspizza6100"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:0f1fffb7bece929c",
+        "android_client_info": {
+          "package_name": "dk.eatmore.uno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:394976cb7c45165c",
+        "android_client_info": {
+          "package_name": "dk.eatmore.uspizza6100"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:18f9d81ceb0f716c",
+        "android_client_info": {
+          "package_name": "dk.eatmore.venezia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:f0a6db14a2fe1231",
+        "android_client_info": {
+          "package_name": "dk.eatmore.venezia6430"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:8a0549e18e6ebcb7",
+        "android_client_info": {
+          "package_name": "dk.eatmore.viva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426224273980:android:da3f35c20b7b0691",
+        "android_client_info": {
+          "package_name": "dk.eatmore.wokhouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426224273980-7jt5nhqfqfn7s6iork2b4j58g3vg45o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1SKIMByI0iep-Z08AmBEBLurHVPbqtAY"
         }
       ],
       "services": {
