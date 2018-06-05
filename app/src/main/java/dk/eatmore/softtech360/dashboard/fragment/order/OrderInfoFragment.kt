@@ -95,10 +95,21 @@ class OrderInfoFragment : BaseFragment()  {
            (adapter!!.mFragmentList.get(0) as RecordOfToday).callbackRefresh()
            (adapter!!.mFragmentList.get(1) as RecordOfLast7Days).callbackRefresh()
            (adapter!!.mFragmentList.get(2) as RecordOfLast30Days).callbackRefresh()
+           (activity as MainActivity).orderCounter()
 
 
 
     }
+
+   /* private fun initShimmerEffect() {
+        try {
+            val shimmer = Shimmer()
+            shimmer.setDuration(5200).setStartDelay(2000).start(shimmerText)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+
+    }*/
 
 
     private fun swipeView(){
@@ -185,7 +196,6 @@ class OrderInfoFragment : BaseFragment()  {
 
 
             init {
-
                 swipe_card_holder?.setOnClickListener { view ->
                     Log.e("on click","---")
                     count = 0

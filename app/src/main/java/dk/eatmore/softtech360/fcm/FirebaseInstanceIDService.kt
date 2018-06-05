@@ -4,8 +4,6 @@ import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
 import com.google.gson.JsonObject
-import dk.eatmore.softtech360.dashboard.fragment.order.r_key
-import dk.eatmore.softtech360.dashboard.fragment.order.r_token
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.rest.ApiClient
 import dk.eatmore.softtech360.rest.ApiInterface

@@ -26,11 +26,6 @@ import kotlinx.android.synthetic.main.fragment_record_of_last30_days.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import java.text.SimpleDateFormat
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  *
@@ -38,6 +33,8 @@ private const val ARG_PARAM2 = "param2"
 class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
+    var r_key = ""
+    var r_token = ""
     var mListOrder = ArrayList<CustomSearchItem?>()
     val mListNewOrder = ArrayList<CustomSearchItem?>()
     val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
@@ -65,8 +62,8 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
 
-        var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")
-        var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")
+        r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
+        r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
         log(RecordOfToday.TAG, r_key.toString() + " " + r_token.toString())
         view_empty.visibility = View.GONE
         recycler_view_30.visibility = View.VISIBLE

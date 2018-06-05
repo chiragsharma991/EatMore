@@ -165,6 +165,15 @@
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:alpha="0.1"
+                            android:background="@color/border_gray">
+
+                        </View>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -174,11 +183,23 @@
                             >
 
 
+
                         </LinearLayout>
+
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:alpha="0.1"
+                            android:background="@color/border_gray">
+
+                        </View>
+
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
                             android:orientation="vertical"
                             >
                             <LinearLayout
@@ -190,7 +211,6 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/gray"
                                     android:id="@+id/order_detail_subtotal"
                                     android:orientation="horizontal"
                                     >
@@ -204,7 +224,7 @@
                                         android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:gravity="left"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="@string/subtotal"
                                         />
@@ -217,7 +237,7 @@
                                         android:textAppearance="?android:textAppearanceSmall"
                                         android:textColor="@color/black"
                                         android:singleLine="true"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="120"
                                         />
@@ -228,7 +248,6 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/gray"
                                     android:id="@+id/order_detail_ship"
                                     android:orientation="horizontal"
                                     >
@@ -242,7 +261,7 @@
                                         android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:gravity="left"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="@string/shipping"
                                         />
@@ -255,7 +274,7 @@
                                         android:textAppearance="?android:textAppearanceSmall"
                                         android:textColor="@color/black"
                                         android:singleLine="true"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="120"
                                         />
@@ -266,7 +285,6 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/gray"
                                     android:id="@+id/order_detail_additional"
                                     android:orientation="horizontal"
                                     >
@@ -280,7 +298,7 @@
                                         android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:gravity="left"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="@string/additional"
                                         />
@@ -293,7 +311,7 @@
                                         android:textAppearance="?android:textAppearanceSmall"
                                         android:textColor="@color/black"
                                         android:singleLine="true"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="120"
                                         />
@@ -304,7 +322,6 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/gray"
                                     android:id="@+id/order_detail_discount"
                                     android:orientation="horizontal"
                                     >
@@ -318,7 +335,7 @@
                                         android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:gravity="left"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="@string/discount"
                                         />
@@ -331,7 +348,7 @@
                                         android:textAppearance="?android:textAppearanceSmall"
                                         android:textColor="@color/black"
                                         android:singleLine="true"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="normal"
                                         android:text="120"
                                         />
@@ -342,7 +359,6 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/gray"
                                     android:id="@+id/order_detail_total"
                                     android:orientation="horizontal"
                                     >
@@ -356,7 +372,7 @@
                                         android:textColor="@color/black"
                                         android:singleLine="true"
                                         android:gravity="left"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="bold"
                                         android:text="@string/total"
                                         />
@@ -369,7 +385,7 @@
                                         android:textAppearance="?android:textAppearanceSmall"
                                         android:textColor="@color/black"
                                         android:singleLine="true"
-                                        android:padding="@dimen/_10sdp"
+                                        android:padding="@dimen/_8sdp"
                                         android:textStyle="bold"
                                         android:text="120"
                                         />
@@ -380,21 +396,18 @@
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="@dimen/_5sdp"
-                                android:layout_height="match_parent"
-                                android:background="@color/theme_color"
-                                >
-
-                            </View>
-
-
-
 
 
 
 
                         </FrameLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_below="@+id/nav_head_sales"
+                            android:alpha="0.1"
+                            android:background="@color/border_gray"></View>
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/order_detail_fstname"
@@ -458,6 +471,8 @@
                             android:layout_marginTop="@dimen/_8sdp"
                             android:layout_weight="1"
                             android:gravity="left"
+                            android:layout_marginRight="@dimen/_8sdp"
+                            android:layout_marginLeft="@dimen/_8sdp"
                             android:singleLine="true"
                             android:text="Note:"
                             android:textAppearance="?android:textAppearanceSmall"
@@ -468,10 +483,11 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:alpha="0.1"
-                            android:background="@color/border_gray"></View>
+                            android:background="@color/border_gray">
+
+                        </View>
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/order_detail_payment_status"

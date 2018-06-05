@@ -61,6 +61,11 @@
         <meta-data android:name="android.max_aspect" android:value="5.0"/>
 
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="2f8f933e0478200217296aa6be77cce11ccc915e" />
+
+
 
     </application>
 

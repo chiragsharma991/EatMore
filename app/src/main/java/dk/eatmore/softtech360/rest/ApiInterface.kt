@@ -1,6 +1,8 @@
 package dk.eatmore.softtech360.rest
 
 import com.google.gson.JsonObject
+import dk.eatmore.softtech360.dashboard.main.MainActivity
+import dk.eatmore.softtech360.dashboard.main.OrderCounter
 import dk.eatmore.softtech360.model.GetReason
 import dk.eatmore.softtech360.model.Order
 import dk.eatmore.softtech360.model.ProductDetails
@@ -107,4 +109,13 @@ interface ApiInterface {
             @Field("user_id") user_id: String
 
     ): Call<JsonObject>
+
+
+    @FormUrlEncoded
+    @POST("PosOrder/order/order-counter")
+    fun orderCounter(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String
+
+    ): Call<OrderCounter>
 }

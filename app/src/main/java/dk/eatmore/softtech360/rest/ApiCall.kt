@@ -1,6 +1,8 @@
 package dk.eatmore.softtech360.rest
 
 import com.google.gson.JsonObject
+import dk.eatmore.softtech360.dashboard.main.MainActivity
+import dk.eatmore.softtech360.dashboard.main.OrderCounter
 import dk.eatmore.softtech360.model.Order
 import retrofit2.Call
 import dk.eatmore.softtech360.model.GetReason
@@ -57,6 +59,10 @@ class ApiCall {
 
         fun sendFcmToken (r_key: String, r_token: String, fcmToken: String, device_type : String , user_id : String) : Call<JsonObject> {
             return getApiInterface().sendFcmToken(r_token,r_key,fcmToken,device_type,user_id)
+        }
+
+        fun orderCounter (r_key: String, r_token: String) : Call<OrderCounter> {
+            return getApiInterface().orderCounter(r_token,r_key)
         }
     }
 

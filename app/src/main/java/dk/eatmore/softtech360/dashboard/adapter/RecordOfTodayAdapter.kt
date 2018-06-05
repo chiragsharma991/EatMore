@@ -150,12 +150,8 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
                     (fragment as RecordOfLast30Days).performAction(2,mListOrder.get(position)!!)
             }
             R.id.row_order_details -> {
-                if(fragment is RecordOfToday)
-                    (fragment as RecordOfToday).performAction(1,mListOrder.get(position)!!)
-                if(fragment is RecordOfLast7Days)
-                    (fragment as RecordOfLast7Days).performAction(1,mListOrder.get(position)!!)
-                if(fragment is RecordOfLast30Days)
-                    (fragment as RecordOfLast30Days).performAction(1,mListOrder.get(position)!!)
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG)
+
             }
             R.id.row_order_reject -> {
                 if(fragment is RecordOfToday)

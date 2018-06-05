@@ -60,7 +60,7 @@ abstract class BaseActivity : AppCompatActivity()
         }
     }
 
-    fun <T> callAPI(view: View, call: Call<T>, onAliCallInteraction: BaseFragment.OnApiCallInteraction) {
+    fun <T>  callAPI(call: Call<T>, onAliCallInteraction: BaseFragment.OnApiCallInteraction) {
         if (isInternetAvailable()) {
             call.enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -77,6 +77,7 @@ abstract class BaseActivity : AppCompatActivity()
                 }
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
+                    log("on failure","-----"+t.message)
                     onAliCallInteraction.onFail(404)
                 }
             })

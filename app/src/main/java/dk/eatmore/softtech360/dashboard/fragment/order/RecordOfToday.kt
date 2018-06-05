@@ -31,8 +31,7 @@ import kotlin.collections.ArrayList
 // TODO: Rename parameter arguments, choose names that match
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-var r_key = ""
-var r_token = ""
+
 
 
 class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -40,7 +39,8 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     val mListOrder = ArrayList<CustomSearchItem?>()
     val mListNewOrder = ArrayList<CustomSearchItem?>()
     val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
-
+    var r_key = ""
+    var r_token = ""
     var mAdapter: RecordOfTodayAdapter? = null
     val refFragment: RecordOfToday = this
 

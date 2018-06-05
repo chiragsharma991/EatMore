@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
 import dk.eatmore.softtech360.dashboard.fragment.order.RecordOfToday
-import dk.eatmore.softtech360.dashboard.fragment.order.r_key
-import dk.eatmore.softtech360.dashboard.fragment.order.r_token
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.model.GetReason
 import dk.eatmore.softtech360.model.OpeninghoursItem
@@ -33,7 +31,8 @@ import dk.eatmore.softtech360.utils.Custom_data
 
 class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
-
+    var r_key = ""
+    var r_token = ""
 
     override fun onClick(v: View?) {
         reasonToolbar()
@@ -56,7 +55,7 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
                             android.R.layout.simple_list_item_1,
                             listOfreason)
                     list_view.adapter = arrayAdapter
-                    list_view.setOnItemClickListener{ adapterView: AdapterView<*>, view1: View, position: Int, l: Long ->
+                    list_view.setOnItemClickListener{ _: AdapterView<*>, _: View, position: Int, _: Long ->
                         addeditReasonDialog(getString(R.string.edit_reject_reason),
                                 listOfreason.get(position),
                                 list.get(position).or_id,
@@ -108,14 +107,17 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
             if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)){
                 PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,false)
                 PreferenceUtil.save()
+                set_keepscreen_switch.setChecked(false)
                 (activity as MainActivity).keepScreenOn(false)
+                Toast.makeText(context,R.string.wake_lock_off,Toast.LENGTH_SHORT).show()
 
             }
             else {
                 PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,true)
                 PreferenceUtil.save()
+                set_keepscreen_switch.setChecked(true)
                 (activity as MainActivity).keepScreenOn(true)
-
+                Toast.makeText(context,R.string.wake_lock_on,Toast.LENGTH_SHORT).show()
             }
         }
     }

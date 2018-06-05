@@ -33,6 +33,8 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
     val mListOrderDetails = ArrayList<OrderDetails>()
     var customSearchItem : CustomSearchItem? = null
+    private var r_key: String=""
+    private var r_token: String=""
 
     companion object {
         val TAG = "OrderDetails"
@@ -80,6 +82,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
         }
 
     }
+
 
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
@@ -252,7 +255,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                                 view_attribute.row_order_attribute.removeAllViewsInLayout()
                                 val textView = AppCompatTextView(context)
                                 var parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                parms.setMargins(0, 5, 0, 5)
+                                parms.setMargins(0, 0, 0, 8)
                                 textView.gravity = Gravity.LEFT
                                 textView.setSingleLine()
                               //  textView.typeface = Typeface.DEFAULT_BOLD
@@ -262,19 +265,20 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                                 textView.setLayoutParams(parms)
                                 view_attribute.row_order_attribute.addView(textView)
 
-
+/*
                                 // Add divider---
                                 val divider = View(context)
                                 parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1)
                                 divider.alpha = 0.2F
                                 divider.setBackgroundColor(ContextCompat.getColor(context!!,R.color.border_gray))
                                 divider.setLayoutParams(parms)
-                                view_attribute.row_order_attribute.addView(divider)
+                                view_attribute.row_order_attribute.addView(divider)*/
 
 
                                 // Add attribute of sizes---
                                 for (l in 0..data.get(0).order_products_details!!.get(i).ordered_product_attributes!!.get(k).order_product_extra_topping_group!!. size-1){
                                     parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                                    parms.setMargins(0, 0, 0, 8)
                                     val textView = AppCompatTextView(context)
                                     textView.gravity = Gravity.LEFT
                                     textView.setSingleLine()
@@ -304,7 +308,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
                                 val textView = AppCompatTextView(context)
                                 val parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                parms.setMargins(0, 5, 0, 5)
+                                parms.setMargins(0, 0, 0, 8)
                                 textView.gravity = Gravity.LEFT
                                 textView.setSingleLine()
                                 //  textView.typeface = Typeface.DEFAULT_BOLD

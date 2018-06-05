@@ -72,7 +72,7 @@ class LoginActivity : BaseActivity(){
     private fun loginAttempt() {
 
         progress_bar.visibility=View.VISIBLE
-        callAPI(log_login_btn,ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
+        callAPI(ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
 
             override fun <T> onSuccess(body: T?) {
                 progress_bar.visibility= View.GONE
@@ -85,7 +85,7 @@ class LoginActivity : BaseActivity(){
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
                     PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)  // default wakeLock should be ON
                     PreferenceUtil.save()
-                    Custom_data.setWalkLock(true,this@LoginActivity)
+                 //   Custom_data.setWalkLock(true,this@LoginActivity)
                     moveToDashboard()
                 }else{
                     showSnackBar(log_email_edt, json.get("error").asString)

@@ -15,52 +15,47 @@
         android:layout_margin="@dimen/_15sdp"
         android:elevation="@dimen/_5sdp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:padding="5dp">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:id="@+id/row_new_order_label"
-                android:singleLine="true"
-                android:text="@string/new_incoming_order"
-                android:layout_centerHorizontal="true"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:padding="5dp">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_below="@+id/row_new_order_label"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:text="@string/swipe_tab"
-                android:layout_centerHorizontal="true"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:textStyle="normal" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:id="@+id/row_new_order_label"
+                    android:singleLine="true"
+                    android:text="@string/new_incoming_order"
+                    android:layout_centerHorizontal="true"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
-
-
-
-
-
-
-
-
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_below="@+id/row_new_order_label"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:text="@string/swipe_tab"
+                    android:layout_centerHorizontal="true"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textStyle="normal" />
 
 
 
-        </RelativeLayout>
+            </RelativeLayout>
+
+
+
 
 
         <android.support.v7.widget.AppCompatImageView

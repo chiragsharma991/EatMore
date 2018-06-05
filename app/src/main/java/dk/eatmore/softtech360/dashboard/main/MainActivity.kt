@@ -16,17 +16,26 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.WindowManager
+import com.crashlytics.android.Crashlytics
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.DialogUtils
 import dk.eatmore.softtech360.activity.LoginActivity
+import dk.eatmore.softtech360.dashboard.fragment.order.OrderDetails
 import dk.eatmore.softtech360.dashboard.fragment.order.OrderInfoFragment
 import dk.eatmore.softtech360.dashboard.fragment.setting.SettingInfoFragment
 import dk.eatmore.softtech360.fcm.FirebaseInstanceIDService
+import dk.eatmore.softtech360.rest.ApiCall
 import dk.eatmore.softtech360.rest.ApiClient
 import dk.eatmore.softtech360.rest.ApiInterface
+import dk.eatmore.softtech360.utils.BaseFragment
 import dk.eatmore.softtech360.utils.Custom_data
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_info_order.*
+import kotlinx.android.synthetic.main.fragment_settinginfo.*
+import kotlinx.android.synthetic.main.layout_progressbar.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +47,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
 
     var orderInfoFragment = OrderInfoFragment.newInstance()
+    private var r_key: String =""
+    private var r_token: String =""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,6 +107,9 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         nav_main_order.setOnClickListener(this)
         nav_main_setting.setOnClickListener(this)
         nav_main_logout.setOnClickListener(this)
+        r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
+        r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
+
         val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
 
         log(TAG,"refreshedToken= "+refreshedToken)
@@ -115,14 +129,14 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
             }
         }
         sendfcmtocken()
+        orderCounter()
         drawer_layout?.addDrawerListener(mDrawerToggle)
     }
+
 
     private fun sendfcmtocken() {
 
         if(!FirebaseInstanceIDService.shallIsendToken) return
-        val r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
-        val r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
         val user_id = PreferenceUtil.getString(PreferenceUtil.USER_ID, "")!!
         val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
         val apiService = ApiClient.getClient()!!.create(ApiInterface::class.java)
@@ -142,6 +156,47 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
 
     }
+
+      fun orderCounter(){
+
+        callAPI( ApiCall.orderCounter(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+
+            override fun <T> onSuccess(body: T?) {
+                val json= body as OrderCounter  // please be mind you are using jsonobject(Gson)
+
+                if (json.status){
+                    log(TAG, "status is"+json.status)
+                    for (i in 0..json.order_counter!!.size-1){
+                        val obj=json.order_counter.get(i)
+                        when (i){
+                            0 ->{
+                                nav_last_0_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                nav_last_0_txt.text = obj.total_sales+" kr"
+                            }
+                            1 ->{
+                                log(TAG, "position is ---1")
+                                nav_last_7_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                nav_last_7_txt.text = obj.total_sales+" kr"
+                            }
+                            2 ->{
+                                log(TAG, "position is ---2")
+                                nav_last_30_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                nav_last_30_txt.text = obj.total_sales+" kr"
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onFail(error : Int) {
+                log(TAG,"error "+error)
+            }
+        })
+
+
+    }
+
+
 
     override fun onClick(v: View?) {
 
@@ -196,7 +251,6 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 PreferenceUtil.remove(PreferenceUtil.USER_NAME)
                 PreferenceUtil.remove(PreferenceUtil.R_TOKEN)
                 PreferenceUtil.save()
-                Custom_data.setWalkLock(false,this@MainActivity)
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 finish()
@@ -218,6 +272,35 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
             drawer_layout!!.closeDrawer(GravityCompat.START)
         } else {
+            val fragment=this.supportFragmentManager.findFragmentById(R.id.main_container_layout)
+            if(fragment  is OrderInfoFragment ){
+                val selectedPosition=fragment.tabs.selectedTabPosition
+                if(selectedPosition !=0)
+                fragment.tabs.getTabAt(0)!!.select()
+
+            }else if (fragment  is OrderDetails){
+                popWithTag(TAG)
+
+            }
+            else if (fragment  is SettingInfoFragment){
+                if(fragment.set_general_view.visibility == View.VISIBLE) {
+                    popWithTag(TAG)
+                    nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+                    nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                    nav_main_logout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                }
+                else
+                {
+                    fragment.toolbar.menu.clear()
+                    fragment.img_toolbar_back.setImageResource(R.drawable.ic_menu)
+                    fragment.txt_toolbar.text = getString(R.string.settings)
+                    fragment.set_reason_view.visibility = View.GONE
+                    fragment.set_general_view.visibility = View.VISIBLE
+                    fragment.progress_bar.visibility = View.GONE
+                }
+
+
+            }
             /*  var pop = popFragment()
               if (!pop) {
                   if (doubleTapExit) {
@@ -253,9 +336,19 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     }
 
 
+
+
 }
 
-interface test {
-    //  100 > network not foune  : 404 > server error.
-    fun onTest(error : Int)
-}
+
+data class OrderCounter(val order_counter: List<OrderCounterItem>?,
+                        val status: Boolean = false)
+
+
+
+data class OrderCounterItem(val label: String = "",
+                            val total_sales: String = "",
+                            val no_of_orders: String = "")
+
+
+

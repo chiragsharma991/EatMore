@@ -1,5 +1,6 @@
 package dk.eatmore.softtech360.testing;
 
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import com.google.gson.JsonObject;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import dk.eatmore.softtech360.dashboard.fragment.order.OrderInfoFragment;
 import dk.eatmore.softtech360.rest.ApiInterface;
 import dk.eatmore.softtech360.R;
 import retrofit2.Call;

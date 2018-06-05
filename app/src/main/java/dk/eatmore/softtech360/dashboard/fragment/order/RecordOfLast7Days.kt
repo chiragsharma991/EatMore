@@ -41,9 +41,11 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     var mListOrder = ArrayList<CustomSearchItem?>()
     val mListNewOrder = ArrayList<CustomSearchItem?>()
     val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
-
     var mAdapter: RecordOfTodayAdapter? = null
     val refFragment: RecordOfLast7Days = this
+    var r_key = ""
+    var r_token = ""
+
 
     companion object {
         val TAG = "RecordOfLast7Days"
@@ -66,8 +68,8 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
 
-        var r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")
-        var r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")
+        r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
+        r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
         view_empty.visibility = View.GONE
         recycler_view_7.visibility = View.VISIBLE
         swipeRefresh.setOnRefreshListener(this)
