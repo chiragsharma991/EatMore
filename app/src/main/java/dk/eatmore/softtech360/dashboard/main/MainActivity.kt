@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
+import android.view.WindowManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.storage.PreferenceUtil
@@ -55,6 +56,33 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     }
 
+    fun keepScreenOn(result : Boolean){
+        log(TAG,"result ---"+result)
+
+        if(result)
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        else
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        log(TAG,"on start---")
+        if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        log(TAG,"on onPause---")
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+    }
 
     companion object {
         val TAG = "MainActivity"

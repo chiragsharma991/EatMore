@@ -28,7 +28,7 @@ interface ApiInterface {
     fun myOrder(@Body  jsonObject: JsonObject): Call<Order>
 
     @FormUrlEncoded
-    @POST("OrderRejectTemplate/order-reject-template/all_record")
+    @POST("OrderRejectTemplate/order-reject-template/reject-reason-restaurant")
     fun allRecords(
             @Field("r_token") r_token : String ,
             @Field("r_key") r_key: String,

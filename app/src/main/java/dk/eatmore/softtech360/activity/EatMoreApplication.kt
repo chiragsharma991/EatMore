@@ -27,9 +27,6 @@ class EatMoreApplication : Application(), LifeCycleDelegate {
 
     override fun onAppBackgrounded() {
         val deviceLocale = Locale.getDefault().language
-        if(PreferenceUtil.getString(PreferenceUtil.USER_NAME,"")!="")
-        Custom_data.setWalkLock(false,this)
-     //   PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, false)
 
         if (deviceLocale.equals("da")) {
             PreferenceUtil.putValue(PreferenceUtil.LANGUAGE, deviceLocale)
@@ -44,13 +41,6 @@ class EatMoreApplication : Application(), LifeCycleDelegate {
     override fun onAppForegrounded() {
 
         val deviceLocale = Locale.getDefault().language
-        Log.e("Activity life cycle---", "onAppForegrounded=" + deviceLocale)
-
-        if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false) && PreferenceUtil.getString(PreferenceUtil.USER_NAME,"") !="" ){
-            Custom_data.setWalkLock(true,this)
-            PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,true)
-            PreferenceUtil.save()
-        }
 
         if (deviceLocale.equals("da")) {
             PreferenceUtil.putValue(PreferenceUtil.LANGUAGE, deviceLocale)

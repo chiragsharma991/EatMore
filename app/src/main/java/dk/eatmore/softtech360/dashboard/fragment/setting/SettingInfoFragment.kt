@@ -106,16 +106,16 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         set_keepscreen_switch.setChecked(if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)) true else false)
         set_keepscreen_on.setOnClickListener{
             if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)){
-                set_keepscreen_switch.setChecked(false)
-                if(Custom_data.setWalkLock(false,context!!)) Toast.makeText(context,getString(R.string.wake_lock_off), Toast.LENGTH_SHORT).show()
                 PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,false)
                 PreferenceUtil.save()
+                (activity as MainActivity).keepScreenOn(false)
+
             }
             else {
-                set_keepscreen_switch.setChecked(true)
-                if(Custom_data.setWalkLock(true,context!!)) Toast.makeText(context,getString(R.string.wake_lock_on), Toast.LENGTH_SHORT).show()
                 PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,true)
                 PreferenceUtil.save()
+                (activity as MainActivity).keepScreenOn(true)
+
             }
         }
     }

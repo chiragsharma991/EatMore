@@ -26,7 +26,7 @@ object Custom_data {
             Log.e("keep screen ---","true")
 
 
-            wl!!.acquire()
+          //  wl!!.acquire()
             return true
 
         } else {
@@ -34,7 +34,7 @@ object Custom_data {
 
             try {
 
-                wl!!.release()
+            //    wl!!.release()
 
             }catch (e: Exception){
                 Log.e("error",e.message)

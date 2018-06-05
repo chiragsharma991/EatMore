@@ -83,7 +83,7 @@ class LoginActivity : BaseActivity(){
                     PreferenceUtil.putValue(PreferenceUtil.USER_ID, json.getAsJsonObject("user_details").get("id").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
-                    PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)
+                    PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)  // default wakeLock should be ON
                     PreferenceUtil.save()
                     Custom_data.setWalkLock(true,this@LoginActivity)
                     moveToDashboard()
