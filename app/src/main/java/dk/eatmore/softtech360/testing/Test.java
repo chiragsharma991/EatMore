@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
@@ -25,6 +26,7 @@ public class Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         mathmetics();
+        Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
         JsonObject jsonObject=new JsonObject();
         byte[] bytes = new byte[0];
          String text="";

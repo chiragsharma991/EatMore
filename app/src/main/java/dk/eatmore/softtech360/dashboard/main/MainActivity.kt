@@ -25,6 +25,7 @@ import dk.eatmore.softtech360.dashboard.fragment.setting.SettingInfoFragment
 import dk.eatmore.softtech360.fcm.FirebaseInstanceIDService
 import dk.eatmore.softtech360.rest.ApiClient
 import dk.eatmore.softtech360.rest.ApiInterface
+import dk.eatmore.softtech360.utils.Custom_data
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -167,7 +168,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 PreferenceUtil.remove(PreferenceUtil.USER_NAME)
                 PreferenceUtil.remove(PreferenceUtil.R_TOKEN)
                 PreferenceUtil.save()
-
+                Custom_data.setWalkLock(false,this@MainActivity)
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 finish()

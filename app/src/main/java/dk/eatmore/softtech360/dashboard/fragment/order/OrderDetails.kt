@@ -188,10 +188,10 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                     order_detail_req.text = data!!.get(0).requirement
                     order_detail_fstname.text = data!!.get(0).first_name
                     order_detail_address.text = data!!.get(0).address
-                    order_detail_phone.text = "Phone: "+data!!.get(0).telephone_no
-                    order_detail_pre.text = "Previous order: "+data!!.get(0).previous_order
+                    order_detail_phone.text = getString(R.string.phone)+data!!.get(0).telephone_no
+                    order_detail_pre.text = getString(R.string.pre_order)+data!!.get(0).previous_order
                     order_detail_payment_status.text = data!!.get(0).payment_status
-                    order_detail_payment_method.text = if(data!!.get(0).paymethod == "1") "Online payment" else "Cash payment"
+                    order_detail_payment_method.text = if(data!!.get(0).paymethod == "1") getString(R.string.online_payment) else getString(R.string.cash_payment)
                     order_detail_accept.text =  data!!.get(0).order_status
 
                     setPrice(data)
@@ -363,7 +363,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
     private fun initToolbar() {
 
         img_toolbar_back.setImageResource(R.drawable.ic_back)
-        txt_toolbar.text = "Orders"
+        txt_toolbar.text = getString(R.string.orders)
         img_toolbar_back.setOnClickListener{
             log(TAG,"back press:")
             (getActivityBase() as MainActivity).pop()

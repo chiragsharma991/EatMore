@@ -95,7 +95,7 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             timeIntervel += 15
         }
         val borderColor = ContextCompat.getColor(activity!!, R.color.green)
-        createListDialog("Expected Time: ${DateCalculation.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
+        createListDialog("${getString(R.string.expected_time)} ${DateCalculation.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
                 activity, list, borderColor, object : DialogUtils.OnDialogClickListener {
             override fun onNegativeButtonClick() {
             }
@@ -294,14 +294,14 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     mListOrder.addAll(mListAnsweredOrder)
                     // if adapter is true then list should be set.
                     if(setAdapter){
-                        mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment)
+                        mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
                         recycler_view_0.layoutManager = LinearLayoutManager(getActivityBase())
                         recycler_view_0.adapter = mAdapter
                     }else{
                         if(mAdapter != null){
                             mAdapter!!.notifyDataSetChanged()
                         }else{
-                            mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment)
+                            mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
                             recycler_view_0.layoutManager = LinearLayoutManager(getActivityBase())
                             recycler_view_0.adapter = mAdapter
                         }

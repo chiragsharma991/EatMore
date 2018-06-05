@@ -29,7 +29,7 @@
                 android:gravity="left"
                 android:id="@+id/row_new_order_label"
                 android:singleLine="true"
-                android:text="New Incoming Order"
+                android:text="@string/new_incoming_order"
                 android:layout_centerHorizontal="true"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/white"
@@ -44,7 +44,7 @@
                 android:layout_below="@+id/row_new_order_label"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:text="Swipe/Tab to dismiss"
+                android:text="@string/swipe_tab"
                 android:layout_centerHorizontal="true"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textStyle="normal" />

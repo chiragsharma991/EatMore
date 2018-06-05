@@ -18,7 +18,9 @@ interface ApiInterface {
             @Field("username") username: String ,
             @Field("password_hash") password_hash: String,
             @Field("type") type: String,
-            @Field("login_type") login_type: String): Call<JsonObject>
+            @Field("login_type") login_type: String,
+            @Field("language") language: String
+    ): Call<JsonObject>
 
 
     @POST("PosOrder/order/all-orders")
@@ -29,7 +31,9 @@ interface ApiInterface {
     @POST("OrderRejectTemplate/order-reject-template/all_record")
     fun allRecords(
             @Field("r_token") r_token : String ,
-            @Field("r_key") r_key: String
+            @Field("r_key") r_key: String,
+            @Field("language") language: String
+
     ): Call<GetReason>
 
 
@@ -40,7 +44,9 @@ interface ApiInterface {
             @Field("r_key") r_key: String,
             @Field("order_no") order_no: String ,
             @Field("reason") reason: String,
-            @Field("order_status") order_status: String
+            @Field("order_status") order_status: String,
+            @Field("language") language: String
+
     ): Call<JsonObject>
 
     @FormUrlEncoded
@@ -50,7 +56,9 @@ interface ApiInterface {
             @Field("r_key") r_key: String,
             @Field("order_no") order_no: String ,
             @Field("pickup_delivery_time") pickup_delivery_time: String,
-            @Field("order_status") order_status: String
+            @Field("order_status") order_status: String,
+            @Field("language") language: String
+
     ): Call<JsonObject>
 
 
@@ -60,7 +68,9 @@ interface ApiInterface {
             @Field("r_token") r_token: String ,
             @Field("r_key") r_key: String,
             @Field("reason") reason: String ,
-            @Field("action_by") action_by: String
+            @Field("action_by") action_by: String,
+            @Field("language") language: String
+
     ): Call<JsonObject>
 
 
@@ -71,7 +81,9 @@ interface ApiInterface {
             @Field("r_key") r_key: String,
             @Field("reason") reason: String ,
             @Field("action_by") action_by: String,  // user id
-            @Field("or_id") or_id: String
+            @Field("or_id") or_id: String,
+            @Field("language") language: String
+
     ): Call<JsonObject>
 
 
@@ -80,7 +92,9 @@ interface ApiInterface {
     fun viewRecords(
             @Field("r_token") r_token: String ,
                 @Field("r_key") r_key: String,
-            @Field("order_no") reason: String
+            @Field("order_no") reason: String,
+            @Field("language") language: String
+
     ): Call<ProductDetails>
 
     @FormUrlEncoded
@@ -91,5 +105,6 @@ interface ApiInterface {
             @Field("token") token: String,
             @Field("device_type") device_type: String,
             @Field("user_id") user_id: String
+
     ): Call<JsonObject>
 }

@@ -16,8 +16,10 @@ import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.rest.ApiCall
 import dk.eatmore.softtech360.rest.ApiClient
 import dk.eatmore.softtech360.storage.PreferenceUtil
+import dk.eatmore.softtech360.utils.AppLifecycleHandler
 import dk.eatmore.softtech360.utils.BaseActivity
 import dk.eatmore.softtech360.utils.BaseFragment
+import dk.eatmore.softtech360.utils.Custom_data
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
@@ -35,6 +37,7 @@ class LoginActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         init(savedInstanceState)
+
     }
 
     companion object {
@@ -80,7 +83,9 @@ class LoginActivity : BaseActivity(){
                     PreferenceUtil.putValue(PreferenceUtil.USER_ID, json.getAsJsonObject("user_details").get("id").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)
                     PreferenceUtil.save()
+                    Custom_data.setWalkLock(true,this@LoginActivity)
                     moveToDashboard()
                 }else{
                     showSnackBar(log_email_edt, json.get("error").asString)

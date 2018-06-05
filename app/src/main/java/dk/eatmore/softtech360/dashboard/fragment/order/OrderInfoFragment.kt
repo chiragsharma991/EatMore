@@ -73,9 +73,9 @@ class OrderInfoFragment : BaseFragment()  {
                 IntentFilter(SWIPE))
         initToolbar()
         adapter = ViewPagerAdapter(childFragmentManager)
-        adapter!!.addFragment(RecordOfToday(), "TODAY")
-        adapter!!.addFragment(RecordOfLast7Days(), "LAST 7 DAYS")
-        adapter!!.addFragment(RecordOfLast30Days(), "LAST 30 DAYS")
+        adapter!!.addFragment(RecordOfToday(), getString(R.string.today))
+        adapter!!.addFragment(RecordOfLast7Days(), getString(R.string.last_7_days))
+        adapter!!.addFragment(RecordOfLast30Days(), getString(R.string.last_30_days))
         viewpager.offscreenPageLimit=3
         viewpager.setAdapter(adapter)
         tabs.setupWithViewPager(viewpager)
@@ -202,7 +202,7 @@ class OrderInfoFragment : BaseFragment()  {
 
     private fun initToolbar() {
         progress_bar_toolbarView.visibility =View.GONE
-        txt_toolbar.text = "My Orders"
+        txt_toolbar.text = getString(R.string.my_orders)
         img_toolbar_back.setOnClickListener {
             var mainActivity = getActivityBase() as MainActivity
             mainActivity.isOpenDrawer(true)

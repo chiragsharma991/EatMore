@@ -24,9 +24,15 @@ import kotlinx.android.synthetic.main.fragment_settinginfo.*
 import kotlinx.android.synthetic.main.layout_comment_box.view.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import android.widget.CompoundButton
+import android.os.PowerManager
+import android.content.Context.POWER_SERVICE
+import android.widget.Toast
+import dk.eatmore.softtech360.utils.Custom_data
 
 
 class SettingInfoFragment : BaseFragment(), View.OnClickListener {
+
 
 
     override fun onClick(v: View?) {
@@ -97,9 +103,21 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         set_general_view.visibility = View.VISIBLE
         progress_bar.visibility = View.GONE
         set_reject_view.setOnClickListener(this)
-
-
-
+        set_keepscreen_switch.setChecked(if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)) true else false)
+        set_keepscreen_on.setOnClickListener{
+            if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)){
+                set_keepscreen_switch.setChecked(false)
+                if(Custom_data.setWalkLock(false,context!!)) Toast.makeText(context,getString(R.string.wake_lock_off), Toast.LENGTH_SHORT).show()
+                PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,false)
+                PreferenceUtil.save()
+            }
+            else {
+                set_keepscreen_switch.setChecked(true)
+                if(Custom_data.setWalkLock(true,context!!)) Toast.makeText(context,getString(R.string.wake_lock_on), Toast.LENGTH_SHORT).show()
+                PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,true)
+                PreferenceUtil.save()
+            }
+        }
     }
 
     companion object {
@@ -107,6 +125,8 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         fun newInstance() : SettingInfoFragment {
             return SettingInfoFragment()
         }
+
+
     }
 
 
@@ -117,7 +137,7 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
       //  toolbar.removeAllViewsInLayout()
         img_toolbar_back.setImageResource(R.drawable.ic_menu)
-        txt_toolbar.text = "Settings"
+        txt_toolbar.text = getString(R.string.settings)
         img_toolbar_back.setOnClickListener {
 
             if( set_general_view.visibility == View.VISIBLE){
@@ -126,7 +146,7 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
             }else{
                 toolbar.menu.clear()
                 img_toolbar_back.setImageResource(R.drawable.ic_menu)
-                txt_toolbar.text = "Settings"
+                txt_toolbar.text = getString(R.string.settings)
                 set_reason_view.visibility = View.GONE
                 set_general_view.visibility = View.VISIBLE
                 progress_bar.visibility = View.GONE
@@ -143,12 +163,12 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
     private fun reasonToolbar() {
         toolbar.inflateMenu(R.menu.add_reason)
-        txt_toolbar.text = "Reject Reasons"
+        txt_toolbar.text = getString(R.string.reject_reasons)
         img_toolbar_back.setImageResource(R.drawable.ic_back)
         toolbar.setOnMenuItemClickListener { item ->
             when(item.itemId){
                 R.id.action_add -> {
-                    addeditReasonDialog(getString(R.string.add_reject_reason), "","", "ADD")
+                    addeditReasonDialog(getString(R.string.add_reject_reason), "","", getString(R.string.add))
                 }
             }
             true

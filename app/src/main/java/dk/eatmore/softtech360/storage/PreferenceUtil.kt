@@ -139,6 +139,8 @@ object PreferenceUtil {
     val R_TOKEN = "r_token"
     val R_KEY = "r_key"
     val TOKEN = "token"
+    val LANGUAGE = "language"
+    val KEEP_SCREEN_ON = "keep_screen_on"
 
 
 }

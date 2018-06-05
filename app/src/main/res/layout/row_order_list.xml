@@ -126,7 +126,7 @@
                     android:id="@+id/row_order_distancelbl"
                     android:gravity="right"
                     android:singleLine="true"
-                    android:text="Distance"
+                    android:text="@string/distance"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/black"
                     android:textStyle="normal" />

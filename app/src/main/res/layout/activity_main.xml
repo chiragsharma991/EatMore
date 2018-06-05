@@ -258,7 +258,7 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Orders"
+                                android:text="@string/orders"
                                 android:textAppearance="?android:textAppearanceMedium"
                                 android:id="@+id/nav_txt_order"
                                 android:textColor="@color/white"
@@ -283,7 +283,7 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Settings"
+                                android:text="@string/settings"
                                 android:textAppearance="?android:textAppearanceMedium"
                                 android:id="@+id/nav_txt_setting"
                                 android:textColor="@color/white" />
@@ -306,7 +306,7 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Logout"
+                                android:text="@string/logout"
                                 android:textAppearance="?android:textAppearanceMedium"
                                 android:id="@+id/nav_txt_logout"
                                 android:textColor="@color/white" />
