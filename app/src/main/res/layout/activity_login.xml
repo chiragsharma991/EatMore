@@ -70,6 +70,7 @@
                             android:singleLine="true"
                             android:background="@android:color/white" />
 
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -118,7 +119,7 @@
                             android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/round_corner_green_solid"
+                            android:background="@drawable/round_corner_primary_solid"
                             android:padding="@dimen/_10sdp"
                             android:text="@string/sign_up"
                             android:textStyle="normal"
@@ -133,7 +134,7 @@
                             android:foreground="?android:attr/selectableItemBackground"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@drawable/round_corner_primary_solid"
+                            android:background="@drawable/round_corner_green_solid"
                             android:padding="@dimen/_10sdp"
                             android:layout_marginLeft="@dimen/_4sdp"
                             android:text="@string/login"
@@ -208,6 +209,40 @@
                                     />-->
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:id="@+id/log_service_call_view"
+                >
+                <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:singleLine="true"
+                android:text="@string/customer_service_call"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textStyle="normal" />
+
+                <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:singleLine="true"
+                android:text="+45 88 82 65 43"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/theme_color"
+                android:textStyle="normal" />
+
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
 

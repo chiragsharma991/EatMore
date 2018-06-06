@@ -53,7 +53,6 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
 
     fun callbackRefresh() {
-        log(TAG, "callbackRefresh---")
         fetchOrders(false)
 
 
@@ -95,6 +94,8 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             timeIntervel += 15
         }
         val borderColor = ContextCompat.getColor(activity!!, R.color.green)
+
+
         createListDialog("${getString(R.string.expected_time)} ${DateCalculation.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
                 activity, list, borderColor, object : DialogUtils.OnDialogClickListener {
             override fun onNegativeButtonClick() {
@@ -117,8 +118,10 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                 if (json.get("status").asBoolean) {
                                     val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
                                  //   if(userVisibleHint) showSnackBar(result)
+                                    showSnackBar(result)
                                     (parentFragment as OrderInfoFragment).performedStatusAction(0)
                                     // this condition is from details screen only (just finish fragment)
+
                                     val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
                                     if(fragment !=null){
                                         (getActivityBase() as MainActivity).pop()
@@ -277,16 +280,16 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                         if (item.order_status == "Pending Restaurant" || item.order_status == "Pending Opening Restaurant") {
                             // new order list
                             if (!chekifAnyHeader(mListNewOrder)) {
-                                item.headerType = "mListNewOrder"
                                 item.showOrderHeader = true
                             }
+                            item.headerType = "mListNewOrder"
                             mListNewOrder.add(item)
                         } else {
                             // answered order list
                             if (!chekifAnyHeader(mListAnsweredOrder)) {
-                                item.headerType = "mListAnsweredOrder"
                                 item.showOrderHeader = true
                             }
+                            item.headerType = "mListAnsweredOrder"
                             mListAnsweredOrder.add(item)
                         }
                     }

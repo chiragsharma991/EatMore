@@ -26,7 +26,7 @@
     <string name="save">Gem</string>
     <string name="accept">Acceptere</string>
     <string name="cancel">Fortryd</string>
-    <string name="reject">Afvis</string>
+    <string name="reject">Afvist</string>
     <string name="details">Detaljer</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="action_settings">Indstilling</string>
@@ -38,7 +38,7 @@
     <string name="last_7_days">7 dage</string>
     <string name="last_30_days">30 dage</string>
     <string name="my_orders">Ordrer</string>
-    <string name="phone">Tlf.</string>
+    <string name="phone">Tlf. </string>
     <string name="pre_order">Tidligere ordrer:</string>
     <string name="online_payment">Online betaling</string>
     <string name="cash_payment">Kontant betaling</string>
@@ -61,6 +61,12 @@
     <string name="wake_lock_on">Aktiveret</string>
     <string name="wake_lock_off">Deaktiveret</string>
     <string name="general">Generelt</string>
+    <string name="nav_today">I dag:</string>
+    <string name="nav_last7">7 dage:</string>
+    <string name="nav_30days">30 dage:</string>
+    <string name="permission_granted">Tilladelse givet</string>
+    <string name="permission_denied">Adgang nægtet</string>
+    <string name="customer_service_call">Kundeservice ring:&#160;</string>
 
 
 </resources>

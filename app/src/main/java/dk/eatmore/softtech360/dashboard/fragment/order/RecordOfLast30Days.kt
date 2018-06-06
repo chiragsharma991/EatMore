@@ -101,16 +101,16 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
                         if (item.order_status == "Pending Restaurant" || item.order_status == "Pending Opening Restaurant") {
                             // new order list
                             if (!chekifAnyHeader(mListNewOrder)) {
-                                item.headerType = "mListNewOrder"
                                 item.showOrderHeader = true
                             }
+                            item.headerType = "mListNewOrder"
                             mListNewOrder.add(item)
                         } else {
                             // answered order list
                             if (!chekifAnyHeader(mListAnsweredOrder)) {
-                                item.headerType = "mListAnsweredOrder"
                                 item.showOrderHeader = true
                             }
+                            item.headerType = "mListAnsweredOrder"
                             mListAnsweredOrder.add(item)
                         }
                     }

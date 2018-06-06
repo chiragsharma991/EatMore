@@ -61,7 +61,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             row_order_distance.text = msg.distance
             row_order_phn.text = "${context.getString(R.string.phone)} " + msg.contact_no
             row_order_status.text = if (msg.order_status == "Accepted") "${context.getString(R.string.order_accept_txt)} ${SimpleDateFormat("HH:mm").format(pickup_delivery_time)}"
-            else  if (msg.order_status == "Rejected") "${msg.order_status} ${if (msg.reject_reason !=null) ":"+msg.reject_reason else ""}"
+            else  if (msg.order_status == "Rejected") "${R.string.reject} ${if (msg.reject_reason !=null) ":"+msg.reject_reason else ""}"
             else msg.order_status
         }
 

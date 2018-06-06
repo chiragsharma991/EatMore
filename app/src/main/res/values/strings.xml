@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Eat-More</string>
-
-
     <string name="please_wait">Please Wait...</string>
     <string name="internet_not_available">Please check internet connection</string>
     <string name="no_data_available">No data available!</string>
@@ -38,7 +36,7 @@
     <string name="last_7_days">LAST 7 DAYS</string>
     <string name="last_30_days">LAST 30 DAYS</string>
     <string name="my_orders">My Orders</string>
-    <string name="phone">Phone:</string>
+    <string name="phone">Phone: </string>
     <string name="pre_order">Previous order:</string>
     <string name="online_payment">Online payment</string>
     <string name="cash_payment">Cash payment</string>
@@ -61,6 +59,12 @@
     <string name="wake_lock_on">Wake Lock has been On</string>
     <string name="wake_lock_off">Wake Lock has been Off</string>
     <string name="general">General</string>
+    <string name="nav_today">Today:</string>
+    <string name="nav_last7">Last 7 days:</string>
+    <string name="nav_30days">Last 30 days:</string>
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="customer_service_call">Customer service call:&#160;</string>
 
 
 </resources>

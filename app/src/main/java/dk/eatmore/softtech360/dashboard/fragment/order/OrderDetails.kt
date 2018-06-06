@@ -1,6 +1,10 @@
 package dk.eatmore.softtech360.dashboard.fragment.order
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import dk.eatmore.softtech360.R
@@ -20,11 +24,21 @@ import kotlinx.android.synthetic.main.row_order_ingradient.view.*
 import kotlinx.android.synthetic.main.row_order_product.view.*
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import dk.eatmore.softtech360.model.DataItem
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.row_order_attribute.view.*
+import android.widget.Toast
+import android.content.pm.PackageManager
+
+
 
 
 class  OrderDetails : BaseFragment(), View.OnClickListener {
@@ -38,6 +52,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
     companion object {
         val TAG = "OrderDetails"
+        var phone=""
         fun newInstance(customItems : CustomSearchItem): OrderDetails{
 
             val arg = Bundle()
@@ -46,11 +61,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
             fragment.arguments=arg
             return fragment
         }
-
-
         }
-
-
 
     override fun getLayout(): Int {
         return R.layout.fragment_order_details
@@ -91,6 +102,8 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
         customSearchItem = arguments?.getSerializable("MODEL") as CustomSearchItem
         initToolbar()
         fetchOrders(false, r_key, r_token,customSearchItem!!.order_id)
+
+
 
     }
 
@@ -165,6 +178,35 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
     }
 
+    val clickableSpan = object : ClickableSpan() {
+        var dialog : AlertDialog? = null
+        override fun onClick(textView: View) {
+            Log.e(TAG, "onClick:--- ")
+            dialog = AlertDialog.Builder(activity).setMessage("Do you want to call ${phone}").setCancelable(true).setPositiveButton("yes") { dialogInterface, i ->
+                if(isPermissionGranted()){
+                    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone.trim({ it <= ' ' })))
+                    startActivity(intent)
+                }
+            }.setNegativeButton("no") { dialogInterface, i -> dialog!!.dismiss() }.show()
+        }
+
+        override fun updateDrawState(ds: TextPaint) {
+            //
+            super.updateDrawState(ds)
+            ds.isUnderlineText = true
+            //                ds.setColor(getResources().getColor(R.color.orange));
+            try {
+                val colour = ContextCompat.getColor(context!!, R.color.dark_blue)
+                ds.color = colour
+            } catch (e: Exception) {
+                Log.e(TAG, "updateDrawState: error " + e.message)
+            }
+
+        }
+    }
+
+
+
 
     private fun fetchOrders(b: Boolean, r_key: String, r_token: String, order_id: String) {
         progress_bar.visibility = View.VISIBLE
@@ -196,9 +238,13 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                     order_detail_payment_status.text = data!!.get(0).payment_status
                     order_detail_payment_method.text = if(data!!.get(0).paymethod == "1") getString(R.string.online_payment) else getString(R.string.cash_payment)
                     order_detail_accept.text =  data!!.get(0).order_status
-
                     setPrice(data)
                     order_detail_dynamic_container.removeAllViews()
+                    phone= getString(R.string.phone)+data!!.get(0).telephone_no
+                    val span = SpannableString(phone)
+                    span.setSpan(clickableSpan, 6 , phone.trim({ it <= ' ' }).length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    order_detail_phone.text=span
+                    order_detail_phone.movementMethod = LinkMovementMethod.getInstance()
 
 
                     /**

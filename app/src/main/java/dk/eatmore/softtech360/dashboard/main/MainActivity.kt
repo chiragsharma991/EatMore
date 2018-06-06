@@ -1,9 +1,12 @@
 package dk.eatmore.softtech360.dashboard.main
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
@@ -16,9 +19,11 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.JsonObject
+import dk.eatmore.softtech360.R.string.phone
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.DialogUtils
 import dk.eatmore.softtech360.activity.LoginActivity
@@ -49,6 +54,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     var orderInfoFragment = OrderInfoFragment.newInstance()
     private var r_key: String =""
     private var r_token: String =""
+    private var restaurant_name: String =""
+    private var user_name: String =""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +75,6 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     }
 
     fun keepScreenOn(result : Boolean){
-        log(TAG,"result ---"+result)
 
         if(result)
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -109,10 +115,12 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         nav_main_logout.setOnClickListener(this)
         r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
         r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
-
+        restaurant_name = PreferenceUtil.getString(PreferenceUtil.RESTAURANT_NAME, "")!!
+        user_name = PreferenceUtil.getString(PreferenceUtil.USER_NAME, "")!!
         val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
 
-        log(TAG,"refreshedToken= "+refreshedToken)
+        nav_txt_name.text=user_name
+        nav_txt_rest.text=restaurant_name
 
         supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.TAG).addToBackStack(TAG).commit()
         var mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, null, R.string.app_name, R.string.app_name) {
@@ -157,6 +165,25 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     }
 
+    @SuppressLint("MissingPermission")
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            1 -> {
+
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + OrderDetails.phone.trim({ it <= ' ' })))
+                    startActivity(intent)
+                //    Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+        }
+
+    }
+
       fun orderCounter(){
 
         callAPI( ApiCall.orderCounter(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
@@ -170,17 +197,15 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                         val obj=json.order_counter.get(i)
                         when (i){
                             0 ->{
-                                nav_last_0_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                //nav_last_0_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
                                 nav_last_0_txt.text = obj.total_sales+" kr"
                             }
                             1 ->{
-                                log(TAG, "position is ---1")
-                                nav_last_7_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                              //  nav_last_7_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
                                 nav_last_7_txt.text = obj.total_sales+" kr"
                             }
                             2 ->{
-                                log(TAG, "position is ---2")
-                                nav_last_30_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                //nav_last_30_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
                                 nav_last_30_txt.text = obj.total_sales+" kr"
                             }
                         }

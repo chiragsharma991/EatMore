@@ -1,5 +1,6 @@
 package dk.eatmore.softtech360.utils
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
@@ -22,6 +23,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import android.Manifest.permission.CALL_PHONE
+import android.support.v4.app.ActivityCompat
+import android.content.pm.PackageManager
+import android.os.Build
+
+
 
 abstract class BaseFragment : Fragment() {
 
@@ -55,6 +62,19 @@ abstract class BaseFragment : Fragment() {
     fun addFragment(container: Int, fragment: Fragment, tag: String) {
         hideKeyboard()
         childFragmentManager.beginTransaction().add(container, fragment, tag).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).addToBackStack(tag).commit()
+    }
+
+    fun isPermissionGranted(): Boolean {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (context!!.checkSelfPermission(android.Manifest.permission.CALL_PHONE) === PackageManager.PERMISSION_GRANTED) {
+                return true
+            } else {
+                ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.CALL_PHONE), 1)
+                return false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            return true
+        }
     }
 
     fun popFragment(): Boolean {

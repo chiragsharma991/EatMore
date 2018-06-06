@@ -27,7 +27,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        Log.e("remote message","---")
       //  if (remoteMessage!!.data.isNotEmpty()) {
           //  Log.e(TAG, ""+remoteMessage!!.data)
             //{full_name=Jhon Smith, user_id=75, id=165, type=card_favourite, title=BUSINESS CARD, message=Jhon Smith added your card as favourite}

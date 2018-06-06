@@ -125,7 +125,7 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Today Sales:"
+                                android:text="@string/nav_today"
                                 android:singleLine="true"
                                 android:id="@+id/nav_last_0_lbl"
                                 android:layout_weight="1"
@@ -164,7 +164,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/nav_last_7_lbl"
-                                android:text="Last 7 days Sales:"
+                                android:text="@string/nav_last7"
                                 android:singleLine="true"
                                 android:layout_weight="1"
                                 android:gravity="left"
@@ -201,7 +201,7 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Last 30 days Sales:"
+                                android:text="@string/nav_30days"
                                 android:id="@+id/nav_last_30_lbl"
                                 android:layout_weight="1"
                                 android:gravity="left"

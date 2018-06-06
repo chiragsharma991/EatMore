@@ -74,9 +74,13 @@ object DialogUtils {
         for (i in 0..list.size-1){
             arrayAdapter.add(list.get(i))
         }
-        builderSingle.setNegativeButton("cancel") { dialog, which -> dialog.dismiss() }
+        builderSingle.setNegativeButton(R.string.cancel) { dialog, which -> dialog.dismiss() }
         builderSingle.setAdapter(arrayAdapter) { dialog, position ->
-            val strName = arrayAdapter.getItem(position)
+
+            dialog.dismiss ()
+            onDialogClickListener.onPositiveButtonClick(position)
+
+           /* val strName = arrayAdapter.getItem(position)
             val builderInner = AlertDialog.Builder(activity!!)
             builderInner.setMessage(strName)
             builderInner.setTitle("Selected reason is:")
@@ -84,7 +88,7 @@ object DialogUtils {
                 dialog.dismiss ()
                 onDialogClickListener.onPositiveButtonClick(position)
             }
-            builderInner.show()
+            builderInner.show()*/
         }
         builderSingle.show()
 

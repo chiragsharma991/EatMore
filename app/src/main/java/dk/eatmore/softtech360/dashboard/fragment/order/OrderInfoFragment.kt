@@ -197,7 +197,6 @@ class OrderInfoFragment : BaseFragment()  {
 
             init {
                 swipe_card_holder?.setOnClickListener { view ->
-                    Log.e("on click","---")
                     count = 0
                     swipeAdapter!!.notifyDataSetChanged()
                     performedStatusAction(100)
@@ -242,7 +241,6 @@ class OrderInfoFragment : BaseFragment()  {
     private val mMessageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             // Get extra data included in the Intent
-            Log.e("TAG","Brodcast ---")
             if (swipeAdapter != null) {
                 count = 1
                 swipeAdapter!!.notifyDataSetChanged()

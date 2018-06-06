@@ -1,17 +1,23 @@
 package dk.eatmore.softtech360.activity
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.PersistableBundle
 import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
+import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eatmore.softtech360.R
+import dk.eatmore.softtech360.dashboard.fragment.order.OrderDetails
 import dk.eatmore.softtech360.dashboard.main.MainActivity
 import dk.eatmore.softtech360.rest.ApiCall
 import dk.eatmore.softtech360.rest.ApiClient
@@ -31,13 +37,15 @@ class LoginActivity : BaseActivity(){
 
 
 
+    private var edit: EditText? = null
+
+    private var dialog: AlertDialog? =null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         init(savedInstanceState)
-
     }
 
     companion object {
@@ -48,9 +56,9 @@ class LoginActivity : BaseActivity(){
         }
     }
 
-    private var edit: EditText? = null
 
-     fun init(savedInstancedState: Bundle?) {
+    @SuppressLint("MissingPermission")
+    fun init(savedInstancedState: Bundle?) {
 
         fullScreen()
         progress_bar.visibility = View.GONE
@@ -66,6 +74,35 @@ class LoginActivity : BaseActivity(){
             startActivity(i)
         }
 
+         log_service_call_view.setOnClickListener{
+
+             dialog = AlertDialog.Builder(this).setMessage("Do you want to call +45 88 82 65 43").setCancelable(true).setPositiveButton("yes") { dialogInterface, i ->
+                 if(isPermissionGranted()){
+                     val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4588826543"))
+                     startActivity(intent)
+                 }
+             }.setNegativeButton("no") { dialogInterface, i -> dialog!!.dismiss() }.show()
+         }
+
+
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            1 -> {
+
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "4588826543"))
+                    startActivity(intent)
+                  //  Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+        }
 
     }
 
@@ -83,6 +120,7 @@ class LoginActivity : BaseActivity(){
                     PreferenceUtil.putValue(PreferenceUtil.USER_ID, json.getAsJsonObject("user_details").get("id").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.RESTAURANT_NAME, ""+json.getAsJsonObject("user_details").getAsJsonArray("restaurant_details").get(0).asJsonObject.get("restaurant_name"))
                     PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)  // default wakeLock should be ON
                     PreferenceUtil.save()
                  //   Custom_data.setWalkLock(true,this@LoginActivity)
