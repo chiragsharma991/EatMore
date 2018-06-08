@@ -12,547 +12,61 @@
         android:background="?android:colorBackground"
         android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar"></include>
-    <include layout="@layout/layout_progressbar"/>
+        <include layout="@layout/layout_toolbar"></include>
+
+        <include layout="@layout/layout_progressbar" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        android:id="@+id/order_detail_view"
-        android:orientation="vertical">
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/order_detail_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-            >
-            <android.support.v4.widget.NestedScrollView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:fillViewport="true"
-                android:layout_above="@+id/row_order_typebtn"
+                android:layout_height="wrap_content"
 
                 >
 
-                <LinearLayout
+                <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_above="@+id/row_order_typebtn"
+                    android:clipToPadding="false"
+                    android:fillViewport="true"
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/order_detail_img"
-                        android:layout_width="@dimen/_200sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:layout_height="@dimen/_100sdp"
-                        app:srcCompat="@drawable/logo_light"
-
-                        />
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="2018-05-09 13:49:49"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Order No: 1522"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray"></View>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_rest"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Ros Sondeborg"
-                            android:textAppearance="?android:textAppearanceMedium"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray"></View>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:id="@+id/order_detail_shipping"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Pick up"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="@string/expected_time"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_expt_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="2018-05-09 13:49:49"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/order_detail_req"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="asap"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray">
-
-                        </View>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:orientation="vertical"
-                            android:id="@+id/order_detail_dynamic_container"
-                            >
-
-
-
-                        </LinearLayout>
-
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray">
-
-                        </View>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            >
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_marginBottom="@dimen/_8sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
-                                android:layout_marginLeft="@dimen/_8sdp"
-                                >
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/order_detail_subtotal"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="@dimen/_8sdp"
-                                    >
-
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:gravity="left"
-                                        android:textStyle="normal"
-                                        android:text="@string/subtotal"
-                                        />
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:id="@+id/order_detail_subtotal_txt"
-                                        android:layout_weight="1"
-                                        android:gravity="right"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:textStyle="normal"
-                                        android:text="120"
-                                        />
-
-
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/order_detail_ship"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="@dimen/_8sdp"
-                                    >
-
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:gravity="left"
-                                        android:textStyle="normal"
-                                        android:text="@string/shipping"
-                                        />
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:id="@+id/row_order_ship_txt"
-                                        android:layout_weight="1"
-                                        android:gravity="right"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:textStyle="normal"
-                                        android:text="120"
-                                        />
-
-
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/order_detail_additional"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="@dimen/_8sdp"
-                                    >
-
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:gravity="left"
-                                        android:textStyle="normal"
-                                        android:text="@string/additional"
-                                        />
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:id="@+id/row_order_additional_txt"
-                                        android:layout_weight="1"
-                                        android:gravity="right"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:textStyle="normal"
-                                        android:text="120"
-                                        />
-
-
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/order_detail_discount"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="@dimen/_8sdp"
-                                    >
-
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:gravity="left"
-                                        android:textStyle="normal"
-                                        android:text="@string/discount"
-                                        />
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:id="@+id/row_order_discount_txt"
-                                        android:layout_weight="1"
-                                        android:gravity="right"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:textStyle="normal"
-                                        android:text="120"
-                                        />
-
-
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/order_detail_total"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="@dimen/_8sdp"
-                                    >
-
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:gravity="left"
-                                        android:textStyle="bold"
-                                        android:text="@string/total"
-                                        />
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:id="@+id/order_detail_total_txt"
-                                        android:layout_weight="1"
-                                        android:gravity="right"
-                                        android:textAppearance="?android:textAppearanceSmall"
-                                        android:textColor="@color/black"
-                                        android:singleLine="true"
-                                        android:textStyle="bold"
-                                        android:text="120"
-                                        />
-
-
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-
-
-
-
-                        </FrameLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray"></View>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_fstname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Chirag suthar"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Mollegade 1, 6400 Sonderborg"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Phone: 7506558479"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_pre"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Previous order: 5"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_shipping_remark"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:text="Note:"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray">
-
-                        </View>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_payment_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="left"
-                            android:singleLine="true"
-                            android:text="Not Paid"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/order_detail_payment_method"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:text="Kontant payment"
-                            android:textAppearance="?android:textAppearanceSmall"
-                            android:textColor="@color/black"
-                            android:textStyle="normal" />
-
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:alpha="0.1"
-                            android:background="@color/border_gray"></View>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/order_detail_img"
+                            android:layout_width="@dimen/_200sdp"
+                            android:layout_height="@dimen/_100sdp"
                             android:layout_marginBottom="@dimen/_8sdp"
-                            android:layout_marginRight="@dimen/_8sdp"
-                            android:layout_marginLeft="@dimen/_8sdp"
-                            android:orientation="vertical"
-                            >
+                            android:layout_marginTop="@dimen/_8sdp"
+                            app:srcCompat="@drawable/logo_light"
+
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/order_detail_time"
+                                android:id="@+id/order_detail_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginTop="@dimen/_8sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
-                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_weight="1"
                                 android:gravity="left"
                                 android:singleLine="true"
                                 android:text="2018-05-09 13:49:49"
@@ -561,155 +75,678 @@
                                 android:textStyle="normal" />
 
                             <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/order_detail_accept"
+                                android:id="@+id/order_detail_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginTop="@dimen/_8sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
-                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_weight="1"
                                 android:gravity="left"
                                 android:singleLine="true"
-                                android:text="Order Rejected:"
+                                android:text="Order No: 1522"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_below="@+id/nav_head_sales"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:alpha="0.1"
+                                android:background="@color/border_gray"></View>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_rest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Ros Sondeborg"
                                 android:textAppearance="?android:textAppearanceMedium"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_rest_site"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="site"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/dark_blue"
+                                android:textStyle="normal" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_below="@+id/nav_head_sales"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:alpha="0.1"
+                                android:background="@color/border_gray"></View>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_shipping"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Pick up"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="@string/expected_time"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_expt_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="2018-05-09 13:49:49"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_req"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="asap"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:alpha="0.1"
+                                android:background="@color/border_gray">
+
+                            </View>
+
+                            <LinearLayout
+                                android:id="@+id/order_detail_dynamic_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:orientation="vertical">
+
+
+                            </LinearLayout>
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:alpha="0.1"
+                                android:background="@color/border_gray">
+
+                            </View>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_8sdp"
+                                    android:layout_marginLeft="@dimen/_8sdp"
+                                    android:layout_marginRight="@dimen/_8sdp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:id="@+id/order_detail_subtotal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:singleLine="true"
+                                            android:text="@string/subtotal"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:id="@+id/order_detail_subtotal_txt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="right"
+                                            android:singleLine="true"
+                                            android:text="120"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/order_detail_restup_view"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:id="@+id/order_detail_restup_lbl"
+                                            android:singleLine="true"
+                                            android:text="@string/restupto"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:id="@+id/order_detail_restup_txt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="right"
+                                            android:singleLine="true"
+                                            android:text="120"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:id="@+id/order_detail_ship"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:singleLine="true"
+                                            android:text="@string/shipping"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:id="@+id/row_order_ship_txt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="right"
+                                            android:singleLine="true"
+                                            android:text="120"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/order_detail_additional"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:singleLine="true"
+                                            android:text="@string/additional"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:id="@+id/row_order_additional_txt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="right"
+                                            android:singleLine="true"
+                                            android:text="120"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/order_detail_discount"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:singleLine="true"
+                                            android:text="@string/discount"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:id="@+id/row_order_discount_txt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="right"
+                                            android:singleLine="true"
+                                            android:text="120"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/order_detail_total"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:orientation="horizontal">
+
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:singleLine="true"
+                                            android:text="@string/total"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="bold" />
+
+                                        <android.support.v7.widget.AppCompatTextView
+                                            android:id="@+id/order_detail_total_txt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="right"
+                                            android:singleLine="true"
+                                            android:text="120"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="bold" />
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </FrameLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_below="@+id/nav_head_sales"
+                                android:alpha="0.1"
+                                android:background="@color/border_gray"></View>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_fstname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Chirag suthar"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Mollegade 1, 6400 Sonderborg"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Phone: 7506558479"
+                                android:textAppearance="?android:textAppearanceSmall"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
 
                             <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/order_detail_reason"
+                                android:id="@+id/order_detail_pre"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_8sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
                                 android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Previous order: 5"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_shipping_distance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
                                 android:layout_weight="1"
                                 android:gravity="center_horizontal"
-                                android:text="comments"
+                                android:text="distance:"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_shipping_remark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="Note:"
+                                android:textSize="@dimen/_12sdp"
                                 android:textAppearance="?android:textAppearanceSmall"
                                 android:textColor="@color/black"
                                 android:textStyle="normal" />
 
 
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:alpha="0.1"
+                                android:background="@color/border_gray">
+
+                            </View>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_payment_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:singleLine="true"
+                                android:text="Not Paid"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/order_detail_payment_method"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:layout_marginRight="@dimen/_8sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="Kontant payment"
+                                android:textAppearance="?android:textAppearanceSmall"
+                                android:textColor="@color/black"
+                                android:textStyle="normal" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:id="@+id/order_detail_status_view"
+                                android:orientation="vertical">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_1sdp"
+                                    android:layout_below="@+id/nav_head_sales"
+                                    android:layout_marginLeft="@dimen/_8sdp"
+                                    android:layout_marginRight="@dimen/_8sdp"
+                                    android:alpha="0.1"
+                                    android:background="@color/border_gray"></View>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_8sdp"
+                                    android:layout_marginLeft="@dimen/_8sdp"
+                                    android:layout_marginRight="@dimen/_8sdp"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/order_detail_time"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/_8sdp"
+                                        android:layout_marginRight="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="2018-05-09 13:49:49"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/order_detail_accept"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/_8sdp"
+                                        android:layout_marginRight="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="Order Rejected:"
+                                        android:textAppearance="?android:textAppearanceMedium"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/order_detail_reason"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/_8sdp"
+                                        android:layout_marginRight="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="center_horizontal"
+                                        android:text="comments"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
                         </LinearLayout>
 
+                    </LinearLayout>
 
+                </android.support.v4.widget.NestedScrollView>
 
+                <LinearLayout
+                    android:id="@+id/row_order_typebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:weightSum="3">
 
+                    <LinearLayout
+                        android:id="@+id/row_order_reject"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/theme_color"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical">
 
-
-
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_11sdp"
+                            android:singleLine="true"
+                            android:text="@string/reject"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/white"
+                            android:textStyle="normal" />
 
 
                     </LinearLayout>
 
-                </LinearLayout>
-
-            </android.support.v4.widget.NestedScrollView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/row_order_typebtn"
-                android:background="@color/white"
-                android:layout_alignParentBottom="true"
-                android:visibility="visible"
-                android:weightSum="3"
-                >
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/row_order_reject"
-                    android:layout_weight="1"
-                    android:background="@color/theme_color"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="vertical"
-                    >
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/row_order_details"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/white"
-                        android:singleLine="true"
-                        android:padding="@dimen/_11sdp"
                         android:layout_weight="1"
-                        android:textStyle="normal"
-                        android:text="@string/reject"
-                        />
+                        android:background="@color/transparent_gray"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_11sdp"
+                            android:singleLine="true"
+                            android:text="@string/cancel"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/black"
+                            android:textStyle="normal" />
 
 
+                    </LinearLayout>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/row_order_details"
-                    android:background="@color/transparent_gray"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="vertical"
-                    >
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/row_order_accept"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/black"
-                        android:padding="@dimen/_11sdp"
-                        android:singleLine="true"
                         android:layout_weight="1"
-                        android:textStyle="normal"
-                        android:text="@string/cancel"
-                        />
+                        android:background="@color/green"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/_11sdp"
+                            android:singleLine="true"
+                            android:text="@string/accept"
+                            android:textAppearance="?android:textAppearanceSmall"
+                            android:textColor="@color/white"
+                            android:textStyle="normal" />
 
 
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/row_order_accept"
-                    android:background="@color/green"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="vertical"
-                    >
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:textAppearanceSmall"
-                        android:textColor="@color/white"
-                        android:singleLine="true"
-                        android:layout_weight="1"
-                        android:padding="@dimen/_11sdp"
-                        android:textStyle="normal"
-                        android:text="@string/accept"
-                        />
-
+                    </LinearLayout>
 
 
                 </LinearLayout>
 
 
+            </RelativeLayout>
 
 
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
+        </LinearLayout>
 
 
-    </LinearLayout>
-
-
-        <include
-            layout="@layout/layout_empty"
-            />
-
-
+        <include layout="@layout/layout_empty" />
 
 
     </LinearLayout>

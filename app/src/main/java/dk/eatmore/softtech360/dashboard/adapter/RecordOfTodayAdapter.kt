@@ -44,13 +44,26 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             if (msg.showOrderHeader) row_order_header.visibility = View.VISIBLE
             else row_order_header.visibility = View.GONE
             Log.e("msg.headerType ",msg.headerType )
+
             if (msg.headerType == "mListNewOrder") {
                 row_order_header_txt.text ="${context.getString(R.string.new_orders)} (${mListNewOrder.size})"
-                if (currentDate == msg.order_month_date) row_order_typebtn.visibility = View.VISIBLE else row_order_typebtn.visibility = View.GONE
+                if (currentDate == msg.order_month_date){
+                    row_order_typebtn.visibility = View.VISIBLE
+                    row_order_upcoming_status_view.visibility = View.GONE
+                    row_order_upcoming_view.visibility = View.VISIBLE
+                }else{
+                    row_order_typebtn.visibility = View.GONE
+                    row_order_upcoming_status_view.visibility = View.VISIBLE
+                    row_order_upcoming_view.visibility = View.GONE
+                }
+
             } else {
                 row_order_header_txt.text = "${context.getString(R.string.answered_orders)} (${mListAnsweredOrder.size})"
                 row_order_typebtn.visibility = View.GONE
-            }//            "pickup_delivery_time": "2018-05-10 16:30:00",
+                row_order_upcoming_status_view.visibility = View.VISIBLE
+                row_order_upcoming_view.visibility = View.GONE
+            }
+
             if(msg.pickup_delivery_time !=null) pickup_delivery_time = DateCalculation.getCalculatedTime(msg.pickup_delivery_time!!, "yyyy-MM-dd HH:mm:ss")
             var mcontext = row_order_no.context
             row_order_no.text = "${context.getString(R.string.order_no)} ${ msg.order_id}"
@@ -60,8 +73,23 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             row_order_distancelbl.visibility = if (msg.distance !=null) View.VISIBLE else View.INVISIBLE
             row_order_distance.text = msg.distance
             row_order_phn.text = "${context.getString(R.string.phone)} " + msg.contact_no
+
+            row_order_type.text = if(msg.shipping_type?.capitalize()?.toUpperCase() =="DELIVERY") context.getString(R.string.delivery) else context.getString(R.string.pick_up)
+            row_order_total.text = msg.total
+
+            val expectedTime = DateCalculation.getCalculatedTime(msg.expected_time, "yyyy-MM-dd HH:mm:ss")
+            val time = SimpleDateFormat("HH:mm").format(expectedTime)
+            row_order_requirement.text = if(msg.asap?.capitalize()?.toUpperCase() =="ASAP")
+                "${context.getString(R.string.asap)} (${time})"
+            else
+                "${context.getString(R.string.preorder)} (${time})"
+
+            row_order_payment_status.text = if(msg.payment_status?.capitalize()?.toUpperCase() == "NOT PAID") context.getString(R.string.not_paid) else context.getString(R.string.paid)
+
+
             row_order_status.text = if (msg.order_status == "Accepted") "${context.getString(R.string.order_accept_txt)} ${SimpleDateFormat("HH:mm").format(pickup_delivery_time)}"
-            else  if (msg.order_status == "Rejected") "${R.string.reject} ${if (msg.reject_reason !=null) ":"+msg.reject_reason else ""}"
+            else  if (msg.order_status == "Rejected") "${context.getString(R.string.reject)} ${if (msg.reject_reason !=null) ": "+msg.reject_reason else ""}"
+            //else  if (msg.order_status == "Rejected") "${R.string.reject} ${if (msg.reject_reason !=null) ":"+msg.reject_reason else ""}"
             else msg.order_status
         }
 

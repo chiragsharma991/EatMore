@@ -264,7 +264,7 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/orders"
+                                android:text="@string/orders_title"
                                 android:textAppearance="?android:textAppearanceMedium"
                                 android:id="@+id/nav_txt_order"
                                 android:textColor="@color/white"

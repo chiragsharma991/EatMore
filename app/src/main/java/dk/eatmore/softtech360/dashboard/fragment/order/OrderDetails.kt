@@ -37,8 +37,7 @@ import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.row_order_attribute.view.*
 import android.widget.Toast
 import android.content.pm.PackageManager
-
-
+import dk.eatmore.softtech360.rest.ApiClient
 
 
 class  OrderDetails : BaseFragment(), View.OnClickListener {
@@ -113,8 +112,10 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
         val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
         if (customSearchItem!!.headerType == "mListNewOrder") {
             if (currentDate == customSearchItem.order_month_date) row_order_typebtn.visibility = View.VISIBLE else row_order_typebtn.visibility = View.GONE
+            if (currentDate == customSearchItem.order_month_date) order_detail_status_view.visibility = View.GONE else order_detail_status_view.visibility = View.VISIBLE
         } else {
             row_order_typebtn.visibility = View.GONE
+            order_detail_status_view.visibility = View.VISIBLE
         }
 
         row_order_reject.setOnClickListener(this)
@@ -127,27 +128,32 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
 
     private fun setPrice(data: List<DataItem>?) {
-        if(data!!.get(0).order_total !=null){
+        if(data!!.get(0).order_total !=null && data!!.get(0).order_total != "0"&& data!!.get(0).order_total != "0.00" ) {
             order_detail_subtotal.visibility = View.VISIBLE
             order_detail_subtotal_txt.text = data.get(0).order_total
         }else   order_detail_subtotal.visibility = View.GONE
 
-        if(data.get(0).shipping_costs !=null){
+        if(data!!.get(0).upto_min_shipping !=null && data!!.get(0).upto_min_shipping != "0.00" && data!!.get(0).upto_min_shipping != "0"){
+            order_detail_restup_view.visibility = View.VISIBLE
+            order_detail_restup_txt.text = data.get(0).upto_min_shipping
+        }else   order_detail_restup_view.visibility = View.GONE
+
+        if(data.get(0).shipping_costs !=null && data!!.get(0).shipping_costs != "0" && data!!.get(0).shipping_costs != "0.00" ){
             order_detail_ship.visibility = View.VISIBLE
             row_order_ship_txt.text = data.get(0).shipping_costs
         }else   order_detail_ship.visibility = View.GONE
 
-        if(data.get(0).additional_charge !=null){
+        if(data.get(0).additional_charge !=null && data!!.get(0).additional_charge != "0" && data!!.get(0).additional_charge != "0.00" ){
             order_detail_additional.visibility = View.VISIBLE
             row_order_additional_txt.text = data.get(0).additional_charge
         }else   order_detail_additional.visibility = View.GONE
 
-        if(data.get(0).discount_amount !=null){
+        if(data.get(0).discount_amount !=null && data!!.get(0).discount_amount!= "0" && data!!.get(0).discount_amount!= "0.00" ){
             order_detail_discount.visibility = View.VISIBLE
             row_order_discount_txt.text = data.get(0).discount_amount
         }else   order_detail_discount.visibility = View.GONE
 
-        if(data.get(0).total_to_pay !=null){
+        if(data.get(0).total_to_pay !=null && data!!.get(0).total_to_pay!= "0" && data!!.get(0).total_to_pay!= "0.00" ){
             order_detail_total.visibility = View.VISIBLE
             order_detail_total_txt.text = data.get(0).total_to_pay
         }else   order_detail_total.visibility = View.GONE
@@ -226,23 +232,46 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                     progress_bar.visibility = View.GONE
                     order_detail_view.visibility =View.VISIBLE
                     order_detail_date.text = data!!.get(0).order_date
-                    order_detail_num.text = data!!.get(0).order_no
+                    order_detail_num.text = getString(R.string.order_no)+"${data!!.get(0).order_no}"
                     order_detail_rest.text = data!!.get(0).restaurant_id
-                    order_detail_shipping.text = data!!.get(0).shipping
+
+                    if(data.get(0).restaurant_site !=null){
+                        order_detail_rest_site.visibility =View.VISIBLE
+                        order_detail_rest_site.text = data.get(0).restaurant_site
+                        order_detail_rest_site.setOnClickListener{
+                            val i = Intent(Intent.ACTION_VIEW)
+                            i.data = Uri.parse("http://"+data.get(0).restaurant_site)
+                            startActivity(i)
+                        }
+                    }else{
+                        order_detail_rest_site.visibility =View.GONE
+                    }
+
+                    order_detail_shipping.text = if(data!!.get(0).shipping.capitalize().toUpperCase() =="DELIVERY") getString(R.string.delivery) else getString(R.string.pick_up)
+
+                    order_detail_shipping_distance.text = getString(R.string.distance_km)+" "+data.get(0).distance
+                    order_detail_shipping_distance.visibility = if(data!!.get(0).shipping.capitalize().toUpperCase() =="DELIVERY") View.VISIBLE else View.GONE
+
                     order_detail_expt_time.text = data!!.get(0).expected_time
-                    order_detail_req.text = data!!.get(0).requirement
+                    order_detail_req.text = if(data.get(0).requirement?.capitalize()?.toUpperCase() =="ASAP") getString(R.string.asap) else getString(R.string.preorder)         // data!!.get(0).requirement
                     order_detail_fstname.text = data!!.get(0).first_name
                     order_detail_address.text = data!!.get(0).address
-                    order_detail_phone.text = getString(R.string.phone)+data!!.get(0).telephone_no
-                    order_detail_pre.text = getString(R.string.pre_order)+data!!.get(0).previous_order
-                    order_detail_payment_status.text = data!!.get(0).payment_status
+                    // order_detail_phone.text = getString(R.string.phone)+data!!.get(0).telephone_no
+                    order_detail_pre.text = getString(R.string.pre_order)+" "+data!!.get(0).previous_order
+                    order_detail_payment_status.text = if(data!!.get(0).payment_status.capitalize().toUpperCase() == "NOT PAID") getString(R.string.not_paid) else getString(R.string.paid)
                     order_detail_payment_method.text = if(data!!.get(0).paymethod == "1") getString(R.string.online_payment) else getString(R.string.cash_payment)
-                    order_detail_accept.text =  data!!.get(0).order_status
+
+                    order_detail_accept.text =  if(data!!.get(0).order_status.capitalize().toUpperCase() == "ACCEPTED") getString(R.string.accepted_time)
+                    else if (data!!.get(0).order_status.capitalize().toUpperCase() == "REJECTED") getString(R.string.rejected_time) else data!!.get(0).order_status
+
+
+
                     setPrice(data)
                     order_detail_dynamic_container.removeAllViews()
-                    phone= getString(R.string.phone)+data!!.get(0).telephone_no
-                    val span = SpannableString(phone)
-                    span.setSpan(clickableSpan, 6 , phone.trim({ it <= ' ' }).length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    phone= data!!.get(0).telephone_no
+                    val span = SpannableString(getString(R.string.phone)+" "+ phone)
+                    span.setSpan(clickableSpan, getString(R.string.phone).trim ({ it<=' '}).length ,
+                            getString(R.string.phone).trim ({ it<=' '}).length + phone.trim({ it <= ' ' }).length+1 , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                     order_detail_phone.text=span
                     order_detail_phone.movementMethod = LinkMovementMethod.getInstance()
 
@@ -263,16 +292,16 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                         //--- product name ---
                         var inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                         val view = inflater.inflate(R.layout.row_order_product, null)
-                        view.row_order_product.text = data.get(0).order_products_details!!.get(i).quantity +"x"+
+                        view.row_order_product.text = data.get(0).order_products_details!!.get(i).quantity +" x "+
                                 data.get(0).order_products_details!!.get(i).products.product_no+
                                 data.get(0).order_products_details!!.get(i).products.p_name
                         view.row_order_product_price.text =data.get(0).order_products_details!!.get(i).p_price
 
                        // view.row_product_order_container.removeAllViewsInLayout()
-                        view.row_product_order_main.setOnClickListener{
+                    /*    view.row_product_order_main.setOnClickListener{
                             if(view.row_product_order_container.visibility == View.VISIBLE) view.row_product_order_container.visibility =View.GONE
                             else view.row_product_order_container.visibility =View.VISIBLE
-                        }
+                        }*/
 
                         // --- ingradient ---
 
@@ -301,7 +330,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                                 view_attribute.row_order_attribute.removeAllViewsInLayout()
                                 val textView = AppCompatTextView(context)
                                 var parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                parms.setMargins(0, 0, 0, 8)
+                                parms.setMargins(20, 0, 0, 8)
                                 textView.gravity = Gravity.LEFT
                                 textView.setSingleLine()
                               //  textView.typeface = Typeface.DEFAULT_BOLD
@@ -324,7 +353,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                                 // Add attribute of sizes---
                                 for (l in 0..data.get(0).order_products_details!!.get(i).ordered_product_attributes!!.get(k).order_product_extra_topping_group!!. size-1){
                                     parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                    parms.setMargins(0, 0, 0, 8)
+                                    parms.setMargins(20, 0, 0, 8)
                                     val textView = AppCompatTextView(context)
                                     textView.gravity = Gravity.LEFT
                                     textView.setSingleLine()
@@ -413,7 +442,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
     private fun initToolbar() {
 
         img_toolbar_back.setImageResource(R.drawable.ic_back)
-        txt_toolbar.text = getString(R.string.orders)
+        txt_toolbar.text = getString(R.string.orders_title)
         img_toolbar_back.setOnClickListener{
             log(TAG,"back press:")
             (getActivityBase() as MainActivity).pop()

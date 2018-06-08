@@ -118,7 +118,7 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                 if (json.get("status").asBoolean) {
                                     val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
                                  //   if(userVisibleHint) showSnackBar(result)
-                                    showSnackBar(result)
+                                    showSnackBar(getString(R.string.order_accept))
                                     (parentFragment as OrderInfoFragment).performedStatusAction(0)
                                     // this condition is from details screen only (just finish fragment)
 
@@ -179,7 +179,7 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                     if (json.get("status").asBoolean) {
                                         val result = json.getAsJsonObject("data").get("order_status").asString + " " + json.get("msg").asString
                                      //   if(userVisibleHint)
-                                        showSnackBar(result)
+                                        showSnackBar(getString(R.string.order_reject))
                                         (parentFragment as OrderInfoFragment).performedStatusAction(0)
 
 

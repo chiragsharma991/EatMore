@@ -211,7 +211,7 @@ class OrderInfoFragment : BaseFragment()  {
 
     private fun initToolbar() {
         progress_bar_toolbarView.visibility =View.GONE
-        txt_toolbar.text = getString(R.string.my_orders)
+        txt_toolbar.text = getString(R.string.orders_title)
         img_toolbar_back.setOnClickListener {
             var mainActivity = getActivityBase() as MainActivity
             mainActivity.isOpenDrawer(true)

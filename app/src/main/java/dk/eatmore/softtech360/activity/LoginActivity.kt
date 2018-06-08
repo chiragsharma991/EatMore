@@ -116,11 +116,11 @@ class LoginActivity : BaseActivity(){
                 val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
                 if (json.get("status").asBoolean){
                     showSnackBar(log_email_edt, json.get("msg").asString)
-                    PreferenceUtil.putValue(PreferenceUtil.USER_NAME, json.getAsJsonObject("user_details").get("username").asString)
+                    PreferenceUtil.putValue(PreferenceUtil.USER_NAME, json.getAsJsonObject("user_details").get("first_name").asString+" "+json.getAsJsonObject("user_details").get("last_name").asString)
                     PreferenceUtil.putValue(PreferenceUtil.USER_ID, json.getAsJsonObject("user_details").get("id").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_KEY, ""+json.get("r_key").asString)
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
-                    PreferenceUtil.putValue(PreferenceUtil.RESTAURANT_NAME, ""+json.getAsJsonObject("user_details").getAsJsonArray("restaurant_details").get(0).asJsonObject.get("restaurant_name"))
+                    PreferenceUtil.putValue(PreferenceUtil.RESTAURANT_NAME, ""+json.getAsJsonObject("user_details").getAsJsonArray("restaurant_details").get(0).asJsonObject.get("restaurant_name").asString)
                     PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)  // default wakeLock should be ON
                     PreferenceUtil.save()
                  //   Custom_data.setWalkLock(true,this@LoginActivity)

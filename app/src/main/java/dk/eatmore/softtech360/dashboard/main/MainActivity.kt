@@ -23,7 +23,7 @@ import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.JsonObject
-import dk.eatmore.softtech360.R.string.phone
+import dk.eatmore.softtech360.R.string.*
 import dk.eatmore.softtech360.storage.PreferenceUtil
 import dk.eatmore.softtech360.utils.DialogUtils
 import dk.eatmore.softtech360.activity.LoginActivity
@@ -197,15 +197,15 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                         val obj=json.order_counter.get(i)
                         when (i){
                             0 ->{
-                                //nav_last_0_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                nav_last_0_lbl.text = getString(R.string.nav_today )+" - ${ obj.no_of_orders} ${getString(R.string.orders)}"
                                 nav_last_0_txt.text = obj.total_sales+" kr"
                             }
                             1 ->{
-                              //  nav_last_7_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                nav_last_7_lbl.text = getString(R.string.nav_last7 )+" - ${ obj.no_of_orders} ${getString(R.string.orders)}"
                                 nav_last_7_txt.text = obj.total_sales+" kr"
                             }
                             2 ->{
-                                //nav_last_30_lbl.text = obj.label+" (${ obj.no_of_orders} orders)"
+                                nav_last_30_lbl.text = getString(R.string.nav_30days )+" - ${ obj.no_of_orders} ${getString(R.string.orders)}"
                                 nav_last_30_txt.text = obj.total_sales+" kr"
                             }
                         }
