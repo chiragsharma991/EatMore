@@ -122,6 +122,7 @@ class LoginActivity : BaseActivity(){
                     PreferenceUtil.putValue(PreferenceUtil.R_TOKEN, ""+json.get("r_token").asString)
                     PreferenceUtil.putValue(PreferenceUtil.RESTAURANT_NAME, ""+json.getAsJsonObject("user_details").getAsJsonArray("restaurant_details").get(0).asJsonObject.get("restaurant_name").asString)
                     PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)  // default wakeLock should be ON
+                    PreferenceUtil.putValue(PreferenceUtil.KSTATUS, true)  // show close restaurant
                     PreferenceUtil.save()
                  //   Custom_data.setWalkLock(true,this@LoginActivity)
                     moveToDashboard()

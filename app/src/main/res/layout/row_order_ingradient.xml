@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_5sdp"
             android:layout_weight="1"
             android:gravity="left"
             android:singleLine="true"

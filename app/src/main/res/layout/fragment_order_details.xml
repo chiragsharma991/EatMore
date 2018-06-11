@@ -190,6 +190,53 @@
                             </View>
 
                             <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal"
+                                android:id="@+id/order_detail_comment_view"
+
+                                >
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/order_detail_comment_lbl"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:gravity="left"
+                                    android:singleLine="true"
+                                    android:text="@string/comment"
+                                    android:textAppearance="?android:textAppearanceSmall"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/order_detail_comment_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:gravity="center_horizontal"
+                                    android:layout_marginLeft="@dimen/_8sdp"
+                                    android:layout_marginRight="@dimen/_8sdp"
+                                    android:text="This is comment."
+                                    android:textAppearance="?android:textAppearanceSmall"
+                                    android:textColor="@color/black"
+                                    android:textStyle="normal" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_1sdp"
+                                    android:layout_below="@+id/nav_head_sales"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:alpha="0.1"
+                                    android:background="@color/border_gray">
+
+                                </View>
+
+                            </LinearLayout>
+
+
+
+                            <LinearLayout
                                 android:id="@+id/order_detail_dynamic_container"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

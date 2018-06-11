@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.widget.CompoundButton
 import android.os.PowerManager
 import android.content.Context.POWER_SERVICE
+import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import dk.eatmore.softtech360.utils.Custom_data
 
@@ -33,14 +34,16 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
     var r_key = ""
     var r_token = ""
+    var set_reopen_rest_clickable:Boolean =false
+
+
 
     override fun onClick(v: View?) {
         reasonToolbar()
         set_reason_view.visibility = View.VISIBLE
         set_general_view.visibility = View.GONE
         progress_bar.visibility = View.VISIBLE
-        r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
-        r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
+
         callAPI(ApiCall.allRecords(r_key = r_key, r_token = r_token), object : BaseFragment.OnApiCallInteraction {
             override fun <T> onSuccess(body: T?) {
                 // all list of reasons.
@@ -98,6 +101,8 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
     override fun initView(view: View?, savedInstanceState: Bundle?) {
 
         generalToolbar()
+        r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
+        r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
         set_reason_view.visibility = View.GONE
         set_general_view.visibility = View.VISIBLE
         progress_bar.visibility = View.GONE
@@ -120,6 +125,111 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
                 Toast.makeText(context,R.string.wake_lock_on,Toast.LENGTH_SHORT).show()
             }
         }
+
+        closeRestaurant()
+
+
+    }
+
+    private fun closeRestaurant() {
+
+        set_reopen_rest_txt.text= if(PreferenceUtil.getBoolean(PreferenceUtil.KSTATUS,true)) getString(R.string.close_rest) else getString(R.string.reopen_rest)
+        if(MainActivity.kShouldAllowCloseRestDay){
+            set_reopen_rest_clickable=true
+            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.black))
+
+        }else{
+            set_reopen_rest_clickable=false
+            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.border_gray))
+        }
+        set_reopen_rest.setOnClickListener{
+
+            if(set_reopen_rest_clickable){
+
+
+                if(PreferenceUtil.getBoolean(PreferenceUtil.KSTATUS,true)){
+                    DialogUtils.openDialog ( context!!,getString(R.string.would_you_like_toclose), getString(R.string.are_you_sure_toclose),
+                            getString(R.string.yes),getString(R.string.cancel), ContextCompat.getColor(context!!,R.color.theme_color), object : DialogUtils.OnDialogClickListener {
+
+                        override fun onPositiveButtonClick(position: Int) {
+
+                            callAPI( ApiCall.closedRestDay(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+
+                                    override fun <T> onSuccess(body: T?) {
+                                        val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+
+                                        if (json.get("status").asBoolean) {
+                                            set_reopen_rest_txt.text=getString(R.string.reopen_rest)
+                                            set_reopen_rest_clickable=true
+                                            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.black))
+                                            PreferenceUtil.putValue(PreferenceUtil.KSTATUS,false)
+                                            PreferenceUtil.save()
+                                            showSnackBar(json.get("msg").asString)
+                                        }
+                                    }
+
+                                    override fun onFail(error : Int) {
+                                        log(MainActivity.TAG,"error "+error)
+                                        showSnackBar(getString(R.string.error_404))
+
+                                    }
+                                })
+
+                        }
+
+                        override fun onNegativeButtonClick() {
+
+                        }
+                    })
+
+                }else{
+
+                    DialogUtils.openDialog ( context!!,getString(R.string.would_you_like_toreopen), getString(R.string.are_you_sure_toreopen),
+                            getString(R.string.yes),getString(R.string.cancel), ContextCompat.getColor(context!!,R.color.theme_color), object : DialogUtils.OnDialogClickListener {
+                        override fun onPositiveButtonClick(position: Int) {
+
+
+                                callAPI( ApiCall.resetRestDay(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+
+                                    override fun <T> onSuccess(body: T?) {
+                                        val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+
+                                        if (json.get("status").asBoolean) {
+                                            set_reopen_rest_txt.text=getString(R.string.close_rest)
+                                            set_reopen_rest_clickable=true
+                                            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.black))
+                                            PreferenceUtil.putValue(PreferenceUtil.KSTATUS,true)
+                                            PreferenceUtil.save()
+                                            showSnackBar(json.get("msg").asString)
+
+                                        }
+                                    }
+
+                                    override fun onFail(error : Int) {
+                                        log(MainActivity.TAG,"error "+error)
+                                        showSnackBar(getString(R.string.error_404))
+
+                                    }
+                                })
+
+
+
+
+                        }
+
+                        override fun onNegativeButtonClick() {
+
+                        }
+                    })
+
+                }
+
+
+
+            }
+        }
+
+
     }
 
     companion object {

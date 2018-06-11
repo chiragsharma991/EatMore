@@ -64,6 +64,15 @@ class ApiCall {
         fun orderCounter (r_key: String, r_token: String) : Call<OrderCounter> {
             return getApiInterface().orderCounter(r_token,r_key)
         }
+        fun closedRestaurant (r_key: String, r_token: String) : Call<JsonObject> {
+            return getApiInterface().closedRestaurant(r_token,r_key,PreferenceUtil.getString(PreferenceUtil.LANGUAGE,"")!!)
+        }
+        fun closedRestDay (r_key: String, r_token: String) : Call<JsonObject> {
+            return getApiInterface().closedRestDay(r_token,r_key,PreferenceUtil.getString(PreferenceUtil.LANGUAGE,"")!!)
+        }
+        fun resetRestDay (r_key: String, r_token: String) : Call<JsonObject> {
+            return getApiInterface().resetRestDay(r_token,r_key,PreferenceUtil.getString(PreferenceUtil.LANGUAGE,"")!!)
+        }
     }
 
 

@@ -142,6 +142,7 @@ object PreferenceUtil {
     val TOKEN = "token"
     val LANGUAGE = "language"
     val KEEP_SCREEN_ON = "keep_screen_on"
+    val KSTATUS = "kStatus"
 
 
 }

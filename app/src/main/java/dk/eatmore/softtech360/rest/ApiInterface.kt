@@ -118,4 +118,35 @@ interface ApiInterface {
             @Field("r_key") r_key: String
 
     ): Call<OrderCounter>
+
+
+    @FormUrlEncoded
+    @POST("Enduser/enduser/restaurant-closed")
+    fun closedRestaurant(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("language") language: String
+
+
+    ): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Enduser/enduser/close-rest-day")
+    fun closedRestDay(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("language") language: String
+
+
+    ): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Enduser/enduser/reset-closing")
+    fun resetRestDay(
+            @Field("r_token") r_token: String ,
+            @Field("r_key") r_key: String,
+            @Field("language") language: String
+
+
+    ): Call<JsonObject>
 }

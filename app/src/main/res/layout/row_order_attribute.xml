@@ -50,14 +50,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_5sdp"
         android:id="@+id/row_order_attribute"
         android:orientation="vertical">
 
+<!--
 
-
-       <!--    <android.support.v7.widget.AppCompatTextView
+       &lt;!&ndash;    <android.support.v7.widget.AppCompatTextView
                android:id="@+id/row_order_no"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -68,7 +66,7 @@
                android:text="order No. 124567"
                android:textAppearance="?android:textAppearanceSmall"
                android:textColor="@color/black"
-               android:textStyle="normal" />
+               android:textStyle="normal" />-->
 
 
 

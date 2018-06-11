@@ -25,6 +25,7 @@
     <string name="save">Gem</string>
     <string name="accept">Acceptere</string>
     <string name="cancel">Fortryd</string>
+    <string name="yes">Ja</string>
     <string name="reject">Afvist</string>
     <string name="details">Detaljer</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
@@ -79,6 +80,18 @@
     <string name="accepted_time">Accepteret til:</string>
     <string name="rejected_time">Ordre afvist:</string>
     <string name="restupto">Rest op til minimum</string>
+    <string name="comment">Kommentar:</string>
+    <string name="new_update">Ny opdatering er tilgængelig nu</string>
+    <string name="go_on_store">Gå på PlayStore</string>
+    <string name="dismiss">afskedige</string>
+    <string name="note">Bemærk:</string>
+    <string name="reopen_rest">Fortryd lukning</string>
+    <string name="close_rest">Luk for i dag</string>
+    <string name="are_you_sure_toreopen">Er du sikker på at du vil genåbne?</string>
+    <string name="would_you_like_toreopen">Vil du genåbne din restaurant for i dag?</string>
+    <string name="are_you_sure_toclose">Er du sikker på at du vil lukke?</string>
+    <string name="would_you_like_toclose">Vil du lukke din restaurant for i dag?</string>
+
 
 
 </resources>

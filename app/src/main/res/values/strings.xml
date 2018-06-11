@@ -23,6 +23,7 @@
     <string name="save">Save</string>
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
     <string name="reject">Rejected</string>
     <string name="details">Details</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
@@ -77,6 +78,18 @@
     <string name="accepted_time">Accepted time:</string>
     <string name="rejected_time">Order rejected:</string>
     <string name="restupto">Rest up to minimum</string>
+    <string name="comment">Comment:</string>
+    <string name="new_update">New uppdate is available now</string>
+    <string name="go_on_store">Go on PlayStore</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="note">Note:</string>
+    <string name="reopen_rest">Reopen Restaurant</string>
+    <string name="close_rest">Close rest of the day</string>
+    <string name="are_you_sure_toreopen">Are you sure you would like to reopen?</string>
+    <string name="would_you_like_toreopen">Would you like to reopen your store rest of the day?</string>
+    <string name="are_you_sure_toclose">Are you sure you would like to close?</string>
+    <string name="would_you_like_toclose">Would you like to close your store rest of the day?</string>
+
 
 
 </resources>

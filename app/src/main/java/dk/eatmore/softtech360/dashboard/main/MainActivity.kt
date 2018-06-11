@@ -46,6 +46,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
+
 class MainActivity : BaseActivity(), View.OnClickListener  {
 
 
@@ -56,6 +58,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     private var r_token: String =""
     private var restaurant_name: String =""
     private var user_name: String =""
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,8 +73,14 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
             finish()
         }
 
+    }
 
-
+    companion object {
+        val TAG = "MainActivity"
+        public var kShouldAllowCloseRestDay :Boolean=true
+        fun newInstance(): MainActivity {
+            return MainActivity()
+        }
     }
 
     fun keepScreenOn(result : Boolean){
@@ -101,12 +110,6 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     }
 
-    companion object {
-        val TAG = "MainActivity"
-        fun newInstance(): MainActivity {
-            return MainActivity()
-        }
-    }
 
 
     fun init(savedInstancedState: Bundle?) {
@@ -138,6 +141,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         }
         sendfcmtocken()
         orderCounter()
+        closedRestaurant()
         drawer_layout?.addDrawerListener(mDrawerToggle)
     }
 
@@ -221,6 +225,40 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     }
 
+    fun closedRestaurant(){
+
+        callAPI( ApiCall.closedRestaurant(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+
+            override fun <T> onSuccess(body: T?) {
+                val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+
+                if (json.get("status").asBoolean && json.get("is_restaurant_closed").asBoolean) {
+
+                    if(json.has("pre_order")){
+
+                        if(json.get("pre_order").asBoolean) kShouldAllowCloseRestDay=true
+                        else kShouldAllowCloseRestDay=false
+
+                    }else{
+                        kShouldAllowCloseRestDay=false
+
+                    }
+
+                }else{
+                    kShouldAllowCloseRestDay=true  // show close restDay label
+                }
+            }
+
+            override fun onFail(error : Int) {
+                log(TAG,"error "+error)
+
+            }
+        })
+
+
+
+    }
+
 
 
     override fun onClick(v: View?) {
@@ -268,8 +306,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
 
     private fun logOut() {
-        DialogUtils.openDialog(this, getString(R.string.are_you_sure_logout__),
-                getString(R.string.logout), getString(R.string.cancel), object : DialogUtils.OnDialogClickListener {
+        DialogUtils.openDialog(this,getString(R.string.are_you_sure_logout__),getString(R.string.logout),
+                getString(R.string.logout), getString(R.string.cancel),ContextCompat.getColor(this,R.color.theme_color), object : DialogUtils.OnDialogClickListener {
             override fun onPositiveButtonClick(position: Int) {
                 popAllFragment()
                 PreferenceUtil.remove(PreferenceUtil.R_KEY)

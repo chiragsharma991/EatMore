@@ -27,24 +27,7 @@ public class Test extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        mathmetics();
-        Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
-        JsonObject jsonObject=new JsonObject();
-        byte[] bytes = new byte[0];
-         String text="";
 
-
-
-
-
-        try {
-            bytes = text.getBytes("UTF-8");
-            text = new String(bytes, "UTF-8");
-
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
     }
 
     private void mathmetics()

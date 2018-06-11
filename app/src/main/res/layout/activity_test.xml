@@ -1,61 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".activity.ScrollingActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:background="@color/default_bg_color"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            android:orientation="vertical"
+            >
 
 
-            <RelativeLayout
+            <!--  <ImageView
+                  android:layout_width="match_parent"
+                  android:layout_height="70dp"
+                  android:layout_marginLeft="40dp"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginTop="150dp"
+                  android:src="@mipmap/engage247_logo1"
+                  tools:ignore="ContentDescription" />-->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
+                android:layout_height="70dp"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:gravity="center_vertical|center_horizontal"
                 >
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/order_detail_img"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    app:srcCompat="@drawable/logo_light"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:text="TEST 24x7"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
                     />
 
-                <include layout="@layout/layout_toolbar"></include>
-
-
-            </RelativeLayout>
+            </LinearLayout>
 
 
 
+            <EditText
+                android:id="@+id/edtUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="30dp"
+                android:gravity="left"
+                android:textAllCaps="true"
+                android:maxLines="1"
+                android:inputType="text"
+                />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/chkKeepMeLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="25dp"
+                android:text="LOG IN"
+
+                />
 
 
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        </LinearLayout>
 
-    <include layout="@layout/content_scrolling" />
+    </android.support.v4.widget.NestedScrollView>
 
-
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

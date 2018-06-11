@@ -51,9 +51,24 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:id="@+id/row_product_order_container"
+           android:layout_marginRight="@dimen/_5sdp"
+           android:layout_marginLeft="@dimen/_20sdp"
            android:orientation="vertical"
            android:animateLayoutChanges="true"
            >
+
+   <!--        <android.support.v7.widget.AppCompatTextView
+               android:id="@+id/row_order_ingradient"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/_20sdp"
+               android:layout_marginBottom="@dimen/_8sdp"
+               android:layout_weight="1"
+               android:gravity="left"
+               android:singleLine="true"
+               android:text="2018-05-09 13:49:49"
+               android:textAppearance="?android:textAppearanceSmall"
+               android:textStyle="normal" />-->
 
 
        </LinearLayout>

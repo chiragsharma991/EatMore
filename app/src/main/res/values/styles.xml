@@ -41,6 +41,10 @@
         <item name="colorAccent">@color/white</item> <!-- Whatever color you want-->
     </style>
 
+    <style name="AppTheme.ThemeAccent">
+        <item name="colorAccent">@color/theme_color</item> <!-- Whatever color you want-->
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -22,11 +22,14 @@ import kotlin.math.log
 
 object DialogUtils {
 
-    fun openDialog(context: Context, msg: String, btnPositive : String, btnNegative: String, onDialogClickListener: OnDialogClickListener) {
+    fun openDialog(context: Context, msg: String,title : String, btnPositive : String, btnNegative: String, color:Int, onDialogClickListener: OnDialogClickListener) {
         val builder = AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle)
         builder.setMessage(msg)
+        builder.setTitle(title)
+        builder.setCancelable(false)
         builder.setPositiveButton(btnPositive) { _, _ ->
             onDialogClickListener.onPositiveButtonClick(0)
+            Log.e("onPositiveButtonClick","---")
         }
         /**
          * If blank then dont show negative button
@@ -34,13 +37,15 @@ object DialogUtils {
         if(btnNegative != "") {
             builder.setNegativeButton(btnNegative, { _, _ ->
                 onDialogClickListener.onNegativeButtonClick()
+                Log.e("setNegativeButton","---")
+
             })
         }
         val alert = builder.create()
         alert.show()
 
         alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context,R.color.colorSecondaryText))
-        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context,R.color.theme_color))
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
     }
 
 

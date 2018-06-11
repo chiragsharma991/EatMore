@@ -160,7 +160,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
         if(data.get(0).shipping_remark !=null){
             order_detail_shipping_remark.visibility = View.VISIBLE
-            order_detail_shipping_remark.text = data.get(0).shipping_remark
+            order_detail_shipping_remark.text ="${getString(R.string.note)} ${data.get(0).shipping_remark}"
         }else   order_detail_shipping_remark.visibility = View.GONE
 
         if(data.get(0).accept_reject_time !=null){
@@ -257,6 +257,8 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                     order_detail_fstname.text = data!!.get(0).first_name
                     order_detail_address.text = data!!.get(0).address
                     // order_detail_phone.text = getString(R.string.phone)+data!!.get(0).telephone_no
+                    order_detail_comment_view.visibility = if(data.get(0).comments == "") View.GONE else View.VISIBLE
+                    order_detail_comment_txt.text=data.get(0).comments
                     order_detail_pre.text = getString(R.string.pre_order)+" "+data!!.get(0).previous_order
                     order_detail_payment_status.text = if(data!!.get(0).payment_status.capitalize().toUpperCase() == "NOT PAID") getString(R.string.not_paid) else getString(R.string.paid)
                     order_detail_payment_method.text = if(data!!.get(0).paymethod == "1") getString(R.string.online_payment) else getString(R.string.cash_payment)
@@ -278,10 +280,10 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
 
                     /**
                      * @param:
-                     *
-                     * order_detail_dynamic_container =(Parent View) Home container when we add all layouts and show.
-                     * view = (child view) all subview added in this view and after view will add into "order_detail_dynamic_container"
-                     * view.row_product_order_main = (Sub child view) this is view , you can hide and visible of perticular one product.
+                     * order_detail_dynamic_container (Parent View): we are adding all layouts into this
+                     * row_product_order_container.addView(Sub-view): adding ingradients and row_order_attribute view
+                     * row_order_attribute (Sub-child of Sub-view): adding all atributes into row_product_order_container
+                     * Finally: Add all layouts into order_detail_dynamic_container.
                      */
 
 
@@ -292,26 +294,29 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                         //--- product name ---
                         var inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
                         val view = inflater.inflate(R.layout.row_order_product, null)
+                        view.row_product_order_container.removeAllViewsInLayout()  // we are removing childs because i want new instance with with new subchilds.
                         view.row_order_product.text = data.get(0).order_products_details!!.get(i).quantity +" x "+
                                 data.get(0).order_products_details!!.get(i).products.product_no+
                                 data.get(0).order_products_details!!.get(i).products.p_name
                         view.row_order_product_price.text =data.get(0).order_products_details!!.get(i).p_price
 
-                       // view.row_product_order_container.removeAllViewsInLayout()
-                    /*    view.row_product_order_main.setOnClickListener{
-                            if(view.row_product_order_container.visibility == View.VISIBLE) view.row_product_order_container.visibility =View.GONE
-                            else view.row_product_order_container.visibility =View.VISIBLE
-                        }*/
+
 
                         // --- ingradient ---
 
                         if(data.get(0).order_products_details?.get(i)?.removed_ingredients?.size != null){
 
                             for (j in 0..data.get(0).order_products_details!!.get(i).removed_ingredients!!.size -1){
-
-                                val view_ingradient = inflater.inflate(R.layout.row_order_ingradient, null)
-                                view_ingradient.row_order_ingradient.text ="-"+data.get(0).order_products_details!!.get(i).removed_ingredients!!.get(j).ingredient_name
-                                view.row_product_order_container.addView(view_ingradient)
+                                val textView = AppCompatTextView(context)
+                                var parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                                parms.setMargins(0, 0, 0, 8)
+                                textView.gravity = Gravity.LEFT
+                                textView.setSingleLine()
+                                //  textView.typeface = Typeface.DEFAULT_BOLD
+                                textView.setTextAppearance(context,android.R.style.TextAppearance_Small)
+                                textView.text ="-"+data.get(0).order_products_details!!.get(i).removed_ingredients!!.get(j).ingredient_name
+                                textView.setLayoutParams(parms)
+                                view.row_product_order_container.addView(textView)
 
                             }
                         }
@@ -330,7 +335,7 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                                 view_attribute.row_order_attribute.removeAllViewsInLayout()
                                 val textView = AppCompatTextView(context)
                                 var parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                parms.setMargins(20, 0, 0, 8)
+                                parms.setMargins(0, 0, 0, 8)
                                 textView.gravity = Gravity.LEFT
                                 textView.setSingleLine()
                               //  textView.typeface = Typeface.DEFAULT_BOLD
@@ -340,20 +345,10 @@ class  OrderDetails : BaseFragment(), View.OnClickListener {
                                 textView.setLayoutParams(parms)
                                 view_attribute.row_order_attribute.addView(textView)
 
-/*
-                                // Add divider---
-                                val divider = View(context)
-                                parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1)
-                                divider.alpha = 0.2F
-                                divider.setBackgroundColor(ContextCompat.getColor(context!!,R.color.border_gray))
-                                divider.setLayoutParams(parms)
-                                view_attribute.row_order_attribute.addView(divider)*/
-
-
                                 // Add attribute of sizes---
                                 for (l in 0..data.get(0).order_products_details!!.get(i).ordered_product_attributes!!.get(k).order_product_extra_topping_group!!. size-1){
                                     parms = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                                    parms.setMargins(20, 0, 0, 8)
+                                    parms.setMargins(0, 0, 0, 8)
                                     val textView = AppCompatTextView(context)
                                     textView.gravity = Gravity.LEFT
                                     textView.setSingleLine()

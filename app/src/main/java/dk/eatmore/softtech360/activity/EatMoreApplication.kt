@@ -5,6 +5,8 @@ import dk.eatmore.softtech360.storage.PreferenceUtil
 import android.support.multidex.MultiDex
 import android.util.Log
 import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.core.BuildConfig
+import com.crashlytics.android.core.CrashlyticsCore
 import dk.eatmore.softtech360.utils.AppLifecycleHandler
 import dk.eatmore.softtech360.utils.Custom_data
 import dk.eatmore.softtech360.utils.LifeCycleDelegate
@@ -23,8 +25,8 @@ class EatMoreApplication : Application(), LifeCycleDelegate {
         val lifeCycleHandler = AppLifecycleHandler(this)
         registerLifecycleHandler(lifeCycleHandler)
 
-        Fabric.with(this, Crashlytics()) //start log fabric crashlytics
-        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build()); //stop log fabric crashlytics
+        //Fabric.with(this, Crashlytics()) //start log fabric crashlytics
+        Fabric.with(this,  Crashlytics.Builder().core(CrashlyticsCore.Builder().disabled( BuildConfig.DEBUG).build()).build()); //stop log fabric crashlytics
         //  Crashlytics.getInstance().crash()
 
 
