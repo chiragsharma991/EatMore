@@ -8,8 +8,8 @@ import android.content.IntentFilter
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.Bundle
-import android.os.Handler
+import android.media.MediaPlayer
+import android.os.*
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
@@ -54,6 +54,8 @@ class OrderInfoFragment : BaseFragment()  {
     private var count: Int = 0
     private var swipeAdapter: OrderInfoFragment.SwipeAdapter?=null
     val cont : OrderInfoFragment = this
+    private var mediaPlayer: MediaPlayer?=null
+
 
     override fun getLayout(): Int {
         return R.layout.fragment_info_order
@@ -72,6 +74,7 @@ class OrderInfoFragment : BaseFragment()  {
         LocalBroadcastManager.getInstance(context!!).registerReceiver(mMessageReceiver,
                 IntentFilter(SWIPE))
         initToolbar()
+        mediaPlayer = MediaPlayer.create(context, R.raw.notification_bell)
         adapter = ViewPagerAdapter(childFragmentManager)
         adapter!!.addFragment(RecordOfToday(), getString(R.string.today))
         adapter!!.addFragment(RecordOfLast7Days(), getString(R.string.last_7_days))
@@ -137,6 +140,7 @@ class OrderInfoFragment : BaseFragment()  {
             if (swipeAdapter != null) {
                 count = 0
                 swipeAdapter!!.notifyDataSetChanged()
+                mediaPlayer!!.stop()
                 performedStatusAction(100)
 
             }
@@ -183,6 +187,24 @@ class OrderInfoFragment : BaseFragment()  {
             if (holder is SwipeHolder) {
                 val vh: SwipeHolder = holder
 
+                val v :Vibrator  = context!!.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                val shakeanimation = AnimationUtils.loadAnimation(context, R.anim.shake)
+                vh.swipe_card_holder.startAnimation(shakeanimation)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+                }else{
+                    //deprecated in API 26
+                    v.vibrate(1000);
+                }
+
+                if(count > 0)
+                    mediaPlayer!!.start()
+
+                else
+                    mediaPlayer!!.stop()
+
+
+
 
             }
         }
@@ -199,6 +221,7 @@ class OrderInfoFragment : BaseFragment()  {
                 swipe_card_holder?.setOnClickListener { view ->
                     count = 0
                     swipeAdapter!!.notifyDataSetChanged()
+                    mediaPlayer!!.stop()
                     performedStatusAction(100)
 
                 }
