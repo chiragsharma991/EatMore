@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eat-More</string>
+    <string name="app_name">Partner Center</string>
     <string name="please_wait">Please Wait...</string>
     <string name="internet_not_available">Please check internet connection</string>
     <string name="no_data_available">No data available!</string>
@@ -67,7 +67,7 @@
     <string name="nav_30days">Last 30 days</string>
     <string name="permission_granted">Permission granted</string>
     <string name="permission_denied">Permission denied</string>
-    <string name="customer_service_call">Customer service call:&#160;</string>
+    <string name="customer_service_call">Customer service</string>
     <string name="pick_up">Pickup</string>
     <string name="asap">As soon as possible</string>
     <string name="preorder">Pre-order</string>
