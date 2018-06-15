@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
-import dk.eatmore.softtech360.R
 import android.support.v4.app.FragmentActivity
 import android.text.TextUtils
 import android.util.Log
@@ -18,6 +17,10 @@ import kotlinx.android.synthetic.main.layout_comment_box.*
 import kotlinx.android.synthetic.main.layout_comment_box.view.*
 import kotlinx.android.synthetic.main.row_alert_header.view.*
 import kotlin.math.log
+import android.view.Gravity
+import android.content.DialogInterface
+import dk.eatmore.softtech360.R
+import org.w3c.dom.Text
 
 
 object DialogUtils {
@@ -46,6 +49,32 @@ object DialogUtils {
 
         alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context,R.color.colorSecondaryText))
         alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
+    }
+    fun openDialogDefault(context: Context, msg: String,title : String, btnPositive : String, btnNegative: String, color:Int, onDialogClickListener: OnDialogClickListener) {
+        val builder = AlertDialog.Builder(context, R.style.AppCompatAlertDialogDefaultStyle)
+        builder.setMessage(msg)
+        builder.setTitle(title)
+        builder.setCancelable(false)
+        builder.setPositiveButton(btnPositive) { _, _ ->
+            onDialogClickListener.onPositiveButtonClick(0)
+            Log.e("onPositiveButtonClick","---")
+        }
+        /**
+         * If blank then dont show negative button
+         */
+        if(btnNegative != "") {
+            builder.setNegativeButton(btnNegative, { _, _ ->
+                onDialogClickListener.onNegativeButtonClick()
+                Log.e("setNegativeButton","---")
+
+            })
+        }
+        val alert = builder.create()
+        alert.show()
+        alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context,R.color.colorSecondaryText))
+        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
+
+
     }
 
 

@@ -11,224 +11,291 @@
 
 
 
-        <FrameLayout
-            android:id="@+id/main_container_layout"
+    <FrameLayout
+        android:id="@+id/main_container_layout"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+
+
+
+    </FrameLayout>
+
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:alpha="0.9"
+        android:fitsSystemWindows="true"
+        >
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:fitsSystemWindows="true"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-
-
-
-
-        </FrameLayout>
-
-
-
-
-
-
-
-
-
-
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="@dimen/_250sdp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:alpha="0.9"
-            android:fitsSystemWindows="true"
             >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black"
+                android:background="@drawable/gradient_color"
                 >
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/nav_head_rel"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/_5sdp"
                     >
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="@dimen/_125sdp"
+                        android:layout_height="@dimen/_105sdp"
+                        android:id="@+id/nav_icon_img"
+                        app:srcCompat="@drawable/chef"
+
+                        />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User Full Name"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:id="@+id/nav_txt_name"
+                        android:textColor="@color/white"
+
+                        />
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Restaurant Name"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/nav_txt_rest"
+                        android:textColor="@color/white"
+                        />
 
 
-                    <RelativeLayout
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nav_head_sales"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_below="@+id/nav_head_rel"
+                    >
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/nav_head_rel"
                         android:padding="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_25sdp"
+                        android:orientation="horizontal"
                         >
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/nav_icon_img"
-                            android:layout_centerVertical="true"
-                            app:srcCompat="@mipmap/icon_app"
+                            android:text="@string/nav_today"
+                            android:singleLine="true"
+                            android:id="@+id/nav_last_0_lbl"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 kr"
+                            android:singleLine="true"
+                            android:gravity="right"
+                            android:id="@+id/nav_last_0_txt"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            />
+                    </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_0.5sdp"
+                        android:layout_below="@+id/nav_head_sales"
+                        android:background="@color/white"
+                        >
+
+                    </View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        >
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nav_last_7_lbl"
+                            android:text="@string/nav_last7"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 kr"
+                            android:id="@+id/nav_last_7_txt"
+                            android:gravity="right"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:singleLine="true"
+                            android:textColor="@color/white"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_0.5sdp"
+                        android:layout_below="@+id/nav_head_sales"
+                        android:background="@color/white"
+                        >
+
+                    </View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_5sdp"
+                        android:orientation="horizontal"
+                        >
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nav_30days"
+                            android:id="@+id/nav_last_30_lbl"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:textColor="@color/white"
+                            />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 kr"
+                            android:id="@+id/nav_last_30_txt"
+                            android:gravity="right"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_0.5sdp"
+                        android:layout_below="@+id/nav_head_sales"
+                        android:background="@color/white"
+                        android:id="@+id/nav_txt_one"
+                        >
+
+                    </View>
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/nav_head_sales"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:id="@+id/nav_main_order"
+                        android:background="@color/green"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/order"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/orders_title"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:id="@+id/nav_txt_order"
+                            android:textColor="@color/white"
 
                             />
 
-                        <RelativeLayout
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:id="@+id/nav_main_setting"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/settings"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/nav_icon_img"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            >
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="User Full Name"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                android:id="@+id/nav_txt_name"
-                                android:textColor="@color/white"
+                            android:text="@string/settings"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:id="@+id/nav_txt_setting"
+                            android:textColor="@color/white" />
 
-                                />
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Restaurant Name"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/nav_txt_name"
-                                android:id="@+id/nav_txt_rest"
-                                android:textColor="@color/white"
-                                />
-
-                        </RelativeLayout>
-
-
-
-
-                    </RelativeLayout>
-
-
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/nav_head_sales"
-                        android:orientation="vertical"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_below="@+id/nav_head_rel"
-                        >
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:id="@+id/nav_main_logout"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            app:srcCompat="@drawable/logout"
+                            android:tint="@color/white"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:layout_height="@dimen/_20sdp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"
-                            android:orientation="horizontal"
-                            >
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/nav_today"
-                                android:singleLine="true"
-                                android:id="@+id/nav_last_0_lbl"
-                                android:layout_weight="1"
-                                android:gravity="left"
-                                android:textColor="@color/white"
-                                />
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0 kr"
-                                android:singleLine="true"
-                                android:gravity="right"
-                                android:id="@+id/nav_last_0_txt"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:textColor="@color/white"
-                                />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:background="@color/white"
-                            >
-
-                        </View>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"
-                            android:orientation="horizontal"
-                            >
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/nav_last_7_lbl"
-                                android:text="@string/nav_last7"
-                                android:singleLine="true"
-                                android:layout_weight="1"
-                                android:gravity="left"
-                                android:textColor="@color/white"
-                                />
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0 kr"
-                                android:id="@+id/nav_last_7_txt"
-                                android:gravity="right"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:layout_weight="1"
-                                android:singleLine="true"
-                                android:textColor="@color/white"
-                                />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:background="@color/white"
-                            >
-
-                        </View>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"
-                            android:orientation="horizontal"
-                            >
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/nav_30days"
-                                android:id="@+id/nav_last_30_lbl"
-                                android:layout_weight="1"
-                                android:gravity="left"
-                                android:textColor="@color/white"
-                                />
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0 kr"
-                                android:id="@+id/nav_last_30_txt"
-                                android:gravity="right"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:layout_weight="1"
-                                android:textColor="@color/white"
-                                />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_below="@+id/nav_head_sales"
-                            android:background="@color/white"
-                            android:id="@+id/nav_txt_one"
-                            >
-
-                        </View>
-
+                            android:text="@string/logout"
+                            android:textAppearance="?android:textAppearanceMedium"
+                            android:id="@+id/nav_txt_logout"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -236,94 +303,7 @@
 
 
 
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_below="@+id/nav_head_sales"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:id="@+id/nav_main_order"
-                            android:background="@color/green"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="@dimen/_20sdp"
-                                app:srcCompat="@drawable/order"
-                                android:tint="@color/white"
-                                android:layout_margin="@dimen/_10sdp"
-                                android:layout_height="@dimen/_20sdp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/orders_title"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                android:id="@+id/nav_txt_order"
-                                android:textColor="@color/white"
-
-                                />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:id="@+id/nav_main_setting"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="@dimen/_20sdp"
-                                app:srcCompat="@drawable/settings"
-                                android:tint="@color/white"
-                                android:layout_margin="@dimen/_10sdp"
-                                android:layout_height="@dimen/_20sdp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/settings"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                android:id="@+id/nav_txt_setting"
-                                android:textColor="@color/white" />
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center|left"
-                            android:id="@+id/nav_main_logout"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="@dimen/_20sdp"
-                                app:srcCompat="@drawable/logout"
-                                android:tint="@color/white"
-                                android:layout_margin="@dimen/_10sdp"
-                                android:layout_height="@dimen/_20sdp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/logout"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                android:id="@+id/nav_txt_logout"
-                                android:textColor="@color/white" />
-
-                        </LinearLayout>
-
-
-
-
-
-                    </LinearLayout>
+                </LinearLayout>
 
 
 
@@ -331,12 +311,12 @@
 
 
 
-                </RelativeLayout>
             </RelativeLayout>
+        </RelativeLayout>
 
 
 
-        </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView>
 
 
 

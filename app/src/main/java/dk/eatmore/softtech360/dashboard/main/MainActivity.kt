@@ -266,16 +266,16 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         when (v!!.id) {
             R.id.nav_main_order -> {
                 nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-                nav_main_logout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                nav_main_setting.setBackgroundColor(0)
+                nav_main_logout.setBackgroundColor(0)
                 isOpenDrawer(false)
                 Handler().postDelayed({ onClickDrawer(0) }, 300)
 
             }
             R.id.nav_main_setting -> {
-                nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                nav_main_order.setBackgroundColor(0)
                 nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-                nav_main_logout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                nav_main_logout.setBackgroundColor(0)
                 isOpenDrawer(false)
                 Handler().postDelayed({ onClickDrawer(1) }, 300)
 
@@ -297,7 +297,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 popWithTag(TAG)
             }
             1 -> {
-                addFragment(R.id.main_container_layout, SettingInfoFragment.newInstance(), SettingInfoFragment.TAG)
+                addFragment(R.id.main_container_layout, SettingInfoFragment.newInstance(), SettingInfoFragment.TAG,false)
             }
             2 -> logOut()
 

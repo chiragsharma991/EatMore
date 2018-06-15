@@ -25,8 +25,8 @@ class EatMoreApplication : Application(), LifeCycleDelegate {
         val lifeCycleHandler = AppLifecycleHandler(this)
         registerLifecycleHandler(lifeCycleHandler)
 
-        //Fabric.with(this, Crashlytics()) //start log fabric crashlytics
-        Fabric.with(this,  Crashlytics.Builder().core(CrashlyticsCore.Builder().disabled( BuildConfig.DEBUG).build()).build()); //stop log fabric crashlytics
+        Fabric.with(this, Crashlytics()) //start log fabric crashlytics
+        //Fabric.with(this,  Crashlytics.Builder().core(CrashlyticsCore.Builder().disabled( BuildConfig.DEBUG).build()).build()); //stop log fabric crashlytics
         //  Crashlytics.getInstance().crash()
 
 

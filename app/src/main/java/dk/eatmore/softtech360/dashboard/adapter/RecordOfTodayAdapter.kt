@@ -165,7 +165,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             R.id.row_order_cardview ->{
                //val fragment : OrderDetails.Companion
 
-                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG)
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG,true)
             }
 
             R.id.row_order_accept -> {
@@ -178,7 +178,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
                     (fragment as RecordOfLast30Days).performAction(2,mListOrder.get(position)!!)
             }
             R.id.row_order_details -> {
-                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG)
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG,true)
 
             }
             R.id.row_order_reject -> {

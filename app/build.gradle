@@ -49,6 +49,7 @@ android {
 
     buildTypes {
         release {
+            ext.enableCrashlytics = false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

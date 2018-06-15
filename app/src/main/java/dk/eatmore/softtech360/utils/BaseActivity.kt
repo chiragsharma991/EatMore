@@ -168,9 +168,9 @@ abstract class BaseActivity : AppCompatActivity()
      * @param fragment -> your fragment
      * @param tag Name of tag any
      */
-    fun addFragment(container: Int, fragment: Fragment, tag: String) {
+    fun addFragment(container: Int, fragment: Fragment, tag: String, isAnimation :Boolean) {
         hideKeyboard()
-        addFragment(container, fragment, tag, false, true)
+        addFragment(container, fragment, tag, isAnimation, true)
     }
 
     /**
@@ -181,12 +181,13 @@ abstract class BaseActivity : AppCompatActivity()
      */
     fun addFragment(container: Int, fragment: Fragment, tag: String, isAnimation: Boolean, isAddToBackStack: Boolean) {
         hideKeyboard()
-        var mFragTransaction = supportFragmentManager.beginTransaction().add(container, fragment, tag)
 
+        var mFragTransaction = supportFragmentManager.beginTransaction()
         if (isAnimation)
-            mFragTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        mFragTransaction.setCustomAnimations(R.anim.enter_from_right,R.anim.exit_from_left)
+        mFragTransaction.add(container, fragment, tag)
         if (isAddToBackStack)
-            mFragTransaction.addToBackStack(tag)
+        mFragTransaction.addToBackStack(tag)
         mFragTransaction.commit()
     }
 

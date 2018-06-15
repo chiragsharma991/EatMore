@@ -34,8 +34,7 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
     var r_key = ""
     var r_token = ""
-    var set_reopen_rest_clickable:Boolean =false
-
+    var set_reopen_rest_clickable: Boolean = false
 
 
     override fun onClick(v: View?) {
@@ -53,39 +52,38 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
                     for (i in 0..list.size - 1) {
                         listOfreason.add(list.get(i).reason)
                     }
-                    val arrayAdapter  = ArrayAdapter(
+                    val arrayAdapter = ArrayAdapter(
                             activity,
                             android.R.layout.simple_list_item_1,
                             listOfreason)
                     list_view.adapter = arrayAdapter
-                    list_view.setOnItemClickListener{ _: AdapterView<*>, _: View, position: Int, _: Long ->
+                    list_view.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
                         addeditReasonDialog(getString(R.string.edit_reject_reason),
                                 listOfreason.get(position),
                                 list.get(position).or_id,
                                 "UPDATE")
                     }
-                }else{
+                } else {
                     set_reason_view.visibility = View.GONE
                     set_general_view.visibility = View.GONE
                     progress_bar.visibility = View.GONE
 
                 }
             }
-            override fun onFail(error : Int) {
 
-                when(error){
-                    404 ->{
+            override fun onFail(error: Int) {
+
+                when (error) {
+                    404 -> {
                         showSnackBar(getString(R.string.error_404))
                         progress_bar.visibility = View.GONE
                         log(RecordOfToday.TAG, "api call failed...")
                     }
-                    100 ->{
+                    100 -> {
                         showSnackBar(getString(R.string.internet_not_available))
 
                     }
                 }
-
-
 
 
             }
@@ -106,23 +104,23 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         set_reason_view.visibility = View.GONE
         set_general_view.visibility = View.VISIBLE
         progress_bar.visibility = View.GONE
+        set_reopen_loader.visibility = View.GONE
         set_reject_view.setOnClickListener(this)
-        set_keepscreen_switch.setChecked(if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)) true else false)
-        set_keepscreen_on.setOnClickListener{
-            if(PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON,false)){
-                PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,false)
+        set_keepscreen_switch.setChecked(if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) true else false)
+        set_keepscreen_on.setOnClickListener {
+            if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) {
+                PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, false)
                 PreferenceUtil.save()
                 set_keepscreen_switch.setChecked(false)
                 (activity as MainActivity).keepScreenOn(false)
-                Toast.makeText(context,R.string.wake_lock_off,Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.wake_lock_off, Toast.LENGTH_SHORT).show()
 
-            }
-            else {
-                PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON,true)
+            } else {
+                PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, true)
                 PreferenceUtil.save()
                 set_keepscreen_switch.setChecked(true)
                 (activity as MainActivity).keepScreenOn(true)
-                Toast.makeText(context,R.string.wake_lock_on,Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.wake_lock_on, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -133,97 +131,107 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
     private fun closeRestaurant() {
 
-        set_reopen_rest_txt.text= if(PreferenceUtil.getBoolean(PreferenceUtil.KSTATUS,true)) getString(R.string.close_rest) else getString(R.string.reopen_rest)
-        if(MainActivity.kShouldAllowCloseRestDay){
-            set_reopen_rest_clickable=true
-            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.black))
+        set_reopen_rest_txt.text = if (PreferenceUtil.getBoolean(PreferenceUtil.KSTATUS, true)) getString(R.string.close_rest) else getString(R.string.reopen_rest)
+        if (MainActivity.kShouldAllowCloseRestDay) {
+            set_reopen_rest_clickable = true
+            set_reopen_rest_txt.alpha= 1.0F
+            set_reopen_rest_img.alpha = 0.8F
 
-        }else{
-            set_reopen_rest_clickable=false
-            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.border_gray))
+        } else {
+            set_reopen_rest_clickable = false
+            set_reopen_rest_txt.alpha=0.4F
+            set_reopen_rest_img.alpha = 0.4F
+
         }
-        set_reopen_rest.setOnClickListener{
+        set_reopen_rest.setOnClickListener {
 
-            if(set_reopen_rest_clickable){
+            if (set_reopen_rest_clickable) {
 
 
-                if(PreferenceUtil.getBoolean(PreferenceUtil.KSTATUS,true)){
-                    DialogUtils.openDialog ( context!!,getString(R.string.would_you_like_toclose), getString(R.string.are_you_sure_toclose),
-                            getString(R.string.yes),getString(R.string.cancel), ContextCompat.getColor(context!!,R.color.theme_color), object : DialogUtils.OnDialogClickListener {
+                if (PreferenceUtil.getBoolean(PreferenceUtil.KSTATUS, true)) {
+                    DialogUtils.openDialogDefault(context!!, getString(R.string.would_you_like_toclose), getString(R.string.are_you_sure_toclose),
+                            getString(R.string.yes), getString(R.string.cancel), ContextCompat.getColor(context!!, R.color.theme_color), object : DialogUtils.OnDialogClickListener {
 
                         override fun onPositiveButtonClick(position: Int) {
+                            set_reopen_loader.visibility = View.VISIBLE
 
-                            callAPI( ApiCall.closedRestDay(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+                            callAPI(ApiCall.closedRestDay(r_key, r_token), object : BaseFragment.OnApiCallInteraction {
 
-                                    override fun <T> onSuccess(body: T?) {
-                                        val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+                                override fun <T> onSuccess(body: T?) {
+                                    val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
 
-                                        if (json.get("status").asBoolean) {
-                                            set_reopen_rest_txt.text=getString(R.string.reopen_rest)
-                                            set_reopen_rest_clickable=true
-                                            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.black))
-                                            PreferenceUtil.putValue(PreferenceUtil.KSTATUS,false)
-                                            PreferenceUtil.save()
-                                            showSnackBar(json.get("msg").asString)
-                                        }
-                                    }
-
-                                    override fun onFail(error : Int) {
-                                        log(MainActivity.TAG,"error "+error)
-                                        showSnackBar(getString(R.string.error_404))
+                                    if (json.get("status").asBoolean) {
+                                        set_reopen_rest_txt.text = getString(R.string.reopen_rest)
+                                        set_reopen_rest_clickable = true
+                                        set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!, R.color.black))
+                                        PreferenceUtil.putValue(PreferenceUtil.KSTATUS, false)
+                                        PreferenceUtil.save()
+                                        showSnackBar(json.get("msg").asString)
+                                        set_reopen_loader.visibility = View.GONE
 
                                     }
-                                })
+                                }
+
+                                override fun onFail(error: Int) {
+                                    log(MainActivity.TAG, "error " + error)
+                                    showSnackBar(getString(R.string.error_404))
+                                    set_reopen_loader.visibility = View.GONE
+
+
+                                }
+                            })
 
                         }
 
                         override fun onNegativeButtonClick() {
+                            set_reopen_loader.visibility = View.GONE
 
                         }
                     })
 
-                }else{
+                } else {
 
-                    DialogUtils.openDialog ( context!!,getString(R.string.would_you_like_toreopen), getString(R.string.are_you_sure_toreopen),
-                            getString(R.string.yes),getString(R.string.cancel), ContextCompat.getColor(context!!,R.color.theme_color), object : DialogUtils.OnDialogClickListener {
+                    DialogUtils.openDialogDefault(context!!, getString(R.string.would_you_like_toreopen), getString(R.string.are_you_sure_toreopen),
+                            getString(R.string.yes), getString(R.string.cancel), ContextCompat.getColor(context!!, R.color.theme_color), object : DialogUtils.OnDialogClickListener {
                         override fun onPositiveButtonClick(position: Int) {
 
+                            set_reopen_loader.visibility = View.VISIBLE
 
-                                callAPI( ApiCall.resetRestDay(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+                            callAPI(ApiCall.resetRestDay(r_key, r_token), object : BaseFragment.OnApiCallInteraction {
 
-                                    override fun <T> onSuccess(body: T?) {
-                                        val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+                                override fun <T> onSuccess(body: T?) {
+                                    val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
 
-                                        if (json.get("status").asBoolean) {
-                                            set_reopen_rest_txt.text=getString(R.string.close_rest)
-                                            set_reopen_rest_clickable=true
-                                            set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!,R.color.black))
-                                            PreferenceUtil.putValue(PreferenceUtil.KSTATUS,true)
-                                            PreferenceUtil.save()
-                                            showSnackBar(json.get("msg").asString)
-
-                                        }
-                                    }
-
-                                    override fun onFail(error : Int) {
-                                        log(MainActivity.TAG,"error "+error)
-                                        showSnackBar(getString(R.string.error_404))
+                                    if (json.get("status").asBoolean) {
+                                        set_reopen_rest_txt.text = getString(R.string.close_rest)
+                                        set_reopen_rest_clickable = true
+                                        set_reopen_rest_txt.setTextColor(ContextCompat.getColor(context!!, R.color.black))
+                                        PreferenceUtil.putValue(PreferenceUtil.KSTATUS, true)
+                                        PreferenceUtil.save()
+                                        showSnackBar(json.get("msg").asString)
+                                        set_reopen_loader.visibility = View.GONE
 
                                     }
-                                })
+                                }
 
+                                override fun onFail(error: Int) {
+                                    log(MainActivity.TAG, "error " + error)
+                                    showSnackBar(getString(R.string.error_404))
+                                    set_reopen_loader.visibility = View.GONE
 
+                                }
+                            })
 
 
                         }
 
                         override fun onNegativeButtonClick() {
+                            set_reopen_loader.visibility = View.GONE
 
                         }
                     })
 
                 }
-
 
 
             }
@@ -233,8 +241,8 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
     }
 
     companion object {
-        val TAG= "SET"
-        fun newInstance() : SettingInfoFragment {
+        val TAG = "SET"
+        fun newInstance(): SettingInfoFragment {
             return SettingInfoFragment()
         }
 
@@ -242,20 +250,17 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-
-
-
     private fun generalToolbar() {
 
-      //  toolbar.removeAllViewsInLayout()
+        //  toolbar.removeAllViewsInLayout()
         img_toolbar_back.setImageResource(R.drawable.ic_menu)
         txt_toolbar.text = getString(R.string.settings)
         img_toolbar_back.setOnClickListener {
 
-            if( set_general_view.visibility == View.VISIBLE){
+            if (set_general_view.visibility == View.VISIBLE) {
                 var mainActivity = getActivityBase() as MainActivity
                 mainActivity.isOpenDrawer(true)
-            }else{
+            } else {
                 toolbar.menu.clear()
                 img_toolbar_back.setImageResource(R.drawable.ic_menu)
                 txt_toolbar.text = getString(R.string.settings)
@@ -278,9 +283,9 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         txt_toolbar.text = getString(R.string.reject_reasons)
         img_toolbar_back.setImageResource(R.drawable.ic_back)
         toolbar.setOnMenuItemClickListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.action_add -> {
-                    addeditReasonDialog(getString(R.string.add_reject_reason), "","", getString(R.string.add))
+                    addeditReasonDialog(getString(R.string.add_reject_reason), "", "", getString(R.string.add))
                 }
             }
             true
@@ -289,80 +294,80 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    private fun addeditReasonDialog(title: String, selectedReason: String, or_id: String, case: String){
+    private fun addeditReasonDialog(title: String, selectedReason: String, or_id: String, case: String) {
 
         val li = LayoutInflater.from(activity)
         val view = li.inflate(R.layout.layout_comment_box, null)
-        var dialog= DialogUtils.createDialog(activity!!,view)
-        dialog.setOnDismissListener{ hideKeyboard()  }
+        var dialog = DialogUtils.createDialog(activity!!, view)
+        dialog.setOnDismissListener { hideKeyboard() }
         view.dialog_txt_error!!.visibility = View.GONE
-        view.dialog_edt_comment.setText( if(selectedReason != "") selectedReason else "")
+        view.dialog_edt_comment.setText(if (selectedReason != "") selectedReason else "")
         view.dialog_txt_title.text = title
-        view.dialog_txt_ok.setOnClickListener{
+        view.dialog_txt_ok.setOnClickListener {
             if (TextUtils.isEmpty(view.dialog_edt_comment.text.trim().toString()))
                 view.dialog_txt_error.visibility = View.VISIBLE
-            else{
+            else {
                 dialog.dismiss()
-                when(case){
-                    "UPDATE" ->{
+                when (case) {
+                    "UPDATE" -> {
 
                         callAPI(ApiCall.updateOrder(r_key = r_key, r_token = r_token,
-                                reason =view.dialog_edt_comment.text.trim().toString(),
+                                reason = view.dialog_edt_comment.text.trim().toString(),
                                 action_by = PreferenceUtil.getString(PreferenceUtil.USER_ID, "").toString()
-                                ,or_id = or_id ),
+                                , or_id = or_id),
                                 object : BaseFragment.OnApiCallInteraction {
 
                                     override fun <T> onSuccess(body: T?) {
                                         // all list of reasons.
-                                        val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+                                        val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
                                         if (json.get("status").asBoolean) {
                                             showSnackBar(json.get("msg").asString)
-                                        }else{
+                                        } else {
                                             showSnackBar(getString(R.string.error_404))
                                         }
                                     }
-                                    override fun onFail(error : Int) {
 
-                                        when(error){
-                                            404 ->{
+                                    override fun onFail(error: Int) {
+
+                                        when (error) {
+                                            404 -> {
                                                 showSnackBar(getString(R.string.error_404))
                                             }
-                                            100 ->{
+                                            100 -> {
                                                 showSnackBar(getString(R.string.internet_not_available))
                                             }
                                         }
-
 
 
                                     }
                                 })
                     }
-                    "ADD"    ->{
+                    "ADD" -> {
                         callAPI(ApiCall.createOrder(r_key = r_key, r_token = r_token,
-                                reason =view.dialog_edt_comment.text.trim().toString(),
+                                reason = view.dialog_edt_comment.text.trim().toString(),
                                 action_by = PreferenceUtil.getString(PreferenceUtil.USER_ID, "").toString()),
                                 object : BaseFragment.OnApiCallInteraction {
 
                                     override fun <T> onSuccess(body: T?) {
                                         // all list of reasons.
-                                        val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+                                        val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
                                         if (json.get("status").asBoolean) {
                                             showSnackBar(json.get("msg").asString)
-                                        }else{
+                                        } else {
                                             showSnackBar(getString(R.string.error_404))
                                         }
                                     }
-                                    override fun onFail(error : Int) {
 
-                                        when(error){
-                                            404 ->{
+                                    override fun onFail(error: Int) {
+
+                                        when (error) {
+                                            404 -> {
                                                 showSnackBar(getString(R.string.error_404))
                                             }
-                                            100 ->{
+                                            100 -> {
                                                 showSnackBar(getString(R.string.internet_not_available))
                                             }
                                         }
-
 
 
                                     }
