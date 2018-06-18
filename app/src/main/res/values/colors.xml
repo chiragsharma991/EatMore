@@ -38,6 +38,7 @@
     <color name="feed_item_bg">#ffffff</color>
     <color name="bg_color">#F0EFF5</color>
     <color name="default_bg_color">#FAFAFA</color>
+    <color name="grey">#dddddd</color>
     <color name="colorDarkTransparent">#CC000000</color>
 
     <!--

@@ -18,10 +18,10 @@
 
 
         <LinearLayout
-            android:id="@+id/order_detail_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:clickable="true"
             android:visibility="visible">
 
             <RelativeLayout
@@ -55,10 +55,447 @@
 
                             />
 
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            >
+
+                            <com.facebook.shimmer.ShimmerFrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/shimmer_view"
+                                android:visibility="gone"
+                                app:duration="100"
+                                >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center_horizontal"
+                                    >
+                                    <View
+                                        android:layout_width="@dimen/_95sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:background="@color/grey"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="2018-05-09 13:49:49"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+                                    <View
+                                        android:layout_width="@dimen/_55sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="Order No: 1522"
+                                        android:background="@color/grey"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_below="@+id/nav_head_sales"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:alpha="0.1"
+                                        android:background="@color/border_gray"></View>
+
+                                    <View
+                                        android:layout_width="@dimen/_95sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:background="@color/grey"
+                                        android:singleLine="true"
+                                        android:text="Ros Sondeborg"
+                                        android:textAppearance="?android:textAppearanceMedium"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+                                    <View
+                                        android:layout_width="@dimen/_25sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="site"
+                                        android:background="@color/grey"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/dark_blue"
+                                        android:textStyle="normal" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_below="@+id/nav_head_sales"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:alpha="0.1"
+                                        android:background="@color/border_gray"></View>
+
+                                    <View
+                                        android:layout_width="@dimen/_38sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="Pick up"
+                                        android:background="@color/grey"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <View
+                                        android:layout_width="@dimen/_55sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:background="@color/grey"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="@string/expected_time"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+                                    <View
+                                        android:layout_width="@dimen/_99sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:background="@color/grey"
+                                        android:singleLine="true"
+                                        android:text="2018-05-09 13:49:49"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="normal" />
+
+                                    <View
+                                        android:layout_width="@dimen/_25sdp"
+                                        android:layout_height="@dimen/_18sdp"
+                                        android:background="@color/grey"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:singleLine="true"
+                                        android:text="asap"
+                                        android:textAppearance="?android:textAppearanceSmall"
+                                        android:textColor="@color/black"
+                                        android:textStyle="bold" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:alpha="0.1"
+                                        android:background="@color/border_gray">
+
+                                    </View>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:gravity="center_horizontal"
+
+                                        >
+                                        <View
+                                            android:layout_width="@dimen/_55sdp"
+                                            android:layout_height="@dimen/_18sdp"
+                                            android:layout_marginTop="@dimen/_8sdp"
+                                            android:background="@color/grey"
+                                            android:gravity="left"
+                                            android:singleLine="true"
+                                            android:text="@string/comment"
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="bold" />
+
+                                        <View
+                                            android:layout_width="@dimen/_75sdp"
+                                            android:layout_height="@dimen/_18sdp"
+                                            android:background="@color/grey"
+                                            android:layout_marginTop="@dimen/_8sdp"
+                                            android:gravity="center_horizontal"
+                                            android:layout_marginLeft="@dimen/_8sdp"
+                                            android:layout_marginRight="@dimen/_8sdp"
+                                            android:text="This is comment."
+                                            android:textAppearance="?android:textAppearanceSmall"
+                                            android:textColor="@color/black"
+                                            android:textStyle="normal" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/_1sdp"
+                                            android:layout_below="@+id/nav_head_sales"
+                                            android:layout_marginTop="@dimen/_8sdp"
+                                            android:alpha="0.1"
+                                            android:background="@color/border_gray">
+
+                                        </View>
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="@dimen/_8sdp"
+                                            android:layout_marginLeft="@dimen/_8sdp"
+                                            android:layout_marginRight="@dimen/_8sdp"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_8sdp"
+                                                android:orientation="horizontal">
+
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:gravity="left"
+                                                    android:layout_marginRight="@dimen/_85sdp"
+                                                    android:background="@color/grey"
+                                                    android:singleLine="true"
+                                                    android:text="@string/subtotal"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:layout_marginLeft="@dimen/_120sdp"
+                                                    android:background="@color/grey"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:text="120"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_8sdp"
+                                                android:orientation="horizontal">
+
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:gravity="left"
+                                                    android:layout_marginRight="@dimen/_115sdp"
+                                                    android:background="@color/grey"
+                                                    android:singleLine="true"
+                                                    android:text="@string/subtotal"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:layout_marginLeft="@dimen/_132sdp"
+                                                    android:background="@color/grey"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:text="120"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_8sdp"
+                                                android:orientation="horizontal">
+
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:gravity="left"
+                                                    android:layout_marginRight="@dimen/_99sdp"
+                                                    android:background="@color/grey"
+                                                    android:singleLine="true"
+                                                    android:text="@string/subtotal"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:layout_marginLeft="@dimen/_121sdp"
+                                                    android:background="@color/grey"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:text="120"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_8sdp"
+                                                android:orientation="horizontal">
+
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:gravity="left"
+                                                    android:layout_marginRight="@dimen/_125sdp"
+                                                    android:background="@color/grey"
+                                                    android:singleLine="true"
+                                                    android:text="@string/subtotal"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:layout_marginLeft="@dimen/_140sdp"
+                                                    android:background="@color/grey"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:text="120"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_8sdp"
+                                                android:orientation="horizontal">
+
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:gravity="left"
+                                                    android:layout_marginRight="@dimen/_65sdp"
+                                                    android:background="@color/grey"
+                                                    android:singleLine="true"
+                                                    android:text="@string/subtotal"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:layout_marginLeft="@dimen/_120sdp"
+                                                    android:background="@color/grey"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:text="120"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_8sdp"
+                                                android:orientation="horizontal">
+
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:gravity="left"
+                                                    android:layout_marginRight="@dimen/_100sdp"
+                                                    android:background="@color/grey"
+                                                    android:singleLine="true"
+                                                    android:text="@string/subtotal"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+                                                <View
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="@dimen/_18sdp"
+                                                    android:layout_weight="1"
+                                                    android:layout_marginLeft="@dimen/_130sdp"
+                                                    android:background="@color/grey"
+                                                    android:gravity="right"
+                                                    android:singleLine="true"
+                                                    android:text="120"
+                                                    android:textAppearance="?android:textAppearanceSmall"
+                                                    android:textColor="@color/black"
+                                                    android:textStyle="normal" />
+
+
+                                            </LinearLayout>
+
+
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+
+                            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+
+                        </LinearLayout>
+
+
+
+                        <!---->
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:id="@+id/order_detail_view"
+                            android:visibility="gone"
                             android:orientation="vertical">
 
                             <android.support.v7.widget.AppCompatTextView
@@ -700,9 +1137,13 @@
 
                         </LinearLayout>
 
+
+
                     </LinearLayout>
 
                 </android.support.v4.widget.NestedScrollView>
+
+                <include layout="@layout/layout_empty" />
 
                 <LinearLayout
                     android:id="@+id/row_order_typebtn"
@@ -787,13 +1228,14 @@
                 </LinearLayout>
 
 
+
             </RelativeLayout>
+
 
 
         </LinearLayout>
 
 
-        <include layout="@layout/layout_empty" />
 
 
     </LinearLayout>

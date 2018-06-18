@@ -349,8 +349,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 if(fragment.set_general_view.visibility == View.VISIBLE) {
                     popWithTag(TAG)
                     nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-                    nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-                    nav_main_logout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                    nav_main_setting.setBackgroundColor(0)
+                    nav_main_logout.setBackgroundColor(0)
                 }
                 else
                 {

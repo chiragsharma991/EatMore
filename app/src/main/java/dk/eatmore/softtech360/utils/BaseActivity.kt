@@ -184,7 +184,7 @@ abstract class BaseActivity : AppCompatActivity()
 
         var mFragTransaction = supportFragmentManager.beginTransaction()
         if (isAnimation)
-        mFragTransaction.setCustomAnimations(R.anim.enter_from_right,R.anim.exit_from_left)
+        mFragTransaction.setCustomAnimations(R.anim.enter_from_right,0,0,R.anim.exit_from_left)
         mFragTransaction.add(container, fragment, tag)
         if (isAddToBackStack)
         mFragTransaction.addToBackStack(tag)

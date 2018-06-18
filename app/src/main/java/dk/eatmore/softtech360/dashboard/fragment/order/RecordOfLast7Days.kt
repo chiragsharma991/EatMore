@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,6 +90,7 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     fun fetchOrders(setAdapter : Boolean) {
 
+        view_empty.visibility = View.GONE
         (parentFragment as OrderInfoFragment).showPreogressBar(true)
         val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
         val last7th = getCalculatedDate("yyyy-MM-dd", -7)
@@ -123,6 +126,11 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
                     // if adapter is true then list should be set.
                     if(setAdapter){
+                       /* val itemAnimator:RecyclerView.ItemAnimator = DefaultItemAnimator()
+                        itemAnimator.addDuration = 1000
+                        itemAnimator.removeDuration = 1000
+                        recycler_view_7.setItemAnimator(itemAnimator)*/
+
                         mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
                         recycler_view_7.layoutManager = LinearLayoutManager(getActivityBase())
                         recycler_view_7.adapter = mAdapter
@@ -143,7 +151,7 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     showSnackBar(getString(R.string.no_data_available))
                     view_empty.visibility = View.VISIBLE
                     view_empty_txt_data.text =getString(R.string.no_data_available)
-                    recycler_view_7.visibility = View.GONE
+                   // recycler_view_7.visibility = View.GONE
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
                     swipeRefresh.setRefreshing(false)
 
@@ -161,7 +169,7 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                         showSnackBar(getString(R.string.error_404))
                         view_empty.visibility = View.VISIBLE
                         view_empty_txt_data.text =getString(R.string.error_404_text)
-                        recycler_view_7.visibility = View.GONE
+                       // recycler_view_7.visibility = View.GONE
                         log(TAG, "api call failed...")
                     }
                     100 -> {
@@ -169,7 +177,7 @@ class RecordOfLast7Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                         showSnackBar(getString(R.string.internet_not_available))
                         view_empty.visibility = View.VISIBLE
                         view_empty_txt_data.text =getString(R.string.internet_not_available)
-                        recycler_view_7.visibility = View.GONE
+                     //   recycler_view_7.visibility = View.GONE
                     }
                 }
                 (parentFragment as OrderInfoFragment).showPreogressBar(false)

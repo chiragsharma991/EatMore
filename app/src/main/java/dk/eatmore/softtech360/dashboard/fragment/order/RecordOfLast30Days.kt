@@ -84,6 +84,7 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
 
     fun fetchOrders(setAdapter: Boolean) {
 
+        view_empty.visibility = View.GONE
         (parentFragment as OrderInfoFragment).showPreogressBar(true)
         val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
         val last30th = getCalculatedDate("yyyy-MM-dd", -30)
@@ -138,7 +139,7 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
                     showSnackBar(getString(R.string.no_data_available))
                     view_empty.visibility = View.VISIBLE
                     view_empty_txt_data.text = getString(R.string.no_data_available)
-                    recycler_view_30.visibility = View.GONE
+                   // recycler_view_30.visibility = View.GONE
                     (parentFragment as OrderInfoFragment).showPreogressBar(false)
                     swipeRefresh.setRefreshing(false)
 
@@ -156,7 +157,7 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
                         showSnackBar(getString(R.string.error_404))
                         view_empty.visibility = View.VISIBLE
                         view_empty_txt_data.text = getString(R.string.error_404_text)
-                        recycler_view_30.visibility = View.GONE
+                    //    recycler_view_30.visibility = View.GONE
                         log(TAG, "api call failed...")
                     }
                     100 -> {
@@ -164,7 +165,7 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
                         showSnackBar(getString(R.string.internet_not_available))
                         view_empty.visibility = View.VISIBLE
                         view_empty_txt_data.text = getString(R.string.internet_not_available)
-                        recycler_view_30.visibility = View.GONE
+                     //   recycler_view_30.visibility = View.GONE
                     }
                 }
 
