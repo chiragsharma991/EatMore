@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eat-More</string>
+    <string name="app_name">Partner Center</string>
 
 
     <string name="please_wait">Vent venligst...</string>
@@ -46,7 +46,7 @@
     <string name="orders_title">Ordrer</string>
     <string name="settings">Indstilling</string>
     <string name="reject_reasons">Afvis ordre begrundelser</string>
-    <string name="new_orders">Ny(e) ordre(r)</string>
+    <string name="new_orders">Nye ordrer</string>
     <string name="answered_orders">Besvaret ordrer</string>
     <string name="order_no">Ordre nr.:</string>
     <string name="order_accept_txt">Ordre accepteret til at være klar</string>
@@ -69,7 +69,7 @@
     <string name="nav_30days">30 dage</string>
     <string name="permission_granted">Tilladelse givet</string>
     <string name="permission_denied">Adgang nægtet</string>
-    <string name="customer_service_call">Kundeservice ring:&#160;</string>
+    <string name="customer_service_call">Kundeservice </string>
     <string name="pick_up">Hent Selv</string>
     <string name="asap">Hurtigst muligt</string>
     <string name="preorder">Forudbestilling </string>
@@ -82,7 +82,7 @@
     <string name="restupto">Rest op til minimum</string>
     <string name="comment">Kommentar:</string>
     <string name="new_update">Ny opdatering er tilgængelig nu</string>
-    <string name="go_on_store">Gå på PlayStore</string>
+    <string name="go_on_store">Gå til PlayStore</string>
     <string name="dismiss">afskedige</string>
     <string name="note">Bemærk:</string>
     <string name="reopen_rest">Fortryd lukning</string>
