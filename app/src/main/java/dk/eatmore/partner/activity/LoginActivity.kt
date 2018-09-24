@@ -17,7 +17,6 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eatmore.partner.R
-import dk.eatmore.partner.dashboard.fragment.order.OrderDetails
 import dk.eatmore.partner.dashboard.main.MainActivity
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.rest.ApiClient
@@ -101,10 +100,8 @@ class LoginActivity : BaseActivity(){
                     Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
                 }
                 return
-            }
-        }
+            } } }
 
-    }
 
     private fun loginAttempt() {
 

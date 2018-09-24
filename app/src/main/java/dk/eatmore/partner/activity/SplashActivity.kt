@@ -274,6 +274,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun moveToLogin() {
+
         if(PreferenceUtil.getString(PreferenceUtil.USER_NAME,"")==""){
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

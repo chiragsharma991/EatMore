@@ -1,4 +1,4 @@
-package dk.eatmore.softtech360.utils
+package dk.eatmore.partner.utils
 
 import android.content.Context
 import android.graphics.Color
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.row_alert_header.view.*
 import kotlin.math.log
 import android.view.Gravity
 import android.content.DialogInterface
-import dk.eatmore.softtech360.R
+import dk.eatmore.partner.R
 import org.w3c.dom.Text
 
 

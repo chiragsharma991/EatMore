@@ -295,15 +295,8 @@ class OrderInfoFragment : BaseFragment()  {
             return mFragmentTitleList.get(position)
         }
 
-
-
-
-
-
-
-
-
 }
+
 }
 
 

@@ -1,4 +1,4 @@
-package dk.eatmore.softtech360.dashboard.fragment.order
+package dk.eatmore.partner.dashboard.fragment.order
 
 import android.app.AlertDialog
 import android.content.Context
@@ -7,13 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import dk.eatmore.softtech360.R
-import dk.eatmore.softtech360.dashboard.main.MainActivity
-import dk.eatmore.softtech360.model.CustomSearchItem
-import dk.eatmore.softtech360.model.ProductDetails
-import dk.eatmore.softtech360.rest.ApiCall
-import dk.eatmore.softtech360.storage.PreferenceUtil
-import dk.eatmore.softtech360.utils.BaseFragment
 import kotlinx.android.synthetic.main.fragment_order_details.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
@@ -32,14 +25,22 @@ import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
-import dk.eatmore.softtech360.model.DataItem
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.row_order_attribute.view.*
 import android.widget.Toast
 import android.content.pm.PackageManager
 import android.os.Handler
 import android.view.animation.TranslateAnimation
-import dk.eatmore.softtech360.rest.ApiClient
+import dk.eatmore.partner.R
+import dk.eatmore.partner.dashboard.fragment.order.OrderInfoFragment
+import dk.eatmore.partner.dashboard.fragment.order.RecordOfToday
+import dk.eatmore.partner.dashboard.main.MainActivity
+import dk.eatmore.partner.model.CustomSearchItem
+import dk.eatmore.partner.model.DataItem
+import dk.eatmore.partner.model.ProductDetails
+import dk.eatmore.partner.rest.ApiCall
+import dk.eatmore.partner.storage.PreferenceUtil
+import dk.eatmore.partner.utils.BaseFragment
 import kotlinx.android.synthetic.main.activity_test.*
 
 

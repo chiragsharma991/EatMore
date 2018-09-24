@@ -25,7 +25,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.JsonObject
 import dk.eatmore.partner.R.string.*
 import dk.eatmore.partner.storage.PreferenceUtil
-import dk.eatmore.partner.utils.DialogUtils
 import dk.eatmore.partner.activity.LoginActivity
 import dk.eatmore.partner.dashboard.fragment.order.OrderDetails
 import dk.eatmore.partner.dashboard.fragment.order.OrderInfoFragment
@@ -36,6 +35,7 @@ import dk.eatmore.partner.rest.ApiClient
 import dk.eatmore.partner.rest.ApiInterface
 import dk.eatmore.partner.utils.BaseFragment
 import dk.eatmore.partner.utils.Custom_data
+import dk.eatmore.partner.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.fragment_settinginfo.*

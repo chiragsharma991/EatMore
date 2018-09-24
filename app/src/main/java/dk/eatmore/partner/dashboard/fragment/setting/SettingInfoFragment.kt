@@ -17,7 +17,6 @@ import dk.eatmore.partner.model.OpeninghoursItem
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.utils.BaseFragment
-import dk.eatmore.partner.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_settinginfo.*
 import kotlinx.android.synthetic.main.layout_comment_box.view.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
@@ -28,6 +27,7 @@ import android.content.Context.POWER_SERVICE
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import dk.eatmore.partner.utils.Custom_data
+import dk.eatmore.partner.utils.DialogUtils
 
 
 class SettingInfoFragment : BaseFragment(), View.OnClickListener {
