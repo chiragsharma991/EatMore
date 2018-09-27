@@ -127,11 +127,11 @@ class RecordOfToday : Printercommand(), SwipeRefreshLayout.OnRefreshListener, Re
                                     if(fragment !=null){
                                         (getActivityBase() as MainActivity).pop()
                                         log(TAG,"check----"+model.order_status.capitalize().toUpperCase())
-                                        fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                        fetchOrderDetails(r_key,r_token,model.order_id,true)
                                     }else{
                                         // call print
                                         log(TAG,"check----"+model.order_status.capitalize().toUpperCase())
-                                        fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                        fetchOrderDetails(r_key,r_token,model.order_id,true)
                                     }
 
                                 }
@@ -193,9 +193,9 @@ class RecordOfToday : Printercommand(), SwipeRefreshLayout.OnRefreshListener, Re
                                         val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
                                         if(fragment !=null){
                                             (getActivityBase() as MainActivity).pop()
-                                            fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                            fetchOrderDetails(r_key,r_token,model.order_id,false)
                                         }else{
-                                            fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                            fetchOrderDetails(r_key,r_token,model.order_id,false)
                                         }
 
                                     }

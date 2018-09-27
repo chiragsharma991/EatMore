@@ -478,8 +478,8 @@ class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
     }
 
     fun startprint(){
-        if(data.size > 0) {
-            runPrintReceiptSequence(data,customSearchItem!!.order_status.capitalize()=="ACCEPTED")
+        if(this::data.isInitialized && data.size > 0) {
+            runPrintReceiptSequence(data,customSearchItem!!.order_status.capitalize().toUpperCase()=="ACCEPTED")
         }
     }
 

@@ -525,7 +525,7 @@ object EpsonUtils {
                     context.getString(R.string.title_msg_description),
                     errMsg)
         }
-        show(msg, context)
+      //  show(msg, context)
     }
 
     fun showMsg(msg: String, context: Context) {
