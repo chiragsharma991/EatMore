@@ -2,18 +2,14 @@ package dk.eatmore.partner.dashboard.fragment.order
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import kotlinx.android.synthetic.main.fragment_order_details.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.util.ArrayList
-import android.view.LayoutInflater
-import kotlinx.android.synthetic.main.row_order_ingradient.view.*
 import kotlinx.android.synthetic.main.row_order_product.view.*
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
@@ -23,17 +19,19 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
-import android.view.Gravity
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.row_order_attribute.view.*
-import android.widget.Toast
-import android.content.pm.PackageManager
 import android.os.Handler
+import android.view.*
 import android.view.animation.TranslateAnimation
+import android.widget.EditText
+import android.widget.Toast
+import com.epson.epos2.Epos2Exception
+import com.epson.epos2.printer.Printer
+import com.epson.epos2.printer.PrinterStatusInfo
+import com.epson.epos2.printer.ReceiveListener
 import dk.eatmore.partner.R
-import dk.eatmore.partner.dashboard.fragment.order.OrderInfoFragment
-import dk.eatmore.partner.dashboard.fragment.order.RecordOfToday
 import dk.eatmore.partner.dashboard.main.MainActivity
 import dk.eatmore.partner.model.CustomSearchItem
 import dk.eatmore.partner.model.DataItem
@@ -41,16 +39,24 @@ import dk.eatmore.partner.model.ProductDetails
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.utils.BaseFragment
-import kotlinx.android.synthetic.main.activity_test.*
+import dk.eatmore.partner.utils.EpsonUtils
 
 
-class OrderDetails : BaseFragment(), View.OnClickListener {
+class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
+
 
 
     val mListOrderDetails = ArrayList<OrderDetails>()
     var customSearchItem: CustomSearchItem? = null
     private var r_key: String = ""
     private var r_token: String = ""
+   // var mPrinter: Printer?=null
+    private lateinit var data: List<DataItem>
+    private lateinit var menu: Menu
+    private var dialog: AlertDialog? = null
+
+
+
 
     companion object {
         val TAG = "OrderDetails"
@@ -66,12 +72,12 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
     }
 
     override fun getLayout(): Int {
+        setHasOptionsMenu(true)
         return R.layout.fragment_order_details
     }
 
 
     override fun onClick(v: View?) {
-
         log(TAG, "on click---")
         when (v!!.id) {
 
@@ -118,10 +124,10 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
     }
 
     private fun setView(customSearchItem: CustomSearchItem) {
-        val animation = TranslateAnimation(0f, 0f, -150f, 0f)
+    /*    val animation = TranslateAnimation(0f, 0f, -150f, 0f)
         animation.duration = 500
         animation.fillAfter = true
-        order_detail_img.startAnimation(animation)
+        order_detail_img.startAnimation(animation)*/
 
         // this is condition to hide/show accept/reject button .
         val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
@@ -132,12 +138,17 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
                 animation.fillAfter = true
                 row_order_typebtn.visibility = View.VISIBLE
                 row_order_typebtn.startAnimation(animation)
-            } else row_order_typebtn.visibility = View.GONE
+            } else {
+                row_order_typebtn.visibility = View.GONE
+                if(customSearchItem.order_status.capitalize().toUpperCase()=="ACCEPTED" || customSearchItem.order_status.capitalize().toUpperCase()=="REJECTED")
+                toolbar.inflateMenu(R.menu.printer)
+            }
             if (currentDate == customSearchItem.order_month_date) order_detail_status_view.visibility = View.GONE else order_detail_status_view.visibility = View.VISIBLE
         } else {
             row_order_typebtn.visibility = View.GONE
             order_detail_status_view.visibility = View.VISIBLE
-
+            if(customSearchItem.order_status.capitalize().toUpperCase()=="ACCEPTED" || customSearchItem.order_status.capitalize().toUpperCase()=="REJECTED")
+            toolbar.inflateMenu(R.menu.printer)
         }
 
         row_order_reject.setOnClickListener(this)
@@ -229,7 +240,6 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
         }
     }
 
-
     private fun fetchOrders(b: Boolean, r_key: String, r_token: String, order_id: String) {
 
 
@@ -243,9 +253,8 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
 
 
                 if ((body as ProductDetails).status) {
-
                     log(TAG, "status " + (body as ProductDetails).status)
-                    val data = (body as ProductDetails).data
+                    data = (body as ProductDetails).data!!
                     progress_bar.visibility = View.GONE
                     order_detail_view.visibility = View.VISIBLE
                     shimmer_view.visibility = View.GONE
@@ -272,6 +281,7 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
 
                     order_detail_expt_time.text = data!!.get(0).expected_time
                     order_detail_req.text = if (data.get(0).requirement?.capitalize()?.toUpperCase() == "ASAP") getString(R.string.asap) else getString(R.string.preorder)         // data!!.get(0).requirement
+
                     order_detail_fstname.text = data!!.get(0).first_name
                     order_detail_address.text = data!!.get(0).address
                     // order_detail_phone.text = getString(R.string.phone)+data!!.get(0).telephone_no
@@ -448,16 +458,47 @@ class OrderDetails : BaseFragment(), View.OnClickListener {
     }
 
     private fun initToolbar() {
-
+      //  toolbar.inflateMenu(R.menu.printer)
         img_toolbar_back.setImageResource(R.drawable.ic_back)
         txt_toolbar.text = getString(R.string.orders_title)
         img_toolbar_back.setOnClickListener {
             log(TAG, "back press:")
             (getActivityBase() as MainActivity).pop()
         }
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.print_btn -> {
+                   startprint()
+                }
+            }
+            true
+        }
         setView(customSearchItem!!)
 
     }
+
+    fun startprint(){
+        if(data.size > 0) {
+            runPrintReceiptSequence(data,customSearchItem!!.order_status.capitalize()=="ACCEPTED")
+        }
+    }
+
+/*
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        log(TAG,"on create option menu...")
+        this.menu = menu!!
+        inflater!!.inflate(R.menu.printer,this.menu)
+        super.onCreateOptionsMenu(this.menu, inflater)
+    }
+
+    fun showOverflowMenu(showMenu: Boolean) {
+        if (this.menu == null)
+            return
+        this.menu.setGroupVisible(R.id.print_view, showMenu)
+    }
+
+*/
+
 
     override fun handleBackButton(): Boolean {
         return false

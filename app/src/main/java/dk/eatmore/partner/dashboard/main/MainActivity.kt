@@ -1,16 +1,12 @@
 package dk.eatmore.partner.dashboard.main
 
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import dk.eatmore.partner.R
 import dk.eatmore.partner.utils.BaseActivity
@@ -20,10 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
-import com.crashlytics.android.Crashlytics
-import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.JsonObject
-import dk.eatmore.partner.R.string.*
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.activity.LoginActivity
 import dk.eatmore.partner.dashboard.fragment.order.OrderDetails
@@ -34,9 +27,7 @@ import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.rest.ApiClient
 import dk.eatmore.partner.rest.ApiInterface
 import dk.eatmore.partner.utils.BaseFragment
-import dk.eatmore.partner.utils.Custom_data
 import dk.eatmore.partner.utils.DialogUtils
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.fragment_settinginfo.*
 import kotlinx.android.synthetic.main.layout_progressbar.*

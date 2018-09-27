@@ -57,9 +57,8 @@ android {
 }
 
 dependencies {
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:design:$support_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
@@ -67,51 +66,35 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     // Lifecycle
-    implementation "android.arch.lifecycle:runtime:1.1.1"
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'android.arch.lifecycle:runtime:1.1.1'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
-
     // Butterknife
     implementation 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile  'com.squareup.retrofit2:converter-scalars:2.1.0'
-
-
+    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
     //simple arc loader
     compile 'com.leo.simplearcloader:simplearcloader:1.0.+'
-
     // card view
     implementation "com.android.support:cardview-v7:$support_version"
-
     // Image loader
     implementation "com.github.bumptech.glide:glide:$glide_version"
-
     // shimmer
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
-
     // firebase
     implementation "com.google.firebase:firebase-messaging:$firebse_version"
-
     //crashlytics
     compile('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
         transitive = true;
     }
     // google store
     compile 'org.jsoup:jsoup:1.7.2'
-
-
-
-
-
-
-
+    implementation files('libs/ePOS2.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

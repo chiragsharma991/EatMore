@@ -140,6 +140,7 @@ object PreferenceUtil {
     val RESTAURANT_NAME = "restaurant_name"
     val R_KEY = "r_key"
     val TOKEN = "token"
+    val LOCAL_PRINTER_ADDRESS = "local_printer_address"
     val LANGUAGE = "language"
     val KEEP_SCREEN_ON = "keep_screen_on"
     val KSTATUS = "kStatus"

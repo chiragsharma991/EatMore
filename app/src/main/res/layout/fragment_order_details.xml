@@ -51,7 +51,7 @@
                             android:layout_height="@dimen/_100sdp"
                             android:layout_marginBottom="@dimen/_8sdp"
                             android:layout_marginTop="@dimen/_8sdp"
-                            app:srcCompat="@drawable/logo_light"
+                            app:srcCompat="@drawable/eatmorelogo"
 
                             />
 

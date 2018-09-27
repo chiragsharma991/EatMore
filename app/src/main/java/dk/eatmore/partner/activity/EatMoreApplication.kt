@@ -3,15 +3,10 @@ package dk.eatmore.partner.activity
 import android.app.Application
 import dk.eatmore.partner.storage.PreferenceUtil
 import android.support.multidex.MultiDex
-import android.util.Log
 import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.core.BuildConfig
-import com.crashlytics.android.core.CrashlyticsCore
 import dk.eatmore.partner.utils.AppLifecycleHandler
-import dk.eatmore.partner.utils.Custom_data
 import dk.eatmore.partner.utils.LifeCycleDelegate
 import io.fabric.sdk.android.Fabric
-import kotlinx.android.synthetic.main.fragment_settinginfo.*
 import java.util.*
 
 

@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/search_container"
+android:id="@+id/setting_container"
 android:layout_width="match_parent"
     android:clickable="true"
+    android:focusable="true"
 android:layout_height="match_parent">
 
     <LinearLayout
@@ -29,7 +30,9 @@ android:layout_height="match_parent">
             >
 
 
-                <LinearLayout
+
+
+            <LinearLayout
                     android:id="@+id/general"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,6 +92,43 @@ android:layout_height="match_parent">
 
                 </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/printer"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                >
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:alpha="0.8"
+                    app:srcCompat="@drawable/print_black"
+
+                    />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:alpha="1.0"
+                    android:text="@string/printer"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/black"
+
+                    />
+
+
+
+
+            </LinearLayout>
 
 
                 <LinearLayout

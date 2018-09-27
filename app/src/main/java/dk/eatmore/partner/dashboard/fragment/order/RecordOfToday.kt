@@ -1,6 +1,7 @@
 package dk.eatmore.partner.dashboard.fragment.order
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -8,21 +9,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.epson.epos2.printer.ReceiveListener
 import com.google.gson.JsonObject
 import dk.eatmore.partner.R
 import dk.eatmore.partner.dashboard.adapter.RecordOfTodayAdapter
 import dk.eatmore.partner.dashboard.main.MainActivity
-import dk.eatmore.partner.model.CustomSearchItem
-import dk.eatmore.partner.model.GetReason
-import dk.eatmore.partner.model.OpeninghoursItem
-import dk.eatmore.partner.model.Order
+import dk.eatmore.partner.model.*
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.utils.BaseFragment
-import dk.eatmore.partner.utils.DateCalculation
+import dk.eatmore.partner.utils.ConversionUtils
 import dk.eatmore.partner.utils.DialogUtils
 import dk.eatmore.partner.utils.DialogUtils.createListDialog
-import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.fragment_record_of_today.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import java.text.SimpleDateFormat
@@ -34,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
 
 
 
-class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
+class RecordOfToday : Printercommand(), SwipeRefreshLayout.OnRefreshListener, ReceiveListener {
 
     val mListOrder = ArrayList<CustomSearchItem?>()
     val mListNewOrder = ArrayList<CustomSearchItem?>()
@@ -43,6 +41,8 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     var r_token = ""
     var mAdapter: RecordOfTodayAdapter? = null
     val refFragment: RecordOfToday = this
+    private var dialog: AlertDialog? = null
+
 
     companion object {
         val TAG = "RecordOfToday"
@@ -81,10 +81,12 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     }
 
+
+
     fun acceptOrder(id: Int, model: CustomSearchItem) {
         // Create Alert dialog to select  Time slot.
         var timeIntervel = 0
-        var expectedTime = DateCalculation.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
+        var expectedTime = ConversionUtils.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
         // after getting expected time like in long form : make 9 list with that
         val list = ArrayList<String>()
         for (i in 0..8) {
@@ -96,18 +98,18 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         val borderColor = ContextCompat.getColor(activity!!, R.color.green)
 
 
-        createListDialog("${getString(R.string.expected_time)} ${DateCalculation.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
+        createListDialog("${getString(R.string.expected_time)} ${ConversionUtils.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
                 activity, list, borderColor, object : DialogUtils.OnDialogClickListener {
             override fun onNegativeButtonClick() {
             }
 
             override fun onPositiveButtonClick(position: Int) {
                 // Calculate which time slot has been selected and reformat the date and post :)
-                var expectedTime = DateCalculation.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
+                var expectedTime = ConversionUtils.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
                 val mTime = expectedTime + position * 15 * 60 * 1000
                 val time = SimpleDateFormat("HH:mm:ss").format(mTime)
                 val date = SimpleDateFormat("yyyy-MM-dd").format(expectedTime)
-                val pickup_delivery_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(DateCalculation.getCalculatedTime(date + " " + time, "yyyy-MM-dd HH:mm:ss"))
+                val pickup_delivery_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ConversionUtils.getCalculatedTime(date + " " + time, "yyyy-MM-dd HH:mm:ss"))
 
                 callAPI(ApiCall.acceptOrders(r_key = r_key, r_token = r_token,
                         order_no = model.order_id, pickup_delivery_time = pickup_delivery_time, order_status = "accepted"),
@@ -121,11 +123,15 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                     showSnackBar(getString(R.string.order_accept))
                                     (parentFragment as OrderInfoFragment).performedStatusAction(0)
                                     // this condition is from details screen only (just finish fragment)
-
                                     val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
                                     if(fragment !=null){
                                         (getActivityBase() as MainActivity).pop()
-
+                                        log(TAG,"check----"+model.order_status.capitalize().toUpperCase())
+                                        fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                    }else{
+                                        // call print
+                                        log(TAG,"check----"+model.order_status.capitalize().toUpperCase())
+                                        fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
                                     }
 
                                 }
@@ -187,7 +193,9 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                                         val fragment = (parentFragment as OrderInfoFragment).fragmentManager?.findFragmentByTag(OrderDetails.TAG)
                                         if(fragment !=null){
                                             (getActivityBase() as MainActivity).pop()
-
+                                            fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                        }else{
+                                            fetchOrderDetails(r_key,r_token,model.order_id,model.order_status.capitalize().toUpperCase()=="ACCEPTED")
                                         }
 
                                     }
@@ -228,7 +236,6 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
-
         r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
         r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
         var user = PreferenceUtil.getString(PreferenceUtil.USER_NAME, "")
@@ -255,9 +262,10 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         view_empty.visibility = View.GONE
         recycler_view_0.visibility = View.VISIBLE
         (parentFragment as OrderInfoFragment).performedStatusAction(0)
+
     }
 
-    fun fetchOrders(setAdapter : Boolean) {
+    private fun fetchOrders(setAdapter : Boolean) {
 
         view_empty.visibility = View.GONE
         (parentFragment as OrderInfoFragment).showPreogressBar(true)
@@ -265,11 +273,6 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         callAPI(ApiCall.myOrder(currentDate, currentDate, r_key!!, r_token!!), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
-
-                /*  val json= body as JsonObject
-                            var gson = Gson()
-                            var mMineUserEntity = gson?.fromJson(json, TestOrder::class.java)*/
-
 
                 if ((body as Order).status) {
                     mListNewOrder.clear()
@@ -298,14 +301,22 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     mListOrder.addAll(mListAnsweredOrder)
                     // if adapter is true then list should be set.
                     if(setAdapter){
-                        mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
+                        mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!,object : RecordOfTodayAdapter.AdapterListener{
+                            override fun printOn(position: Int) {
+                                fetchOrderDetails(r_key,r_token,mListOrder[position]!!.order_id,mListOrder[position]!!.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                            }
+                        })
                         recycler_view_0.layoutManager = LinearLayoutManager(getActivityBase())
                         recycler_view_0.adapter = mAdapter
                     }else{
                         if(mAdapter != null){
                             mAdapter!!.notifyDataSetChanged()
                         }else{
-                            mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
+                            mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!,object : RecordOfTodayAdapter.AdapterListener{
+                                override fun printOn(position: Int) {
+                                    fetchOrderDetails(r_key,r_token,mListOrder[position]!!.order_id,mListOrder[position]!!.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                }
+                            })
                             recycler_view_0.layoutManager = LinearLayoutManager(getActivityBase())
                             recycler_view_0.adapter = mAdapter
                         }
@@ -352,10 +363,6 @@ class RecordOfToday : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                 }
                 swipeRefresh.setRefreshing(false)
                 (parentFragment as OrderInfoFragment).showPreogressBar(false)
-
-
-
-
             }
 
         })

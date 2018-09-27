@@ -210,21 +210,39 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:id="@+id/row_order_upcoming_status_view"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:visibility="visible"
                 >
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:id="@+id/row_order_status"
-                    android:singleLine="true"
-                    android:text="order status"
-                    android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@color/black"
-                    android:textStyle="normal" />
+                    >
 
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:layout_toLeftOf="@+id/print_btn"
+                        android:id="@+id/row_order_status"
+                        android:singleLine="true"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:text="order status"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="@color/black"
+                        android:textStyle="normal" />
+
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/print_btn"
+                        android:visibility="visible"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        app:srcCompat="@drawable/print_black"
+                        />
+
+                </RelativeLayout>
 
 
 
@@ -345,8 +363,6 @@
                         android:textStyle="normal"
                         android:text="@string/reject"
                         />
-
-
 
                 </LinearLayout>
                 <LinearLayout

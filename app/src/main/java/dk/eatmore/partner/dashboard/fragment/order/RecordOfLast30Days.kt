@@ -1,6 +1,7 @@
 package dk.eatmore.partner.dashboard.fragment.order
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -20,7 +21,7 @@ import dk.eatmore.partner.model.Order
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.utils.BaseFragment
-import dk.eatmore.partner.utils.DateCalculation
+import dk.eatmore.partner.utils.ConversionUtils
 import dk.eatmore.partner.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_record_of_last30_days.*
 import kotlinx.android.synthetic.main.layout_empty.*
@@ -30,7 +31,7 @@ import java.text.SimpleDateFormat
  * A simple [Fragment] subclass.
  *
  */
-class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
+class RecordOfLast30Days : Printercommand(), SwipeRefreshLayout.OnRefreshListener {
 
 
     var r_key = ""
@@ -40,6 +41,8 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
     val mListAnsweredOrder = ArrayList<CustomSearchItem?>()
     var mAdapter: RecordOfTodayAdapter? = null
     val refFragment: RecordOfLast30Days = this
+    private var dialog: AlertDialog? = null
+
 
 
     companion object {
@@ -61,7 +64,6 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
     }
 
     override fun initView(view: View?, savedInstanceState: Bundle?) {
-
         r_key = PreferenceUtil.getString(PreferenceUtil.R_KEY, "")!!
         r_token = PreferenceUtil.getString(PreferenceUtil.R_TOKEN, "")!!
         log(RecordOfToday.TAG, r_key.toString() + " " + r_token.toString())
@@ -119,14 +121,23 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
                     mListOrder.addAll(mListAnsweredOrder)
                     // if adapter is true then list should be set.
                     if (setAdapter) {
-                        mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
+                        mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!,object : RecordOfTodayAdapter.AdapterListener{
+                            override fun printOn(position: Int) {
+                                    fetchOrderDetails(r_key,r_token,mListOrder[position]!!.order_id,mListOrder[position]!!.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                            }
+
+                        })
                         recycler_view_30.layoutManager = LinearLayoutManager(getActivityBase())
-                        recycler_view_30.adapter = mAdapter
+                        recycler_view_30!!.adapter = mAdapter
                     } else {
                         if (mAdapter != null) {
                             mAdapter!!.notifyDataSetChanged()
                         } else {
-                            mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!)
+                            mAdapter = RecordOfTodayAdapter(mListOrder, mListNewOrder, mListAnsweredOrder, refFragment,context!!,object : RecordOfTodayAdapter.AdapterListener{
+                                override fun printOn(position: Int) {
+                                        fetchOrderDetails(r_key,r_token,mListOrder[position]!!.order_id,mListOrder[position]!!.order_status.capitalize().toUpperCase()=="ACCEPTED")
+                                }
+                            })
                             recycler_view_30.layoutManager = LinearLayoutManager(getActivityBase())
                             recycler_view_30.adapter = mAdapter
                         }
@@ -199,7 +210,7 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
     fun acceptOrder(id: Int, model: CustomSearchItem) {
         // Create Alert dialog to select  Time slot.
         var timeIntervel = 0
-        var expectedTime = DateCalculation.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
+        var expectedTime = ConversionUtils.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
         // after getting expected time like in long form : make 9 list with that
         val list = ArrayList<String>()
         for (i in 0..8) {
@@ -209,18 +220,18 @@ class RecordOfLast30Days : BaseFragment(), SwipeRefreshLayout.OnRefreshListener 
             timeIntervel += 15
         }
         val borderColor = ContextCompat.getColor(activity!!, R.color.green)
-        DialogUtils.createListDialog("${getString(R.string.expected_time)} ${DateCalculation.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
+        DialogUtils.createListDialog("${getString(R.string.expected_time)} ${ConversionUtils.getDateformat(model.expected_time, SimpleDateFormat("HH:mm"), "yyyy-MM-dd HH:mm:ss")}",
                 activity, list, borderColor, object : DialogUtils.OnDialogClickListener {
             override fun onNegativeButtonClick() {
             }
 
             override fun onPositiveButtonClick(position: Int) {
                 // Calculate which time slot has been selected and reformat the date and post :)
-                var expectedTime = DateCalculation.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
+                var expectedTime = ConversionUtils.getCalculatedTime(model.expected_time, "yyyy-MM-dd HH:mm:ss")
                 val mTime = expectedTime + position * 15 * 60 * 1000
                 val time = SimpleDateFormat("HH:mm:ss").format(mTime)
                 val date = SimpleDateFormat("yyyy-MM-dd").format(expectedTime)
-                val pickup_delivery_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(DateCalculation.getCalculatedTime(date + " " + time, "yyyy-MM-dd HH:mm:ss"))
+                val pickup_delivery_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ConversionUtils.getCalculatedTime(date + " " + time, "yyyy-MM-dd HH:mm:ss"))
 
                 callAPI(ApiCall.acceptOrders(r_key = r_key, r_token = r_token,
                         order_no = model.order_id, pickup_delivery_time = pickup_delivery_time, order_status = "accepted"),

@@ -7,28 +7,20 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.os.PersistableBundle
-import android.support.v7.widget.AppCompatButton
 import android.text.TextUtils
-import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eatmore.partner.R
 import dk.eatmore.partner.dashboard.main.MainActivity
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.rest.ApiClient
 import dk.eatmore.partner.storage.PreferenceUtil
-import dk.eatmore.partner.utils.AppLifecycleHandler
 import dk.eatmore.partner.utils.BaseActivity
 import dk.eatmore.partner.utils.BaseFragment
-import dk.eatmore.partner.utils.Custom_data
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
-import org.json.JSONObject
 import java.util.regex.Pattern
 
 

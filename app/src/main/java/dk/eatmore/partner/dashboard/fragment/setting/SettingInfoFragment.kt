@@ -1,8 +1,6 @@
 package dk.eatmore.partner.dashboard.fragment.setting
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.LocalBroadcastManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -21,12 +19,8 @@ import kotlinx.android.synthetic.main.fragment_settinginfo.*
 import kotlinx.android.synthetic.main.layout_comment_box.view.*
 import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import android.widget.CompoundButton
-import android.os.PowerManager
-import android.content.Context.POWER_SERVICE
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
-import dk.eatmore.partner.utils.Custom_data
 import dk.eatmore.partner.utils.DialogUtils
 
 
@@ -107,6 +101,10 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         set_reopen_loader.visibility = View.GONE
         set_reject_view.setOnClickListener(this)
         set_keepscreen_switch.setChecked(if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) true else false)
+        printer.setOnClickListener{
+            addFragment(R.id.setting_container, AddPrinter.newInstance(), AddPrinter.TAG)
+
+        }
         set_keepscreen_on.setOnClickListener {
             if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) {
                 PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, false)

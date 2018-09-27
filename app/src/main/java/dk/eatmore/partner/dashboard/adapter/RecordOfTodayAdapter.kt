@@ -2,35 +2,37 @@ package dk.eatmore.partner.dashboard.adapter
 
 import android.content.Context
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.epson.epos2.printer.Printer
 import dk.eatmore.partner.R
-import dk.eatmore.partner.R.id.parent
-import dk.eatmore.partner.dashboard.fragment.order.OrderDetails
-import dk.eatmore.partner.dashboard.fragment.order.RecordOfLast30Days
-import dk.eatmore.partner.dashboard.fragment.order.RecordOfLast7Days
-import dk.eatmore.partner.dashboard.fragment.order.RecordOfToday
+import dk.eatmore.partner.dashboard.fragment.order.*
 import dk.eatmore.partner.dashboard.main.MainActivity
 import dk.eatmore.partner.model.CustomSearchItem
-import dk.eatmore.partner.storage.PreferenceUtil.getString
+import dk.eatmore.partner.model.DataItem
 import dk.eatmore.partner.testing.Test_two.getCalculatedDate
-import dk.eatmore.partner.utils.DateCalculation
+import dk.eatmore.partner.utils.ConversionUtils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_order_list.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>, private val mListNewOrder: ArrayList<CustomSearchItem?>,
-                           private val mListAnsweredOrder: ArrayList<CustomSearchItem?>, var fragment: Fragment, context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
+                           private val mListAnsweredOrder: ArrayList<CustomSearchItem?>, var fragment: Fragment,  context: Context,val callback: AdapterListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener  {
 
 
     private val VIEW_ITEM = 1
     private val VIEW_LABEL = 0
     val context :Context =context
+    private lateinit var data: List<DataItem>
+    var mPrinter: Printer?=null
+    lateinit var listner: AdapterListener
+
+
+
 
 
     class MyViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
@@ -48,23 +50,39 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             if (msg.headerType == "mListNewOrder") {
                 row_order_header_txt.text ="${context.getString(R.string.new_orders)} (${mListNewOrder.size})"
                 if (currentDate == msg.order_month_date){
+                    // if both date are equals:
                     row_order_typebtn.visibility = View.VISIBLE
                     row_order_upcoming_status_view.visibility = View.GONE
                     row_order_upcoming_view.visibility = View.VISIBLE
+                    print_btn.visibility=View.GONE
+
+
                 }else{
+                    // date are not equal and not rejected/accepted
                     row_order_typebtn.visibility = View.GONE
                     row_order_upcoming_status_view.visibility = View.VISIBLE
                     row_order_upcoming_view.visibility = View.GONE
+                    if(msg.order_status.capitalize().toUpperCase()=="ACCEPTED" || msg.order_status.capitalize().toUpperCase()=="REJECTED")
+                        print_btn.visibility = View.VISIBLE
+                     else
+                    print_btn.visibility=View.GONE
+
                 }
 
             } else {
+                // previous order which accepted/rejected.
                 row_order_header_txt.text = "${context.getString(R.string.answered_orders)} (${mListAnsweredOrder.size})"
                 row_order_typebtn.visibility = View.GONE
                 row_order_upcoming_status_view.visibility = View.VISIBLE
                 row_order_upcoming_view.visibility = View.GONE
+                if(msg.order_status.capitalize().toUpperCase()=="ACCEPTED" || msg.order_status.capitalize().toUpperCase()=="REJECTED")
+                    print_btn.visibility = View.VISIBLE
+                 else
+                    print_btn.visibility=View.GONE
+
             }
 
-            if(msg.pickup_delivery_time !=null) pickup_delivery_time = DateCalculation.getCalculatedTime(msg.pickup_delivery_time!!, "yyyy-MM-dd HH:mm:ss")
+            if(msg.pickup_delivery_time !=null) pickup_delivery_time = ConversionUtils.getCalculatedTime(msg.pickup_delivery_time!!, "yyyy-MM-dd HH:mm:ss")
             var mcontext = row_order_no.context
             row_order_no.text = "${context.getString(R.string.order_no)} ${ msg.order_id}"
             row_order_date.text = msg.order_date
@@ -77,7 +95,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             row_order_type.text = if(msg.shipping_type?.capitalize()?.toUpperCase() =="DELIVERY") context.getString(R.string.delivery) else context.getString(R.string.pick_up)
             row_order_total.text = msg.total
 
-            val expectedTime = DateCalculation.getCalculatedTime(msg.expected_time, "yyyy-MM-dd HH:mm:ss")
+            val expectedTime = ConversionUtils.getCalculatedTime(msg.expected_time, "yyyy-MM-dd HH:mm:ss")
             val time = SimpleDateFormat("HH:mm").format(expectedTime)
             row_order_requirement.text = if(msg.asap?.capitalize()?.toUpperCase() =="ASAP")
                 "${context.getString(R.string.asap)} (${time})"
@@ -107,6 +125,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var vh: RecyclerView.ViewHolder
+        this.listner = callback
         if (viewType == VIEW_ITEM) {
             val itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.row_order_list, parent, false)
@@ -133,6 +152,12 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             holder.row_order_reject.setOnClickListener(this)
             holder.row_order_accept.setOnClickListener(this)
             holder.row_order_details.setOnClickListener(this)
+
+            holder.print_btn.setOnClickListener{
+
+                listner.printOn(position)
+            }
+
 
         } else if (holder is LableViewHolder) {
             var holder: LableViewHolder = holder
@@ -165,7 +190,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             R.id.row_order_cardview ->{
                //val fragment : OrderDetails.Companion
 
-                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG,true)
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG,false)
             }
 
             R.id.row_order_accept -> {
@@ -178,7 +203,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
                     (fragment as RecordOfLast30Days).performAction(2,mListOrder.get(position)!!)
             }
             R.id.row_order_details -> {
-                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG,true)
+                (fragment.activity as MainActivity).addFragment(R.id.main_container_layout, OrderDetails.newInstance((mListOrder.get(position)) as CustomSearchItem), OrderDetails.TAG,false)
 
             }
             R.id.row_order_reject -> {
@@ -193,5 +218,10 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
 
     }
 
+
+
+    interface AdapterListener {
+        fun printOn(parentPosition: Int)
+    }
 
 }
