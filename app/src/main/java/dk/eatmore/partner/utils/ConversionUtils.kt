@@ -25,6 +25,13 @@ object ConversionUtils {
         return time
     }
 
+    fun getCalculatedDate(dateFormat: String, days: Int): String {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat(dateFormat)
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
+    }
+
     fun convertCurrencyToDanish(amount: String): String? {
         val deviceLocale = Locale.getDefault().language //  if (deviceLocale.equalsIgnoreCase("en")) {
         //      return formatValueToMoney(amount);

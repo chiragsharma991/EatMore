@@ -13,7 +13,6 @@ import dk.eatmore.partner.dashboard.fragment.order.*
 import dk.eatmore.partner.dashboard.main.MainActivity
 import dk.eatmore.partner.model.CustomSearchItem
 import dk.eatmore.partner.model.DataItem
-import dk.eatmore.partner.testing.Test_two.getCalculatedDate
 import dk.eatmore.partner.utils.ConversionUtils
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.row_order_list.*
@@ -42,7 +41,7 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
 
         fun init(msg: CustomSearchItem, mListNewOrder: ArrayList<CustomSearchItem?>, mListAnsweredOrder: ArrayList<CustomSearchItem?>, context: Context) {
 
-            val currentDate = getCalculatedDate("yyyy-MM-dd", 0)
+            val currentDate = ConversionUtils.getCalculatedDate("yyyy-MM-dd", 0)
             if (msg.showOrderHeader) row_order_header.visibility = View.VISIBLE
             else row_order_header.visibility = View.GONE
             Log.e("msg.headerType ",msg.headerType )
@@ -110,6 +109,8 @@ class RecordOfTodayAdapter(private val mListOrder: ArrayList<CustomSearchItem?>,
             //else  if (msg.order_status == "Rejected") "${R.string.reject} ${if (msg.reject_reason !=null) ":"+msg.reject_reason else ""}"
             else msg.order_status
         }
+
+
 
 
     }

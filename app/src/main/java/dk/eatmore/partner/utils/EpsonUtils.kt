@@ -496,18 +496,14 @@ object EpsonUtils {
             msg = String.format(
                     "%s\n\t%s\n%s\n\t%s",
                     context.getString(R.string.title_err_code),
-                    getEposExceptionText(e.errorStatus),
+                    getEposExceptionText(e.errorStatus,context),
                     context.getString(R.string.title_err_method),
                     method)
         } else {
             msg = e.toString()
         }
         // set default msg
-        if(PreferenceUtil.getString(PreferenceUtil.LOCAL_PRINTER_ADDRESS,"")=="")
         show(context.getString(R.string.please_check_printer), context)
-        else
-        show(msg, context)
-
     }
 
     fun showResult(code: Int, errMsg: String, context: Context) {
@@ -540,7 +536,7 @@ object EpsonUtils {
         alertDialog.show()
     }
 
-    private fun getEposExceptionText(state: Int): String {
+    private fun getEposExceptionText(state: Int, context: Context): String {
         var return_text = ""
         when (state) {
             Epos2Exception.ERR_PARAM -> return_text = "ERR_PARAM"
@@ -718,8 +714,8 @@ object EpsonUtils {
         if (status.batteryLevel == Printer.BATTERY_LEVEL_1) {
             warningsMsg += context.getString(R.string.handlingmsg_warn_battery_near_end)
         }
-
-        Toast.makeText(context,warningsMsg, Toast.LENGTH_SHORT).show()
+         Log.e("printer warnings: ",""+warningsMsg)
+     //   Toast.makeText(context,warningsMsg, Toast.LENGTH_SHORT).show()
     }
 
      fun isPrintable(status: PrinterStatusInfo?): Boolean {

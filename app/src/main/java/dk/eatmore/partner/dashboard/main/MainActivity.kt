@@ -2,6 +2,7 @@ package dk.eatmore.partner.dashboard.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -21,6 +22,7 @@ import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.activity.LoginActivity
 import dk.eatmore.partner.dashboard.fragment.order.OrderDetails
 import dk.eatmore.partner.dashboard.fragment.order.OrderInfoFragment
+import dk.eatmore.partner.dashboard.fragment.setting.AddPrinter
 import dk.eatmore.partner.dashboard.fragment.setting.SettingInfoFragment
 import dk.eatmore.partner.fcm.FirebaseInstanceIDService
 import dk.eatmore.partner.rest.ApiCall
@@ -134,6 +136,12 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         orderCounter()
         closedRestaurant()
         drawer_layout?.addDrawerListener(mDrawerToggle)
+
+        //set version code/name
+        var info: PackageInfo? = null
+        val manager = getPackageManager()
+        info = manager.getPackageInfo(getPackageName(), 0)
+        version_name.setText("Version " + info!!.versionName + "." + info!!.versionCode)
     }
 
 
@@ -256,7 +264,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
         when (v!!.id) {
             R.id.nav_main_order -> {
-                nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+                nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.gray))
                 nav_main_setting.setBackgroundColor(0)
                 nav_main_logout.setBackgroundColor(0)
                 isOpenDrawer(false)
@@ -265,7 +273,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
             }
             R.id.nav_main_setting -> {
                 nav_main_order.setBackgroundColor(0)
-                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
+                nav_main_setting.setBackgroundColor(ContextCompat.getColor(this, R.color.gray))
                 nav_main_logout.setBackgroundColor(0)
                 isOpenDrawer(false)
                 Handler().postDelayed({ onClickDrawer(1) }, 300)
@@ -333,39 +341,29 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 fragment.tabs.getTabAt(0)!!.select()
 
             }else if (fragment  is OrderDetails){
-                popWithTag(TAG)
-
+                fragment.onbackPress()
             }
             else if (fragment  is SettingInfoFragment){
-                if(fragment.set_general_view.visibility == View.VISIBLE) {
-                    popWithTag(TAG)
-                    nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.green))
-                    nav_main_setting.setBackgroundColor(0)
-                    nav_main_logout.setBackgroundColor(0)
-                }
-                else
-                {
-                    fragment.toolbar.menu.clear()
-                    fragment.img_toolbar_back.setImageResource(R.drawable.ic_menu)
-                    fragment.txt_toolbar.text = getString(R.string.settings)
-                    fragment.set_reason_view.visibility = View.GONE
-                    fragment.set_general_view.visibility = View.VISIBLE
-                    fragment.progress_bar.visibility = View.GONE
-                }
 
-
+                // check if Added printer fragment is open/close
+                if(!fragment.handleBackButton()){
+                    if(fragment.set_general_view.visibility == View.VISIBLE) {
+                        popWithTag(TAG)
+                        nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
+                        nav_main_setting.setBackgroundColor(0)
+                        nav_main_logout.setBackgroundColor(0)
+                    }
+                    else
+                    {
+                        fragment.toolbar.menu.clear()
+                        fragment.img_toolbar_back.setImageResource(R.drawable.ic_menu)
+                        fragment.txt_toolbar.text = getString(R.string.settings)
+                        fragment.set_reason_view.visibility = View.GONE
+                        fragment.set_general_view.visibility = View.VISIBLE
+                        fragment.progress_bar.visibility = View.GONE
+                    }
+                }
             }
-            /*  var pop = popFragment()
-              if (!pop) {
-                  if (doubleTapExit) {
-                      finish()
-                      overridePendingTransition(0, android.R.anim.fade_out)
-                  } else {
-                      doubleTapExit = true
-                      showToast(getString(R.string.confirm_exit))
-                      Handler().postDelayed({ doubleTapExit = false }, 2000)
-                  }
-              }*/
         }
     }
 

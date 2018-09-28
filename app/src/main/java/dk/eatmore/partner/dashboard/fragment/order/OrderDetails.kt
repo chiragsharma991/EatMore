@@ -40,6 +40,7 @@ import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.utils.BaseFragment
 import dk.eatmore.partner.utils.EpsonUtils
+import retrofit2.Call
 
 
 class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
@@ -54,7 +55,7 @@ class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
     private lateinit var data: List<DataItem>
     private lateinit var menu: Menu
     private var dialog: AlertDialog? = null
-
+    private var call_viewRecords : Call<ProductDetails>? =null
 
 
 
@@ -240,10 +241,11 @@ class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
         }
     }
 
+
     private fun fetchOrders(b: Boolean, r_key: String, r_token: String, order_id: String) {
 
-
-        callAPI(ApiCall.viewRecords(r_key, r_token, order_id), object : BaseFragment.OnApiCallInteraction {
+        call_viewRecords=ApiCall.viewRecords(r_key, r_token, order_id)
+        callAPI(call_viewRecords!!, object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
 
@@ -436,18 +438,26 @@ class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
                         showSnackBar(getString(R.string.error_404))
                         log(RecordOfToday.TAG, "api call failed...")
                         view_empty_txt_data.text = getString(R.string.error_404)
-
+                        progress_bar.visibility = View.GONE
+                        order_detail_view.visibility = View.GONE
+                        view_empty.visibility = View.VISIBLE
+                        shimmer_view.visibility = View.GONE
                     }
+                    400 -> {
+                        log(TAG,"*** Requeset has been canceled ***")
+                    }
+
                     100 -> {
                         showSnackBar(getString(R.string.internet_not_available))
                         view_empty_txt_data.text = getString(R.string.internet_not_available)
+                        progress_bar.visibility = View.GONE
+                        order_detail_view.visibility = View.GONE
+                        view_empty.visibility = View.VISIBLE
+                        shimmer_view.visibility = View.GONE
                     }
 
                 }
-                progress_bar.visibility = View.GONE
-                order_detail_view.visibility = View.GONE
-                view_empty.visibility = View.VISIBLE
-                shimmer_view.visibility = View.GONE
+
 
 
             }
@@ -462,8 +472,7 @@ class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
         img_toolbar_back.setImageResource(R.drawable.ic_back)
         txt_toolbar.text = getString(R.string.orders_title)
         img_toolbar_back.setOnClickListener {
-            log(TAG, "back press:")
-            (getActivityBase() as MainActivity).pop()
+            onbackPress()
         }
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
@@ -475,6 +484,14 @@ class OrderDetails : Printercommand(), View.OnClickListener, ReceiveListener {
         }
         setView(customSearchItem!!)
 
+    }
+
+    fun onbackPress(){
+        call_viewRecords?.let {
+            it.cancel()
+            (getActivityBase() as MainActivity).pop()
+
+        }
     }
 
     fun startprint(){

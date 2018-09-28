@@ -383,7 +383,13 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
 
 
     override fun handleBackButton(): Boolean {
-        return false
+        val fragment=this.childFragmentManager.findFragmentById(R.id.setting_container)
+        if(fragment is AddPrinter){
+            fragment.handleBackButton()
+            return true
+        }else{
+            return false
+        }
 
     }
 

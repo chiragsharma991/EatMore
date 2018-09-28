@@ -177,6 +177,13 @@ abstract class BaseFragment : Fragment() {
         return ApiClient.getClient()!!.create(ApiInterface::class.java)
     }
 
+    /**
+     * @param 100: No network connection.
+     * @param 404: Server problem.
+     * @param 400: Request being canceled.
+     */
+
+
     fun <T> callAPI(call: Call<T>, onAliCallInteraction: OnApiCallInteraction) {
         if (isInternetAvailable()) {
             call.enqueue(object : Callback<T> {
@@ -195,7 +202,11 @@ abstract class BaseFragment : Fragment() {
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     log("Base", ""+t.message)
+                    if(call.isCanceled)
+                    onAliCallInteraction.onFail(400)
+                    else
                     onAliCallInteraction.onFail(100)
+
                 }
             })
         } else {
