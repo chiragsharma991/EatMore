@@ -2,7 +2,7 @@ package dk.eatmore.partner.model
 
 data class GetReason(val msg: String = "",
                      val Openinghours: List<OpeninghoursItem>? = null,
-                     val status: Boolean = false)
+                     val status: Boolean = false): ModelUtility()
 
 
 data class OpeninghoursItem(

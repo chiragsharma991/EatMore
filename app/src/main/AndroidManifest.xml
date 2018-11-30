@@ -41,6 +41,13 @@
             android:windowSoftInputMode="adjustPan"
             />
         <activity
+            android:name=".dashboard.main.RestaurantClosed"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity
             android:name=".activity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar"></activity>

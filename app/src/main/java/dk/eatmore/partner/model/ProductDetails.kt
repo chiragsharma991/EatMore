@@ -5,7 +5,7 @@ package dk.eatmore.partner.model
 
 data class ProductDetails(val msg: String = "",
                           val data: List<DataItem>?,
-                          val status: Boolean = false)
+                          val status: Boolean = false): ModelUtility()
 
 
 data class DataItem(val discount_amount: String? = null,

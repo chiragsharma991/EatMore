@@ -6,6 +6,7 @@ import dk.eatmore.partner.dashboard.main.OrderCounter
 import dk.eatmore.partner.model.GetReason
 import dk.eatmore.partner.model.Order
 import dk.eatmore.partner.model.ProductDetails
+import dk.eatmore.partner.utils.Constants
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,7 +22,8 @@ interface ApiInterface {
             @Field("password_hash") password_hash: String,
             @Field("type") type: String,
             @Field("login_type") login_type: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
     ): Call<JsonObject>
 
 
@@ -34,7 +36,8 @@ interface ApiInterface {
     fun allRecords(
             @Field("r_token") r_token : String ,
             @Field("r_key") r_key: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<GetReason>
 
@@ -47,7 +50,8 @@ interface ApiInterface {
             @Field("order_no") order_no: String ,
             @Field("reason") reason: String,
             @Field("order_status") order_status: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -59,7 +63,8 @@ interface ApiInterface {
             @Field("order_no") order_no: String ,
             @Field("pickup_delivery_time") pickup_delivery_time: String,
             @Field("order_status") order_status: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -71,7 +76,8 @@ interface ApiInterface {
             @Field("r_key") r_key: String,
             @Field("reason") reason: String ,
             @Field("action_by") action_by: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -84,7 +90,8 @@ interface ApiInterface {
             @Field("reason") reason: String ,
             @Field("action_by") action_by: String,  // user id
             @Field("or_id") or_id: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -95,9 +102,11 @@ interface ApiInterface {
             @Field("r_token") r_token: String ,
                 @Field("r_key") r_key: String,
             @Field("order_no") reason: String,
-            @Field("language") language: String
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<ProductDetails>
+
 
     @FormUrlEncoded
     @POST("User/user/device-token")
@@ -106,7 +115,8 @@ interface ApiInterface {
             @Field("r_key") r_key: String,
             @Field("token") token: String,
             @Field("device_type") device_type: String,
-            @Field("user_id") user_id: String
+            @Field("user_id") user_id: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -115,7 +125,8 @@ interface ApiInterface {
     @POST("PosOrder/order/order-counter")
     fun orderCounter(
             @Field("r_token") r_token: String ,
-            @Field("r_key") r_key: String
+            @Field("r_key") r_key: String,
+            @Field(Constants.APP) app: String
 
     ): Call<OrderCounter>
 
@@ -125,8 +136,8 @@ interface ApiInterface {
     fun closedRestaurant(
             @Field("r_token") r_token: String ,
             @Field("r_key") r_key: String,
-            @Field("language") language: String
-
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -135,8 +146,8 @@ interface ApiInterface {
     fun closedRestDay(
             @Field("r_token") r_token: String ,
             @Field("r_key") r_key: String,
-            @Field("language") language: String
-
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 
@@ -145,8 +156,8 @@ interface ApiInterface {
     fun resetRestDay(
             @Field("r_token") r_token: String ,
             @Field("r_key") r_key: String,
-            @Field("language") language: String
-
+            @Field("language") language: String,
+            @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
 }

@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class Order(
         val custom_search: List<CustomSearchItem>,val error: String = "",
-        val status: Boolean = false)
+        val status: Boolean = false): ModelUtility()
 
 
 data class CustomSearchItem(

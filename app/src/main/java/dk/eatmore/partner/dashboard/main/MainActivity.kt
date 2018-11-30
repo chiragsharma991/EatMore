@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eatmore.partner.storage.PreferenceUtil
 import dk.eatmore.partner.activity.LoginActivity
@@ -25,10 +26,12 @@ import dk.eatmore.partner.dashboard.fragment.order.OrderInfoFragment
 import dk.eatmore.partner.dashboard.fragment.setting.AddPrinter
 import dk.eatmore.partner.dashboard.fragment.setting.SettingInfoFragment
 import dk.eatmore.partner.fcm.FirebaseInstanceIDService
+import dk.eatmore.partner.model.ModelUtility
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.rest.ApiClient
 import dk.eatmore.partner.rest.ApiInterface
 import dk.eatmore.partner.utils.BaseFragment
+import dk.eatmore.partner.utils.Constants
 import dk.eatmore.partner.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_info_order.*
 import kotlinx.android.synthetic.main.fragment_settinginfo.*
@@ -152,11 +155,35 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
         val apiService = ApiClient.getClient()!!.create(ApiInterface::class.java)
 
-        val call = apiService.sendFcmToken(r_token = r_token,r_key = r_key,token = refreshedToken,device_type = "POS",user_id = user_id)
+        val call = apiService.sendFcmToken(r_token = r_token,r_key = r_key,token = refreshedToken,device_type = "POS",user_id = user_id,app = Constants.RESTAURANT_APP_ANDROID)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                Log.e(TAG,response.toString())
-                FirebaseInstanceIDService.shallIsendToken =false
+                log("response.body----",response.body().toString())
+                val gson= Gson()
+                val json=gson.toJson(response.body()) // convert body to normal json
+                var convertedObject = gson.fromJson(json, JsonObject::class.java) // convert into Jsonobject
+                log("response.convertedObject----",convertedObject.toString())
+
+                if(convertedObject.has(Constants.WHOLE_SYSTEM)){
+                    if(convertedObject.get(Constants.WHOLE_SYSTEM).isJsonNull){
+                        FirebaseInstanceIDService.shallIsendToken =false
+                    }else{
+                        if((convertedObject.get(Constants.WHOLE_SYSTEM).asBoolean== true) || (convertedObject.get(Constants.RESTAURANT_APP_ANDROID).asBoolean== true) ){
+                            val intent = Intent(this@MainActivity, RestaurantClosed::class.java)
+                            val bundle = Bundle()
+                            bundle.putString(Constants.MESSAGE_TITLE,convertedObject.get(Constants.MESSAGE_TITLE).asString)
+                            bundle.putString(Constants.MESSAGE_DETAILS,convertedObject.get(Constants.MESSAGE_DETAILS).asString)
+                            intent.putExtras(bundle)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }else{
+                            FirebaseInstanceIDService.shallIsendToken =false
+                        }
+                    }
+                }else{
+                    FirebaseInstanceIDService.shallIsendToken =false
+                }
+
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -394,7 +421,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
 
 data class OrderCounter(val order_counter: List<OrderCounterItem>?,
-                        val status: Boolean = false)
+                        val status: Boolean = false): ModelUtility()
 
 
 
