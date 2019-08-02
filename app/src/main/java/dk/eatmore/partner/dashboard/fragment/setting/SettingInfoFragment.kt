@@ -1,5 +1,6 @@
 package dk.eatmore.partner.dashboard.fragment.setting
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -21,6 +22,8 @@ import kotlinx.android.synthetic.main.layout_progressbar.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import dk.eatmore.partner.activity.AddLocalPrinter
+import dk.eatmore.partner.activity.NotificationSound
 import dk.eatmore.partner.utils.DialogUtils
 
 
@@ -102,9 +105,14 @@ class SettingInfoFragment : BaseFragment(), View.OnClickListener {
         set_reject_view.setOnClickListener(this)
         set_keepscreen_switch.setChecked(if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) true else false)
         printer.setOnClickListener{
-            addFragment(R.id.setting_container, AddPrinter.newInstance(), AddPrinter.TAG)
-
+           // addFragment(R.id.setting_container, AddPrinter.newInstance(), AddPrinter.TAG)
+            startActivity(Intent(context,AddLocalPrinter::class.java))
         }
+
+        notification.setOnClickListener{
+            startActivity(Intent(context,NotificationSound::class.java))
+        }
+
         set_keepscreen_on.setOnClickListener {
             if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) {
                 PreferenceUtil.putValue(PreferenceUtil.KEEP_SCREEN_ON, false)

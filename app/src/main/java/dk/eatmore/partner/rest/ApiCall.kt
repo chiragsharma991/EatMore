@@ -60,7 +60,7 @@ class ApiCall {
         }
 
         fun sendFcmToken (r_key: String, r_token: String, fcmToken: String, device_type : String , user_id : String) : Call<JsonObject> {
-            return getApiInterface().sendFcmToken(r_token,r_key,fcmToken,device_type,user_id,Constants.RESTAURANT_APP_ANDROID)
+            return getApiInterface().sendFcmToken(r_token,r_key,fcmToken,device_type,user_id,Constants.RESTAURANT_APP_ANDROID,"track_one.mp3")
         }
 
         fun orderCounter (r_key: String, r_token: String) : Call<OrderCounter> {

@@ -2,6 +2,9 @@ package dk.eatmore.partner.dashboard.fragment.order
 
 
 import android.app.AlertDialog
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -14,6 +17,7 @@ import com.google.gson.JsonObject
 import dk.eatmore.partner.R
 import dk.eatmore.partner.dashboard.adapter.RecordOfTodayAdapter
 import dk.eatmore.partner.dashboard.main.MainActivity
+import dk.eatmore.partner.fcm.FirebaseMessagingService
 import dk.eatmore.partner.model.*
 import dk.eatmore.partner.rest.ApiCall
 import dk.eatmore.partner.storage.PreferenceUtil
@@ -21,6 +25,7 @@ import dk.eatmore.partner.utils.BaseFragment
 import dk.eatmore.partner.utils.ConversionUtils
 import dk.eatmore.partner.utils.DialogUtils
 import dk.eatmore.partner.utils.DialogUtils.createListDialog
+import dk.eatmore.partner.utils.NotificationUtil
 import kotlinx.android.synthetic.main.fragment_record_of_today.*
 import kotlinx.android.synthetic.main.layout_empty.*
 import java.text.SimpleDateFormat
@@ -53,6 +58,9 @@ class RecordOfToday : Printercommand(), SwipeRefreshLayout.OnRefreshListener, Re
 
 
     fun callbackRefresh() {
+
+        //NotificationUtil.fireNotification(context = activity!!.applicationContext ,channelId = FirebaseMessagingService.CHANEL_ID,channelName = FirebaseMessagingService.CHANEL_NAME,title = "Title",message = "Message")
+
         fetchOrders(false)
 
 

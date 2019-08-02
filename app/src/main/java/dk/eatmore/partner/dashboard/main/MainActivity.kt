@@ -1,6 +1,8 @@
 package dk.eatmore.partner.dashboard.main
 
 import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -42,19 +44,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-
-
-class MainActivity : BaseActivity(), View.OnClickListener  {
-
-
+class MainActivity : BaseActivity(), View.OnClickListener {
 
 
     var orderInfoFragment = OrderInfoFragment.newInstance()
-    private var r_key: String =""
-    private var r_token: String =""
-    private var restaurant_name: String =""
-    private var user_name: String =""
-
+    private var r_key: String = ""
+    private var r_token: String = ""
+    private var restaurant_name: String = ""
+    private var user_name: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +60,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         //   ButterKnife.bind(this@MainActivity)
         //  val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         if (PreferenceUtil.getString(PreferenceUtil.USER_NAME, "") != "") init(savedInstanceState)
-        else{
+        else {
             startActivity(Intent(this@MainActivity, LoginActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             finish()
@@ -73,15 +70,15 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     companion object {
         val TAG = "MainActivity"
-        public var kShouldAllowCloseRestDay :Boolean=true
+        public var kShouldAllowCloseRestDay: Boolean = true
         fun newInstance(): MainActivity {
             return MainActivity()
         }
     }
 
-    fun keepScreenOn(result : Boolean){
+    fun keepScreenOn(result: Boolean) {
 
-        if(result)
+        if (result)
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         else
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -91,8 +88,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     override fun onStart() {
         super.onStart()
-        log(TAG,"on start---")
-        if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)){
+        log(TAG, "on start---")
+        if (PreferenceUtil.getBoolean(PreferenceUtil.KEEP_SCREEN_ON, false)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
 
@@ -101,11 +98,10 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     override fun onPause() {
         super.onPause()
-        log(TAG,"on onPause---")
+        log(TAG, "on onPause---")
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     }
-
 
 
     fun init(savedInstancedState: Bundle?) {
@@ -118,8 +114,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         user_name = PreferenceUtil.getString(PreferenceUtil.USER_NAME, "")!!
         val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
 
-        nav_txt_name.text=user_name
-        nav_txt_rest.text=restaurant_name
+        nav_txt_name.text = user_name
+        nav_txt_rest.text = restaurant_name
 
         supportFragmentManager.beginTransaction().replace(R.id.main_container_layout, orderInfoFragment, OrderInfoFragment.TAG).addToBackStack(TAG).commit()
         var mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, null, R.string.app_name, R.string.app_name) {
@@ -150,38 +146,41 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     private fun sendfcmtocken() {
 
-        if(!FirebaseInstanceIDService.shallIsendToken) return
+        if (!FirebaseInstanceIDService.shallIsendToken) return
         val user_id = PreferenceUtil.getString(PreferenceUtil.USER_ID, "")!!
         val refreshedToken = PreferenceUtil.getString(PreferenceUtil.TOKEN, "")!!
         val apiService = ApiClient.getClient()!!.create(ApiInterface::class.java)
 
-        val call = apiService.sendFcmToken(r_token = r_token,r_key = r_key,token = refreshedToken,device_type = "POS",user_id = user_id,app = Constants.RESTAURANT_APP_ANDROID)
+        val call = apiService.sendFcmToken(r_token = r_token, r_key = r_key, token = refreshedToken, device_type = "POS", user_id = user_id,
+                app = Constants.RESTAURANT_APP_ANDROID,
+                sound = PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE, "Default")!!
+        )
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                log("response.body----",response.body().toString())
-                val gson= Gson()
-                val json=gson.toJson(response.body()) // convert body to normal json
+                log("response.body----", response.body().toString())
+                val gson = Gson()
+                val json = gson.toJson(response.body()) // convert body to normal json
                 var convertedObject = gson.fromJson(json, JsonObject::class.java) // convert into Jsonobject
-                log("response.convertedObject----",convertedObject.toString())
+                log("response.convertedObject----", convertedObject.toString())
 
-                if(convertedObject.has(Constants.WHOLE_SYSTEM)){
-                    if(convertedObject.get(Constants.WHOLE_SYSTEM).isJsonNull){
-                        FirebaseInstanceIDService.shallIsendToken =false
-                    }else{
-                        if((convertedObject.get(Constants.WHOLE_SYSTEM).asBoolean== true) || (convertedObject.get(Constants.RESTAURANT_APP_ANDROID).asBoolean== true) ){
+                if (convertedObject.has(Constants.WHOLE_SYSTEM)) {
+                    if (convertedObject.get(Constants.WHOLE_SYSTEM).isJsonNull) {
+                        FirebaseInstanceIDService.shallIsendToken = false
+                    } else {
+                        if ((convertedObject.get(Constants.WHOLE_SYSTEM).asBoolean == true) || (convertedObject.get(Constants.RESTAURANT_APP_ANDROID).asBoolean == true)) {
                             val intent = Intent(this@MainActivity, RestaurantClosed::class.java)
                             val bundle = Bundle()
-                            bundle.putString(Constants.MESSAGE_TITLE,convertedObject.get(Constants.MESSAGE_TITLE).asString)
-                            bundle.putString(Constants.MESSAGE_DETAILS,convertedObject.get(Constants.MESSAGE_DETAILS).asString)
+                            bundle.putString(Constants.MESSAGE_TITLE, convertedObject.get(Constants.MESSAGE_TITLE).asString)
+                            bundle.putString(Constants.MESSAGE_DETAILS, convertedObject.get(Constants.MESSAGE_DETAILS).asString)
                             intent.putExtras(bundle)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
-                        }else{
-                            FirebaseInstanceIDService.shallIsendToken =false
+                        } else {
+                            FirebaseInstanceIDService.shallIsendToken = false
                         }
                     }
-                }else{
-                    FirebaseInstanceIDService.shallIsendToken =false
+                } else {
+                    FirebaseInstanceIDService.shallIsendToken = false
                 }
 
             }
@@ -191,8 +190,6 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 Log.e(TAG, t.toString())
             }
         })
-
-
     }
 
     @SuppressLint("MissingPermission")
@@ -204,7 +201,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + OrderDetails.phone.trim({ it <= ' ' })))
                     startActivity(intent)
-                //    Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_SHORT).show()
+                    //    Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
                 }
@@ -214,77 +211,76 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
     }
 
-      fun orderCounter(){
-
-        callAPI( ApiCall.orderCounter(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+    fun orderCounter() {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
+        callAPI(ApiCall.orderCounter(r_key, r_token), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
-                val json= body as OrderCounter  // please be mind you are using jsonobject(Gson)
+                val json = body as OrderCounter  // please be mind you are using jsonobject(Gson)
 
-                if (json.status){
-                    log(TAG, "status is"+json.status)
-                    for (i in 0..json.order_counter!!.size-1){
-                        val obj=json.order_counter.get(i)
-                        when (i){
-                            0 ->{
-                                nav_last_0_lbl.text = getString(R.string.nav_today )+" - ${ obj.no_of_orders} ${getString(R.string.orders)}"
-                                nav_last_0_txt.text = obj.total_sales+" kr"
+                if (json.status) {
+                    log(TAG, "status is" + json.status)
+                    for (i in 0..json.order_counter!!.size - 1) {
+                        val obj = json.order_counter.get(i)
+                        when (i) {
+                            0 -> {
+                                nav_last_0_lbl.text = getString(R.string.nav_today) + " - ${obj.no_of_orders} ${getString(R.string.orders)}"
+                                nav_last_0_txt.text = obj.total_sales + " kr"
                             }
-                            1 ->{
-                                nav_last_7_lbl.text = getString(R.string.nav_last7 )+" - ${ obj.no_of_orders} ${getString(R.string.orders)}"
-                                nav_last_7_txt.text = obj.total_sales+" kr"
+                            1 -> {
+                                nav_last_7_lbl.text = getString(R.string.nav_last7) + " - ${obj.no_of_orders} ${getString(R.string.orders)}"
+                                nav_last_7_txt.text = obj.total_sales + " kr"
                             }
-                            2 ->{
-                                nav_last_30_lbl.text = getString(R.string.nav_30days )+" - ${ obj.no_of_orders} ${getString(R.string.orders)}"
-                                nav_last_30_txt.text = obj.total_sales+" kr"
+                            2 -> {
+                                nav_last_30_lbl.text = getString(R.string.nav_30days) + " - ${obj.no_of_orders} ${getString(R.string.orders)}"
+                                nav_last_30_txt.text = obj.total_sales + " kr"
                             }
                         }
                     }
                 }
             }
 
-            override fun onFail(error : Int) {
-                log(TAG,"error "+error)
+            override fun onFail(error: Int) {
+                log(TAG, "error " + error)
             }
         })
 
 
     }
 
-    fun closedRestaurant(){
+    fun closedRestaurant() {
 
-        callAPI( ApiCall.closedRestaurant(r_key,r_token),object : BaseFragment.OnApiCallInteraction{
+        callAPI(ApiCall.closedRestaurant(r_key, r_token), object : BaseFragment.OnApiCallInteraction {
 
             override fun <T> onSuccess(body: T?) {
-                val json= body as JsonObject  // please be mind you are using jsonobject(Gson)
+                val json = body as JsonObject  // please be mind you are using jsonobject(Gson)
 
                 if (json.get("status").asBoolean && json.get("is_restaurant_closed").asBoolean) {
 
-                    if(json.has("pre_order")){
+                    if (json.has("pre_order")) {
 
-                        if(json.get("pre_order").asBoolean) kShouldAllowCloseRestDay=true
-                        else kShouldAllowCloseRestDay=false
+                        if (json.get("pre_order").asBoolean) kShouldAllowCloseRestDay = true
+                        else kShouldAllowCloseRestDay = false
 
-                    }else{
-                        kShouldAllowCloseRestDay=false
+                    } else {
+                        kShouldAllowCloseRestDay = false
 
                     }
 
-                }else{
-                    kShouldAllowCloseRestDay=true  // show close restDay label
+                } else {
+                    kShouldAllowCloseRestDay = true  // show close restDay label
                 }
             }
 
-            override fun onFail(error : Int) {
-                log(TAG,"error "+error)
+            override fun onFail(error: Int) {
+                log(TAG, "error " + error)
 
             }
         })
 
 
-
     }
-
 
 
     override fun onClick(v: View?) {
@@ -323,7 +319,7 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
                 popWithTag(TAG)
             }
             1 -> {
-                addFragment(R.id.main_container_layout, SettingInfoFragment.newInstance(), SettingInfoFragment.TAG,false)
+                addFragment(R.id.main_container_layout, SettingInfoFragment.newInstance(), SettingInfoFragment.TAG, false)
             }
             2 -> logOut()
 
@@ -332,8 +328,8 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
 
 
     private fun logOut() {
-        DialogUtils.openDialog(this,getString(R.string.are_you_sure_logout__),getString(R.string.logout),
-                getString(R.string.logout), getString(R.string.cancel),ContextCompat.getColor(this,R.color.theme_color), object : DialogUtils.OnDialogClickListener {
+        DialogUtils.openDialog(this, getString(R.string.are_you_sure_logout__), getString(R.string.logout),
+                getString(R.string.logout), getString(R.string.cancel), ContextCompat.getColor(this, R.color.theme_color), object : DialogUtils.OnDialogClickListener {
             override fun onPositiveButtonClick(position: Int) {
                 popAllFragment()
                 PreferenceUtil.remove(PreferenceUtil.R_KEY)
@@ -361,27 +357,24 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
         if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
             drawer_layout!!.closeDrawer(GravityCompat.START)
         } else {
-            val fragment=this.supportFragmentManager.findFragmentById(R.id.main_container_layout)
-            if(fragment  is OrderInfoFragment ){
-                val selectedPosition=fragment.tabs.selectedTabPosition
-                if(selectedPosition !=0)
-                fragment.tabs.getTabAt(0)!!.select()
+            val fragment = this.supportFragmentManager.findFragmentById(R.id.main_container_layout)
+            if (fragment is OrderInfoFragment) {
+                val selectedPosition = fragment.tabs.selectedTabPosition
+                if (selectedPosition != 0)
+                    fragment.tabs.getTabAt(0)!!.select()
 
-            }else if (fragment  is OrderDetails){
+            } else if (fragment is OrderDetails) {
                 fragment.onbackPress()
-            }
-            else if (fragment  is SettingInfoFragment){
+            } else if (fragment is SettingInfoFragment) {
 
                 // check if Added printer fragment is open/close
-                if(!fragment.handleBackButton()){
-                    if(fragment.set_general_view.visibility == View.VISIBLE) {
+                if (!fragment.handleBackButton()) {
+                    if (fragment.set_general_view.visibility == View.VISIBLE) {
                         popWithTag(TAG)
                         nav_main_order.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
                         nav_main_setting.setBackgroundColor(0)
                         nav_main_logout.setBackgroundColor(0)
-                    }
-                    else
-                    {
+                    } else {
                         fragment.toolbar.menu.clear()
                         fragment.img_toolbar_back.setImageResource(R.drawable.ic_menu)
                         fragment.txt_toolbar.text = getString(R.string.settings)
@@ -415,14 +408,11 @@ class MainActivity : BaseActivity(), View.OnClickListener  {
     }
 
 
-
-
 }
 
 
 data class OrderCounter(val order_counter: List<OrderCounterItem>?,
-                        val status: Boolean = false): ModelUtility()
-
+                        val status: Boolean = false) : ModelUtility()
 
 
 data class OrderCounterItem(val label: String = "",

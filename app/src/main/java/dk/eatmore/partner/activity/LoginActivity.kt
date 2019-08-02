@@ -98,7 +98,7 @@ class LoginActivity : BaseActivity(){
     private fun loginAttempt() {
 
         progress_bar.visibility=View.VISIBLE
-        callAPI(ApiCall.login(log_email_edt.text.toString(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
+        callAPI(ApiCall.login(log_email_edt.text.toString().trim(),log_pass_edt.text.toString(),"POS","Owner"),object : BaseFragment.OnApiCallInteraction{
 
             override fun <T> onSuccess(body: T?) {
                 progress_bar.visibility= View.GONE

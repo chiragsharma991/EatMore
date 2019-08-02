@@ -23,9 +23,9 @@ class FirebaseInstanceIDService : FirebaseInstanceIdService() {
         var shallIsendToken : Boolean = false
 
     }
+//fXuO0eIHFVk:APA91bH9sUqF1kmZZIyDa8u8WRQCLgLeSh2JNwUqs34YQC0BHa6MEmAEt1pe_c8nwYtYM_A-6mu6DbyfsJCa0Z-EPoSVVq9yxxMqEdMLdE6ylC1WBhV1p2bhzsgBBaplB9jXDdTAISwH
 
-
-
+//fXuO0eIHFVk%3AAPA91bH9sUqF1kmZZIyDa8u8WRQCLgLeSh2JNwUqs34YQC0BHa6MEmAEt1pe_c8nwYtYM_A-6mu6DbyfsJCa0Z-EPoSVVq9yxxMqEdMLdE6ylC1WBhV1p2bhzsgBBaplB9jXDdTAISwH
     /**
      * Called if InstanceID token is updated. This may occur if the security of
      * the previous token had been compromised. Note that this is called when the InstanceID token
@@ -35,7 +35,7 @@ class FirebaseInstanceIDService : FirebaseInstanceIdService() {
         // Get updated InstanceID token.
         val refreshedToken = FirebaseInstanceId.getInstance().token
         Log.e(TAG, "Refreshed token: " + refreshedToken!!)
-        PreferenceUtil.putValue(PreferenceUtil.TOKEN, refreshedToken)
+        PreferenceUtil.putValue(PreferenceUtil.TOKEN,"android_"+refreshedToken)
         PreferenceUtil.save()
         shallIsendToken=true
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:orientation="vertical"
+        >
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:singleLine="true"
+                android:text="New "
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_toStartOf="@+id/check"
+                android:layout_toLeftOf="@+id/check"
+                />
+            <android.support.v7.widget.AppCompatRadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/check"
+                android:clickable="false"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+
+                />
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

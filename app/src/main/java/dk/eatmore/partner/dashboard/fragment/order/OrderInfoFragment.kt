@@ -1,6 +1,7 @@
 package dk.eatmore.partner.dashboard.fragment.order
 
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -198,7 +199,7 @@ class OrderInfoFragment : BaseFragment()  {
                 }
 
                 if(count > 0)
-                    mediaPlayer!!.start()
+                 //   mediaPlayer!!.start()
 
                 else
                     mediaPlayer!!.stop()
@@ -219,6 +220,7 @@ class OrderInfoFragment : BaseFragment()  {
 
             init {
                 swipe_card_holder?.setOnClickListener { view ->
+
                     count = 0
                     swipeAdapter!!.notifyDataSetChanged()
                     mediaPlayer!!.stop()

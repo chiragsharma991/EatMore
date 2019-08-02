@@ -93,7 +93,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_print_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_volume_mute_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -103,7 +103,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="print" />
+                            <entry key="outputName" value="volume" />
                             <entry key="sourceFile" value="C:\Users\baps" />
                           </map>
                         </option>

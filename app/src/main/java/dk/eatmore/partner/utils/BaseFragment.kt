@@ -80,6 +80,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+
     fun popFragment(): Boolean {
         var isPop = false
         try {

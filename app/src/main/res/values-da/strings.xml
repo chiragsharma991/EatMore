@@ -117,5 +117,6 @@
     <string name="no_printer_were_found">Der blev ikke fundet nogen printer</string>
     <string name="printing">Trykning...</string>
     <string name="rejected_reason">Rejected Reason</string>
+    <string name="notification_sound">Notification Sound</string>
 
 </resources>

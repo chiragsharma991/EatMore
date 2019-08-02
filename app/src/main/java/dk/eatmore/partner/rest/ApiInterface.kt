@@ -24,6 +24,7 @@ interface ApiInterface {
             @Field("login_type") login_type: String,
             @Field("language") language: String,
             @Field(Constants.APP) app: String
+
     ): Call<JsonObject>
 
 
@@ -116,6 +117,7 @@ interface ApiInterface {
             @Field("token") token: String,
             @Field("device_type") device_type: String,
             @Field("user_id") user_id: String,
+            @Field("sound") sound: String,
             @Field(Constants.APP) app: String
 
     ): Call<JsonObject>
