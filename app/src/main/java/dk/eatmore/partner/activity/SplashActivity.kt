@@ -189,8 +189,8 @@ class SplashActivity : BaseActivity() {
 
 
         override fun onPostExecute(version: String) {
-            super.onPostExecute(version)
 
+            super.onPostExecute(version)
             try {
 
                    if (currentVersionName != null && latestVersionName != null) {
@@ -198,7 +198,7 @@ class SplashActivity : BaseActivity() {
                        if (checkForUpdate(currentVersionName!!, latestVersionName!!))
                            versionUpdate(latestVersionName!!)
                        else{
-                          moveToLogin()
+                           moveToLogin()
                        }
                    }
 

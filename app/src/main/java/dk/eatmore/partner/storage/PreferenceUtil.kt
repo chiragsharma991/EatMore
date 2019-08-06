@@ -144,6 +144,7 @@ object PreferenceUtil {
     val LANGUAGE = "language"
     val KEEP_SCREEN_ON = "keep_screen_on"
     val KSTATUS = "kStatus"
+    val COUNT = "count"
     val NOTIFICATIONSELECTEDTONE = "notificationSelectedTone"
     val NOTIFICATIONTONEPATH = "notificationtonepath"
 

@@ -37,7 +37,8 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         private val TAG = "MyFirebaseMsgService"
-        var CHANEL_ID = "OrderDelivery01"
+        var CHANEL_ID = ""
+        var COUNT : Int? = null
         var CHANEL_NAME = "OrderDeliveryNotification"
         var CHANEL_DESC = "Order Delivery information"
         val NOTIFICATION_PATH = "/Android/data/dk.eatmore.partner/sounds/"}
@@ -45,10 +46,13 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
 
-        Log.e("TAG", "remoteMessage----"+remoteMessage!!.data.toString())
+        COUNT = PreferenceUtil.getInt(PreferenceUtil.COUNT,0)
+        CHANEL_ID = "OrderDelivery"+COUNT
+
+     //   Log.e("TAG", "remoteMessage----"+CHANEL_ID+" "+ COUNT)
 
         // Check if message contains a data payload.
-        if (remoteMessage.data.size > 0) {
+        if (remoteMessage!!.data.size > 0) {
             Log.e("TAG", "Message data payload: " + remoteMessage.data)
             NotificationUtil.fireNotification(context = applicationContext,channelId = CHANEL_ID,channelName = CHANEL_NAME,
                     title =remoteMessage.data.get("title").toString() ,

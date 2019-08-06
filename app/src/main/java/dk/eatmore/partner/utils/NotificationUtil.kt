@@ -39,32 +39,35 @@ object NotificationUtil{
     fun fireNotification(context: Context, title: String, message: String, channelId: String, channelName: String): Notification {
 
 
-        val selectedRing = PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"Default")
+        val selectedRing = PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"track_two")
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationBuilder: Notification.Builder
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-          //  notificationManager.deleteNotificationChannel(channelId)
-            val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+            var notificationChannel: NotificationChannel? = notificationManager.getNotificationChannel(channelId)
+            if(notificationChannel == null){
+                Log.e("TAG","notificationChannel == null---")
+                //  notificationManager.deleteNotificationChannel(channelId)
+                notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
                 val audioAttributes = AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).setUsage(AudioAttributes.USAGE_MEDIA).build()
                 val uri : Uri
-                if(PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"Default") == "Default")
-                uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                if(PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"track_two") == "Default")
+                    uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
                 else
                 uri = Uri.parse("android.resource://${context.packageName}/raw/$selectedRing")
                 Log.e("URI",""+"0->>"+uri+" = "+PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"Default") )
                 notificationChannel.setSound(uri, audioAttributes)
                 notificationManager.createNotificationChannel(notificationChannel)
-                notificationBuilder = Notification.Builder(context, channelId)
+            }
+            notificationBuilder = Notification.Builder(context, channelId)
             //notificationBuilder.setSound(uri)
-
 
 
         } else {
             notificationBuilder = Notification.Builder(context)
             val uri : Uri
-            if(PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"Default") == "Default")
+            if(PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"track_two") == "Default")
                 uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             else
                 uri = Uri.parse("android.resource://${context.packageName}/raw/$selectedRing")

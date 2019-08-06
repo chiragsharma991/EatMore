@@ -75,12 +75,12 @@ class NotificationSound : BaseActivity() {
     fun init(savedInstancedState: Bundle?) {
         initToolbar()
         list.clear()
-        list.add(NotificationModel(ringtoneTitle = "Default" , isSelected = true,itemName ="Default"))
-        list.add(NotificationModel(ringtoneTitle = "track_one" , isSelected = false,itemName ="01"))
-        list.add(NotificationModel(ringtoneTitle = "track_two" , isSelected = false,itemName ="02"))
-        list.add(NotificationModel(ringtoneTitle = "track_three" , isSelected = false,itemName ="03"))
-        list.add(NotificationModel(ringtoneTitle = "track_four" , isSelected = false,itemName ="04"))
-        list.add(NotificationModel(ringtoneTitle = "track_five" , isSelected = false,itemName ="05"))
+        list.add(NotificationModel(ringtoneTitle = "Default" , isSelected = false,itemName ="Default"))
+        list.add(NotificationModel(ringtoneTitle = "track_one" , isSelected = false,itemName ="Ringtone01"))
+        list.add(NotificationModel(ringtoneTitle = "track_two" , isSelected = false,itemName ="Ringtone02"))
+        list.add(NotificationModel(ringtoneTitle = "track_three" , isSelected = false,itemName ="Ringtone03"))
+        list.add(NotificationModel(ringtoneTitle = "track_four" , isSelected = false,itemName ="Ringtone04"))
+        list.add(NotificationModel(ringtoneTitle = "track_five" , isSelected = false,itemName ="Ringtone05"))
 
         mAdapter = NotificationSoundAdapter(list,object : NotificationSoundAdapter.AdapterListener{
             override fun itemClicked(position: Int) {
@@ -88,8 +88,11 @@ class NotificationSound : BaseActivity() {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                       notificationManager.deleteNotificationChannel(FirebaseMessagingService.CHANEL_ID)
-                       FirebaseMessagingService.CHANEL_ID= FirebaseMessagingService.CHANEL_ID+count++
+                    notificationManager.deleteNotificationChannel(FirebaseMessagingService.CHANEL_ID)
+                    val count = PreferenceUtil.getInt(PreferenceUtil.COUNT,0) + 1
+                    FirebaseMessagingService.CHANEL_ID= "OrderDelivery"+count
+                    PreferenceUtil.putValue(PreferenceUtil.COUNT,count)
+                    PreferenceUtil.save()
                 }
 
                 if(position == 0){
@@ -170,7 +173,7 @@ class NotificationSound : BaseActivity() {
                 device_type = "POS",
                 user_id = user_id,
                 app = Constants.RESTAURANT_APP_ANDROID,
-                sound = PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"Default")!!
+                sound = PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"track_two")!!
 
         )
         call.enqueue(object : Callback<JsonObject> {
@@ -232,7 +235,7 @@ class NotificationSoundAdapter(val list : ArrayList<NotificationModel> , val cal
 
         fun init(notificationmodel : NotificationModel ){
             title.text = notificationmodel.itemName
-            check.isChecked = if(PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"Default") == notificationmodel.ringtoneTitle) true else false
+            check.isChecked = if(PreferenceUtil.getString(PreferenceUtil.NOTIFICATIONSELECTEDTONE,"track_two") == notificationmodel.ringtoneTitle) true else false
         }
     }
     override fun getItemCount(): Int {
